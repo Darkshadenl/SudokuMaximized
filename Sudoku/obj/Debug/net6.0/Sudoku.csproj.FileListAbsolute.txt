@@ -13,3 +13,9 @@ C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\obj\Debug\net6.0\refint\Sudo
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\obj\Debug\net6.0\Sudoku.pdb
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\obj\Debug\net6.0\Sudoku.genruntimeconfig.cache
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\obj\Debug\net6.0\ref\Sudoku.dll
+C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\obj\Debug\net6.0\Sudoku.csproj.CopyComplete
+C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Scrutor.dll

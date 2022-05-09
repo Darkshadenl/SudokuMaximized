@@ -1,0 +1,14 @@
+﻿{
+  "boardinterpreter": [
+    {
+      "match": ".9x9",
+      "library": "Solving",
+      "_namespace": "Solving.Interpreters.RegularInterpreter"
+    },
+    {
+      "match": ".jigsaw",
+      "library": "Solving",
+      "_namespace": "Solving.Interpreters.JigsawInterpreter"
+    }
+  ]
+}

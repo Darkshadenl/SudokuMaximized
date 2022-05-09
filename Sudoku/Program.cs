@@ -1,3 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Microsoft.Extensions.DependencyInjection;
+using Sudoku;
+using Sudoku.Controller;
 
-Console.WriteLine("Hello, World!");
+var s = Startup.Init();
+
+var main = s.GetRequiredService<MainController>();
+main.Run();
+

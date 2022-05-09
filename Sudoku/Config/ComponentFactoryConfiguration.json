@@ -1,0 +1,29 @@
+﻿{
+  "components": [
+    {
+      "match": "Cell",
+      "library": "Solving",
+      "_namespace": "Sudoku.Model.Components"
+    },
+    {
+      "match": "Column",
+      "library": "Solving",
+      "_namespace": "Sudoku.Model.Components"
+    },
+    {
+      "match": "Row",
+      "library": "Solving",
+      "_namespace": "Sudoku.Model.Components"
+    },
+    {
+      "match": "Square",
+      "library": "Solving",
+      "_namespace": "Sudoku.Model.Components"
+    },
+    {
+      "match": "SudokuBoard",
+      "library": "Solving",
+      "_namespace": "Sudoku.Model.Components"
+    }
+  ]
+}
