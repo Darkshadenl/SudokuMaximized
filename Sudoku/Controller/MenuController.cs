@@ -6,9 +6,8 @@ public class MenuController
 {
     private MenuView _menuView;
     
-    public MenuController()
+    public MenuController(MenuView menuView)
     {
-        // _menuView = menuView;
-        Console.WriteLine($"Menuview injected: ${_menuView}");
+        _menuView = menuView;
     }
 }

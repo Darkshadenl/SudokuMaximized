@@ -1,6 +1,14 @@
-﻿namespace Sudoku.View.Game;
+﻿using GenerateLib.Viewable;
+using GenerateLib.Visitors;
+using Sudoku.Controller;
 
-public class IBoardView
+namespace Sudoku.View.Game;
+
+public interface IBoardView
 {
+    void Controller(GameController controller);
     
+    void DrawBoard(List<IViewable> viewables);
+
+    void Accept(IPrintBoardVisitor visitor);
 }

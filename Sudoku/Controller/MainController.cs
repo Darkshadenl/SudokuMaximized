@@ -16,6 +16,7 @@ public class MainController
 
     public void Run()
     {
-        
+        var board = _importController.RunImport();
+        _gameController.RunGame(board);
     }
 }

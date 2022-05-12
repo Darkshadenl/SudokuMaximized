@@ -1,0 +1,29 @@
+﻿{
+  "components": [
+    {
+      "match": "cell",
+      "library": "Solving",
+      "_namespace": "GenerateLib.Components.Cell"
+    },
+    {
+      "match": "column",
+      "library": "Solving",
+      "_namespace": "GenerateLib.Components.Column"
+    },
+    {
+      "match": "row",
+      "library": "Solving",
+      "_namespace": "GenerateLib.Components.Row"
+    },
+    {
+      "match": "square",
+      "library": "Solving",
+      "_namespace": "GenerateLib.Components.Square"
+    },
+    {
+      "match": "sudokuBoard",
+      "library": "Solving",
+      "_namespace": "GenerateLib.Components.SudokuBoard"
+    }
+  ]
+}

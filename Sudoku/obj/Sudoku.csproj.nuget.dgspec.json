@@ -4,14 +4,14 @@
     "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Sudoku.csproj": {}
   },
   "projects": {
-    "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Sudoku.csproj": {
+    "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\GenerateLib\\GenerateLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Sudoku.csproj",
-        "projectName": "Sudoku",
-        "projectPath": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Sudoku.csproj",
+        "projectUniqueName": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\GenerateLib\\GenerateLib.csproj",
+        "projectName": "GenerateLib",
+        "projectPath": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\GenerateLib\\GenerateLib.csproj",
         "packagesPath": "C:\\Users\\qmb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\obj\\",
+        "outputPath": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\GenerateLib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qmb\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,78 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Sudoku.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Sudoku.csproj",
+        "projectName": "Sudoku",
+        "projectPath": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Sudoku.csproj",
+        "packagesPath": "C:\\Users\\qmb\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\qmb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\GenerateLib\\GenerateLib.csproj": {
+                "projectPath": "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\GenerateLib\\GenerateLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[6.0.0, )"
