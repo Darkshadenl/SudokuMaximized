@@ -1,4 +1,5 @@
 ﻿using GenerateLib.Boards;
+using GenerateLib.Builder;
 using GenerateLib.Import;
 using GenerateLib.SolveAlgo;
 using Generating.Import;
@@ -9,8 +10,8 @@ public class JigsawInterpreter : IBoardInterpreter
 {
     public AbstractBoard Interpret(BoardFile boardFile)
     {
-        RegularBoard regularBoard = new RegularBoard();
-        int[][] board = new int[9][];
+        Board board = new Board();
+        int[][] b = new int[9][];
         int rowNumber = -1;
         
         for (int i = 0; i < boardFile.Data.Length; i++)
@@ -18,12 +19,17 @@ public class JigsawInterpreter : IBoardInterpreter
             if (i % 9 == 0)
             {
                 rowNumber++;
-                board[rowNumber] = new int[9];
+                b[rowNumber] = new int[9];
             }
             char c = boardFile.Data[i];
-            board[rowNumber][i%9] = int.Parse(c.ToString()); 
+            b[rowNumber][i%9] = int.Parse(c.ToString()); 
         }
 
-        return regularBoard.CreateBoard(board);
+        return board.CreateBoard(b);
+    }
+
+    public void Setup(BoardBuildDirector director, BoardBuilder boardBuilder)
+    {
+        throw new NotImplementedException();
     }
 }

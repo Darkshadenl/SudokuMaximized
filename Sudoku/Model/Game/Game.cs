@@ -1,4 +1,5 @@
 ﻿using GenerateLib.Boards;
+using GenerateLib.Helpers;
 using GenerateLib.SolveAlgo;
 using GenerateLib.Viewable;
 
@@ -7,7 +8,7 @@ namespace Sudoku.Model.Game;
 public class Game
 {
     private readonly ISolver _solver;
-    public string BoardType => Board.Type;
+    public BoardTypes BoardType => Board.Type;
 
     private AbstractBoard? _board; 
     public AbstractBoard Board
@@ -30,9 +31,9 @@ public class Game
         return Board.GetViewables();
     }
 
-    public void SetupSolveAlgo(ISolver solver)
+    public bool MoveCursor(Directions direction)
     {
-        Board.Solver = solver;
+        return Board.MoveCursor(direction);
     }
-    
+
 }

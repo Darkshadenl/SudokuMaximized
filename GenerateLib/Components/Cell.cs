@@ -2,8 +2,6 @@
 
 public class Cell : Component
 {
-    public int X { get; private set; }
-    public int Y { get; private set; }
     public Row Row { get; set; }
     public Square Square { get; set; }
     public Column Column { get; set; }
@@ -29,10 +27,12 @@ public class Cell : Component
     {
         Console.Write($" {Value} ");
     }
-    
-    public override void PrintId()
+
+    public override Cell? GetCursor()
     {
-        Console.WriteLine("Cell component has no id(ea)");
+        if (IsCursor)
+            return this;
+        return null;
     }
 
     public override bool HasEmptyCell()

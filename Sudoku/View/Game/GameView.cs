@@ -1,4 +1,5 @@
-﻿using GenerateLib.Viewable;
+﻿using GenerateLib.Helpers;
+using GenerateLib.Viewable;
 using GenerateLib.Visitors;
 using Sudoku.Controller;
 
@@ -8,6 +9,7 @@ public class GameView : IBoardView
 {
     private IPrintBoardVisitor _visitor;
     private GameController _controller;
+    public BoardTypes BoardType { get; set; } = BoardTypes.nine;
     
     public void Controller(GameController controller)
     {
@@ -17,11 +19,12 @@ public class GameView : IBoardView
     public void DrawBoard(List<IViewable> viewables)
     {
         Console.Clear();
-        _visitor.DrawRegular(viewables);
+        _visitor.Draw(viewables, BoardType);
     }
 
     public void Accept(IPrintBoardVisitor visitor)
     {
         _visitor = visitor;
     }
+
 }

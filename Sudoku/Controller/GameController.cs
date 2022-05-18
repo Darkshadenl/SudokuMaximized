@@ -1,5 +1,6 @@
 ﻿using GenerateLib.Boards;
 using GenerateLib.Factory;
+using GenerateLib.Helpers;
 using Sudoku.Model.Game;
 using Sudoku.View.Game;
 
@@ -22,31 +23,39 @@ public class GameController
     public void RunGame(AbstractBoard board)
     {
         _game.Board = board;
+
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
 
         Console.WriteLine("Starting your Sudoku game. Press ESC to quit the game.");
+        _boardView.BoardType = _game.BoardType;
         _boardView.DrawBoard(_game.GetViewableData());
-
-        do
+        while (true)
         {
-            while (!Console.KeyAvailable)
+            _boardView.DrawBoard(_game.GetViewableData());
+
+            if (Console.KeyAvailable)
             {
-                switch (Console.ReadKey(true).Key)
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                switch (key.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        _boardView.DrawBoard(_game.GetViewableData());
-                        break;
+                        // TODO move cursor
+                        _game.MoveCursor(Directions.UP);
+                        continue;
                     case ConsoleKey.DownArrow:
-                        _boardView.DrawBoard(_game.GetViewableData());
-                        break;
+                        _game.MoveCursor(Directions.DOWN);
+                        continue;
                     case ConsoleKey.RightArrow:
-                        _boardView.DrawBoard(_game.GetViewableData());
-                        break;
+                        _game.MoveCursor(Directions.RIGHT);
+                        continue;
                     case ConsoleKey.LeftArrow:
-                        _boardView.DrawBoard(_game.GetViewableData());
-                        break;
+                        _game.MoveCursor(Directions.LEFT);
+                        continue;
                 }
             }
-        } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+
+            Thread.Sleep(300);
+        }
     }
 }

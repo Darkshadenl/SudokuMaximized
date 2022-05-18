@@ -50,7 +50,7 @@ public class ImportController
         _view.ShowWelcome();
         // var fileInfo = _view.HandleImportUserInput();   // TODO uncomment
         var fileInfo =
-            new FileInfo(jigsaw);
+            new FileInfo(regular);
         
         BoardFile boardFile;
         try

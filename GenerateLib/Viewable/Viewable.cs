@@ -6,11 +6,11 @@ public class Viewable : IViewable
 {
     public int Value { get; set; }
     public List<int> PossibleValues { get; set; } = new();
-    public bool Selected { get; set; }
+    public bool IsCursor { get; set; }
     
     public Viewable(Component component)
     {
-        Selected = false;
+        IsCursor = false;
        
         if (component is Cell cell)
         {

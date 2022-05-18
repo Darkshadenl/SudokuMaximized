@@ -2,9 +2,14 @@
 
 public class Column : Component
 {
-    public Column(int columnNumber)
+    public Column(int x, int y)
     {
-        _id = columnNumber;
+        X = x;
+        Y = y;
     }
 
+    public override Cell? GetCursor()
+    {
+        return Components.First(c => c.IsCursor) as Cell;
+    }
 }

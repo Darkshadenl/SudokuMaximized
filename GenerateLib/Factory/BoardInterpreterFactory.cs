@@ -1,4 +1,5 @@
-﻿using GenerateLib.Factory.Config.JSONModel;
+﻿using GenerateLib.Builder;
+using GenerateLib.Factory.Config.JSONModel;
 using GenerateLib.Interpreters;
 using Newtonsoft.Json;
 
@@ -20,7 +21,15 @@ public class BoardInterpreterFactory : IBoardInterpreterFactory
             
             _interpreters!.Add(boardinterpreter.match, () =>
             {
-                return Activator.CreateInstance(type) as IBoardInterpreter;
+                var interpreter = Activator.CreateInstance(type) as IBoardInterpreter;
+
+                if (interpreter is RegularInterpreter r)
+                {
+                    r.Setup(new BoardBuildDirector(), new BoardBuilder());
+                    interpreter = r;
+                }
+                
+                return interpreter;
             });
         }
     }

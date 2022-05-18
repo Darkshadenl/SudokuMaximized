@@ -1,4 +1,5 @@
-﻿using GenerateLib.Viewable;
+﻿using GenerateLib.Helpers;
+using GenerateLib.Viewable;
 using GenerateLib.Visitors;
 using Sudoku.Controller;
 
@@ -11,4 +12,5 @@ public interface IBoardView
     void DrawBoard(List<IViewable> viewables);
 
     void Accept(IPrintBoardVisitor visitor);
+    BoardTypes BoardType { get; set; }
 }

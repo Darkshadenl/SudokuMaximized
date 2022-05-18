@@ -43,8 +43,8 @@ public static class DependencyInjectionContainer
 
         services.Scan(scan => scan
             .FromCallingAssembly()
-            
-                .AddClasses()
+
+            .AddClasses()
                     .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                     .AsImplementedInterfaces()
                 

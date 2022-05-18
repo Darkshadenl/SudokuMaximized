@@ -1,4 +1,5 @@
 ﻿using GenerateLib.Boards;
+using GenerateLib.Builder;
 using GenerateLib.Import;
 using GenerateLib.SolveAlgo;
 using Generating.Import;
@@ -7,23 +8,22 @@ namespace GenerateLib.Interpreters;
 
 public class RegularInterpreter : IBoardInterpreter
 {
+    private BoardBuildDirector _director;
+    private BoardBuilder _boardBuilder;
+    
+    public void Setup(BoardBuildDirector director, BoardBuilder boardBuilder)
+    {
+        _director = director;
+        _boardBuilder = boardBuilder;
+    }
+
     public AbstractBoard Interpret(BoardFile boardFile)
     {
-        RegularBoard regularBoard = new RegularBoard();
-        int[][] board = new int[9][];
-        int rowNumber = -1;
+        _director.BoardBuilder = _boardBuilder;
+        _director.ConstructRegularBoard(boardFile);
+        var regularBoard = _boardBuilder.Build();
         
-        for (int i = 0; i < boardFile.Data.Length; i++)
-        {
-            if (i % 9 == 0)
-            {
-                rowNumber++;
-                board[rowNumber] = new int[9];
-            }
-            char c = boardFile.Data[i];
-            board[rowNumber][i%9] = int.Parse(c.ToString()); 
-        }
-
-        return regularBoard.CreateBoard(board);
+        // return a board.
+        return regularBoard;
     }
 }

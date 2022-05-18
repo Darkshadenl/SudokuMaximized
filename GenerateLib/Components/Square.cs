@@ -11,4 +11,8 @@ public class Square : Component
         CoordinateY = coordinateY;
     }
 
+    public override Cell? GetCursor()
+    {
+        return Components.First(c => c.IsCursor) as Cell;
+    }
 }
