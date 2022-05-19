@@ -19,151 +19,126 @@ public class Board : AbstractBoard
             throw new Exception("Board not correctly configured.");
         }
 
-        
-        // Setup =
+        // Setup 
+        var squares = CreateSquares();
+        var rowsAndCols = CreateColsAndRows();
         var sudokuBoard = SudokuBoard as SudokuBoard;
         sudokuBoard.BoardHeight = (int) Rows;
         sudokuBoard.BoardWidth = (int) Columns;
-        
-        // var cols = new Column[(int) Columns];
-        // var rows = new Row[(int) Rows];
-        var squares = new Square[(int) SquareLength][];
         var data = boardFile.ConvertData((int) Columns);
-        Cell cursor = null;
-
-        for (int i = 0; i < squares.Length; i++)
-        {
-            squares[i] = new Square[(int) SquareLength];
-        }
+        int startSquareNr = 0;
+        var squareNr = startSquareNr;
 
         // Build
-        for (int i = 0; i < Columns; i++)
+        for (int y = 0; y < Rows; y++)
         {
-            for (int j = 0; j < Rows; j++)
+            var row = rowsAndCols[y];
+            
+            for (int x = 0; x < Columns; x++)
             {
-                var columnX = j;
-                var rowY = i;
-                var row = new Row(rowY, columnX);
-                var col = new Column(rowY, columnX);
-                
-                
-                Square activeSquare = squares[rowY % (int) SquareLength][columnX % (int) SquareLength];
-                if (activeSquare == null)
+                if (x % SquareLength == 0 && x != 0)
                 {
-                    activeSquare = new Square(rowY % (int) SquareLength, columnX % (int) SquareLength);
-                    squares[columnX % (int) SquareLength][columnX % (int) SquareLength] = activeSquare;
+                    squareNr++;
                 }
-
-                int value = data[rowY][columnX];
+                
+                var activeSquare = squares[squareNr];
+                int value = data[y][x];
+                var columnX = x;
+                var rowY = y;
                 var cell = new Cell(value, columnX, rowY);
 
-                if (rowY == StartCursorX && columnX == StartCursorY)
+                if (x == StartCursorX && y == StartCursorY)
                 {
                     cell.IsCursor = true;
                     Cursor = cell;
-                    cols[columnX].HasCursor = true;
-                    rows[rowY].HasCursor = true;
+                    row.HasCursor = true;
+                    row.SetColHasCursor((int) StartCursorX);
                     activeSquare.HasCursor = true;
                 }
-
-                cols[columnX].Add(cell);
-                rows[rowY].Add(cols[columnX]);
-                activeSquare.Add(rows[rowY]);
-                
-                cell.Row = rows[rowY];
-                cell.Column = cols[columnX];
-                cell.Square = activeSquare;
+                activeSquare.Add(cell);
+                row.AddCellToCol(cell);
+            }
+            if ((y + 1) % SquareLength == 0 && y != 0)
+            {
+                startSquareNr += (int) SquareLength;
+                squareNr = startSquareNr;
+            }
+            else
+            {
+                squareNr = startSquareNr;
             }
         }
-        foreach (var column in cols)
-        {
-            SudokuBoard.Add(column);
-        }
 
-        foreach (var row in rows)
+        // merge
+        foreach (var s in squares)
+        {
+            sudokuBoard.Add(s);
+        }
+        
+        foreach (var row in rowsAndCols)
         {
             SudokuBoard.Add(row);
         }
-
-        foreach (var square in squares)
-        {
-            foreach (var square1 in square)
-            {
-                SudokuBoard.Add(square1);
-            }
-        }
-
+        
         return this;
     }
     
-    // Deprecated
-    public AbstractBoard CreateBoard(int[][] mdArray)
+    private Square[] CreateSquares()
     {
-        var columns = new Column[mdArray[0].Length];
-        var rows = new Row[mdArray.Length];
-        var squares = new Square[mdArray.Length / 3][];
-        
-        squares[0] = new Square[mdArray.Length / 3];
-        squares[1] = new Square[mdArray.Length / 3];
-        squares[2] = new Square[mdArray.Length / 3]; 
-        
-        // done till here ^^
-        
-        // create rows, cols and squares
-        for (int i = 0; i < mdArray.Length; i++)
+        // var squares = new Square[(int) SquareLength!][];
+        var squares = new List<Square>();
+
+        // for (int i = 0; i < squares.Length; i++)
+        // {
+        //     squares[i] = new Square[(int) SquareLength];
+        // }
+        //
+        // for (int i = 0; i < squares.Length; i++)
+        // {
+        //     for (int j = 0; j < squares[i].Length; j++)
+        //     {
+        //         squares[i][j] = new Square(i, j);
+        //     }
+        // }
+
+        for (int i = 0; i < SquareLength; i++)
+        {
+            for (int j = 0; j < SquareLength; j++)
+            {
+                squares.Add(new Square(j, i));
+            }
+        }
+
+        return squares.ToArray();
+    }
+
+    private Row[] CreateColsAndRows()
+    {
+        var rows = new Row[(int) Rows!];
+        var cols = new Column[(int) Columns!];
+
+        for (int i = 0; i < rows.Length; i++)
         {
             if (rows[i] == null)
-            {
-                rows[i] = new Row(i);
-            }
-            
-            for (int j = 0; j < mdArray[i].Length; j++)
-            {
-                var c = j;
-                var r = i;
-                Square activeSquare;
-                if (columns[j] == null)
-                {
-                    columns[j] = new Column(j);
-                }
-                
-                int value = mdArray[i][j];
-                var cell = new Cell(value, j, i);
-                
-                rows[i].Add(cell);
-                columns[j].Add(cell);
-                cell.Row = rows[i];
-                cell.Column = columns[j];
-
-                activeSquare = squares[i % 3][j % 3];
-                if (activeSquare == null)
-                {
-                    activeSquare = new Square(i % 3, j % 3);
-                    squares[i % 3][j % 3] = activeSquare;
-                }
-                activeSquare.Add(cell);
-                cell.Square = activeSquare;
-            }
+                rows[i] = new Row();
+            rows[i].Y = i;
         }
-        foreach (var column in columns)
+
+        for (int i = 0; i < cols.Length; i++)
         {
-            SudokuBoard.Add(column);
+            if (cols[i] == null)
+                cols[i] = new Column();
+            cols[i].X = i;
         }
 
         foreach (var row in rows)
         {
-            SudokuBoard.Add(row);
-        }
-
-        foreach (var square in squares)
-        {
-            foreach (var square1 in square)
+            foreach (var column in cols)
             {
-                SudokuBoard.Add(square1);
+                row.Add(column);
             }
         }
 
-        return this;
+        return rows;
     }
-    
 }

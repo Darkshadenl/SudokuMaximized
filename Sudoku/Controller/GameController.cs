@@ -29,33 +29,58 @@ public class GameController
         Console.WriteLine("Starting your Sudoku game. Press ESC to quit the game.");
         _boardView.BoardType = _game.BoardType;
         _boardView.DrawBoard(_game.GetViewableData());
-        while (true)
-        {
-            _boardView.DrawBoard(_game.GetViewableData());
-
-            if (Console.KeyAvailable)
-            {
-                ConsoleKeyInfo key = Console.ReadKey(true);
-
-                switch (key.Key)
+        
+        do {
+            while (!Console.KeyAvailable) {
+                switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.UpArrow:
-                        // TODO move cursor
-                        _game.MoveCursor(Directions.UP);
-                        continue;
+                        _game.Board.MoveCursor(Directions.UP);
+                        break;
                     case ConsoleKey.DownArrow:
-                        _game.MoveCursor(Directions.DOWN);
-                        continue;
+                        _game.Board.MoveCursor(Directions.DOWN);
+                        break;
                     case ConsoleKey.RightArrow:
-                        _game.MoveCursor(Directions.RIGHT);
-                        continue;
+                        _game.Board.MoveCursor(Directions.RIGHT);
+                        break;
                     case ConsoleKey.LeftArrow:
-                        _game.MoveCursor(Directions.LEFT);
-                        continue;
+                        _game.Board.MoveCursor(Directions.LEFT);
+                        break;
                 }
+                _boardView.DrawBoard(_game.GetViewableData());
             }
-
-            Thread.Sleep(300);
-        }
+            
+        } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+        
+        
+        // while (true) TODO remove if not needed
+        // {
+        //     _boardView.DrawBoard(_game.GetViewableData());
+        //
+        //     if (Console.KeyAvailable)
+        //     {
+        //         ConsoleKeyInfo key = Console.ReadKey(true);
+        //
+        //         switch (key.Key)
+        //         {
+        //             case ConsoleKey.UpArrow:
+        //                 // TODO move cursor
+        //                 _game.MoveCursor(Directions.UP);
+        //                 continue;
+        //             case ConsoleKey.DownArrow:
+        //                 _game.MoveCursor(Directions.DOWN);
+        //                 continue;
+        //             case ConsoleKey.RightArrow:
+        //                 _game.MoveCursor(Directions.RIGHT);
+        //                 continue;
+        //             case ConsoleKey.LeftArrow:
+        //                 _game.MoveCursor(Directions.LEFT);
+        //                 continue;
+        //         }
+        //     }
+        //
+        //     Thread.Sleep(300);
+        // }
+        
     }
 }

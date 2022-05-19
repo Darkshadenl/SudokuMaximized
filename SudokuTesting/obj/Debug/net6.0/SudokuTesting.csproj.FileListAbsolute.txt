@@ -96,3 +96,5 @@ C:\Users\qmb\Documents\Repos\SudokuMaximized\SudokuTesting\obj\Debug\net6.0\refi
 C:\Users\qmb\Documents\Repos\SudokuMaximized\SudokuTesting\obj\Debug\net6.0\SudokuTesting.pdb
 C:\Users\qmb\Documents\Repos\SudokuMaximized\SudokuTesting\obj\Debug\net6.0\SudokuTesting.genruntimeconfig.cache
 C:\Users\qmb\Documents\Repos\SudokuMaximized\SudokuTesting\obj\Debug\net6.0\ref\SudokuTesting.dll
+C:\Users\qmb\Documents\Repos\SudokuMaximized\SudokuTesting\bin\Debug\net6.0\DotNetEnv.dll
+C:\Users\qmb\Documents\Repos\SudokuMaximized\SudokuTesting\bin\Debug\net6.0\Sprache.dll

@@ -66,28 +66,23 @@ public abstract class Component : IViewable
         return emptyCell;
     }
 
+    /*
+     * Every row has every column. Every column has every cell.
+     */
     public List<List<Component>> GetAllData()
     {
-        List<List<Component>> rows = new ();
-        foreach (var component in Components)
-        {
-            if (component is not Row r) continue;
-            
-            var data = r.GetData();
-            rows.Add(data);
-        }
-
-        return rows;
+        var columns = Components.First(e => e is Row).Components.Where(c => c is Column);
+        return columns.Select(c => c.Components).ToList();
     }
 
     public virtual Cell? GetCursor()
     {
-        return Components.First(c => c is Column && c.HasCursor).GetCursor();
+        return Components.First(c => c.HasCursor).GetCursor();
     }
 
-    public virtual Cell? GetCell(int x, int y)
+    public virtual Cell GetNewCursor(int x, int y)
     {
-        return Components.First(e => e is SudokuBoard).GetCell(x, y);
+        return Components.First(row => row is Row && row.Y == y).GetNewCursor(x, y);
     }
-    
+
 }

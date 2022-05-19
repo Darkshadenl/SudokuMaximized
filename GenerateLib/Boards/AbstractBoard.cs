@@ -18,22 +18,7 @@ public abstract class AbstractBoard
     public int? StartCursorX { get; set; }
     public int? StartCursorY { get; set; }
     public Cell Cursor { get; set; }
-
-    public List<IViewable> GetPrintData()
-    {
-        var printData = new List<IViewable>();
-        var data = SudokuBoard.GetAllData();
-        foreach (var componentList in data)
-        {
-            foreach (var component in componentList)
-            {
-                printData.Add(new Viewable.Viewable(component));
-            }
-        }
-
-        return printData;
-    }
-
+    
     public List<IViewable> GetViewables()
     {
         var data = SudokuBoard.GetAllData();
@@ -57,30 +42,28 @@ public abstract class AbstractBoard
     {
         // check if chosen direction has a cell
         var sudokuBoard = SudokuBoard as SudokuBoard;
-        var canMove = sudokuBoard!.CanCursorMove(direction);
+        var canMove = sudokuBoard!.CanCursorMove(direction, Cursor);
         
-        // move cursor
-        if (canMove)
+        switch (canMove)
         {
-            switch (direction)
-            {
-                case Directions.UP:
-                    sudokuBoard.MoveCursorUp();
-                    break;
-                case Directions.DOWN:
-                    sudokuBoard.MoveCursorDown();
-                    break;
-                case Directions.LEFT:
-                    sudokuBoard.MoveCursorLeft();
-                    break;
-                case Directions.RIGHT:
-                    sudokuBoard.MoveCursorRight();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, "Not a direction");
-            }
+            case false:
+                Console.WriteLine("Cannot move cursor in that direction");
+                return false;
+            
+            case true:
+                switch (direction)
+                {
+                    case Directions.UP:
+                        return sudokuBoard.MoveCursorUp(Cursor);
+                    case Directions.DOWN:
+                        return sudokuBoard.MoveCursorDown(Cursor);
+                    case Directions.LEFT:
+                        return sudokuBoard.MoveCursorLeft(Cursor);
+                    case Directions.RIGHT:
+                        return sudokuBoard.MoveCursorRight(Cursor);
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(direction), direction, "Not a direction");
+                }
         }
-        
-        return false;
     }
 }

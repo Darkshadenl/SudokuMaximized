@@ -16,6 +16,7 @@ public class Game
         get => _board!;
         set
         {
+            if (_board != null) return;
             _board = value;
             _board.Solver = _solver;
         }
@@ -29,11 +30,6 @@ public class Game
     public List<IViewable> GetViewableData()
     {
         return Board.GetViewables();
-    }
-
-    public bool MoveCursor(Directions direction)
-    {
-        return Board.MoveCursor(direction);
     }
 
 }
