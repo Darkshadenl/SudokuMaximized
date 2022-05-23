@@ -5,9 +5,5 @@ namespace GenerateLib.Visitors;
 
 public interface IPrintBoardVisitor
 {
-
-    public void Draw(List<IViewable> board, BoardTypes type);
-
-    // TODO etcetera
-
+    public void Draw(IViewData viewData, BoardTypes type);
 }

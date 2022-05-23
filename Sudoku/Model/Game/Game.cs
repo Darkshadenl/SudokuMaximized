@@ -2,6 +2,9 @@
 using GenerateLib.Helpers;
 using GenerateLib.SolveAlgo;
 using GenerateLib.Viewable;
+using Sudoku.Controller;
+using Sudoku.State;
+using ICommand = Sudoku.Command.ICommand;
 
 namespace Sudoku.Model.Game;
 
@@ -22,9 +25,50 @@ public class Game
         }
     }
 
+    public IState State { get; set; }
+    public GameController Controller { get; set; }
+
+    public ICommand Select;
+    public ICommand ShiftState;
+
+    private List<ISimpleViewMessage> _preBoardMessages = new();
+    private List<ISimpleViewMessage> _postBoardMessages = new();
+
+    private readonly Dictionary<ConsoleKey, int> _availableKeys = new()
+    {
+        {ConsoleKey.D1, 1},
+        {ConsoleKey.D2, 2},
+        {ConsoleKey.D3, 3},
+        {ConsoleKey.D4, 4},
+        {ConsoleKey.D5, 5},
+        {ConsoleKey.D6, 6},
+        {ConsoleKey.D7, 7},
+        {ConsoleKey.D8, 8},
+        {ConsoleKey.D9, 9}
+    };
     public Game(ISolver solver)
     {
         _solver = solver;
+        State = new DefinitiveState(this, _availableKeys);
+        State.Configure();
+    }
+
+    public void AddMessages(ISimpleViewMessage message)
+    {
+        switch (message.Timing)
+        {   
+            case BoardDrawTimings.PostBoard:
+                _postBoardMessages.Add(message);
+                break;
+            case BoardDrawTimings.PreBoard:
+                _preBoardMessages.Add(message);
+                break;
+        }
+    }
+
+    public void ForceRedraw()
+    {
+        Controller.ReDraw(_preBoardMessages, _postBoardMessages);
     }
 
     public List<IViewable> GetViewableData()

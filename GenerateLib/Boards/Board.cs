@@ -5,7 +5,6 @@ namespace GenerateLib.Boards;
 
 public class Board : AbstractBoard
 {
-
     public Board()
     {
         SudokuBoard = new SudokuBoard();
@@ -15,15 +14,13 @@ public class Board : AbstractBoard
     {
         if (Columns == null || Rows == null || SquareLength == null || 
             StartCursorX == null || StartCursorY == null)
-        {
             throw new Exception("Board not correctly configured.");
-        }
 
         // Setup 
         var squares = CreateSquares();
         var rowsAndCols = CreateColsAndRows();
         var sudokuBoard = SudokuBoard as SudokuBoard;
-        sudokuBoard.BoardHeight = (int) Rows;
+        sudokuBoard!.BoardHeight = (int) Rows;
         sudokuBoard.BoardWidth = (int) Columns;
         var data = boardFile.ConvertData((int) Columns);
         int startSquareNr = 0;
@@ -37,22 +34,23 @@ public class Board : AbstractBoard
             for (int x = 0; x < Columns; x++)
             {
                 if (x % SquareLength == 0 && x != 0)
-                {
                     squareNr++;
-                }
                 
                 var activeSquare = squares[squareNr];
                 int value = data[y][x];
                 var columnX = x;
                 var rowY = y;
-                var cell = new Cell(value, columnX, rowY);
+                var cell = new Cell(value, columnX, rowY, value > 0);
 
                 if (x == StartCursorX && y == StartCursorY)
                 {
                     cell.IsCursor = true;
                     Cursor = cell;
                     row.HasCursor = true;
-                    row.SetColHasCursor((int) StartCursorX);
+                    var column = row.SetColHasCursor((int) StartCursorX);
+                    sudokuBoard.CursorColumn = column;
+                    sudokuBoard.CursorRow = row;
+                    sudokuBoard.CursorSquare = activeSquare;
                     activeSquare.HasCursor = true;
                 }
                 activeSquare.Add(cell);

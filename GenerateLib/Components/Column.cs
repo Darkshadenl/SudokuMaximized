@@ -4,7 +4,7 @@ public class Column : Component
 {
     public override Cell? GetCursor()
     {
-        return Components.First(c => c.IsCursor) as Cell;
+        return Components.FirstOrDefault(c => c.IsCursor) as Cell;
     }
 
     public List<Component> GetData()
@@ -17,6 +17,12 @@ public class Column : Component
         }
 
         return data;    
+    }
+
+    public Cell GetXthElement(int x)
+    {
+        var c = Components.ToArray();
+        return (c[x] as Cell)!;
     }
 
     public override Cell GetNewCursor(int x, int y)

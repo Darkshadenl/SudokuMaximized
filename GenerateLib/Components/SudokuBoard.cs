@@ -31,14 +31,14 @@ public class SudokuBoard : Component
 
         switch (direction)
         {
-            case Directions.UP:
+            case Directions.Up:
                 return rowNr - 1 >= 0;
-            case Directions.DOWN:
-                return rowNr + 1 <= BoardHeight;
-            case Directions.LEFT:
+            case Directions.Down:
+                return rowNr + 1 < BoardHeight;
+            case Directions.Left:
                 return colNr - 1 >= 0;
-            case Directions.RIGHT:
-                return colNr + 1 <= BoardWidth;
+            case Directions.Right:
+                return colNr + 1 < BoardWidth;
             default:
                 return false;
         }
@@ -54,10 +54,48 @@ public class SudokuBoard : Component
         CursorSquare = Components.First(s => s is Square {HasCursor: true});
     }
 
-    public bool MoveCursorRight(Cell cursor)
+    private void UpdateSquareAfterMove()
     {
-        FindCursorRowColSquare();
+        // Check if current square still contains cursor, else update square
+        var square = CursorSquare as Square;
+        if (square!.GetCursor() == null)
+        {
+            CursorSquare!.HasCursor = false;
+            var newCursorSquare = FindCursorSquare();
+            newCursorSquare.HasCursor = true;
+            CursorSquare = newCursorSquare;
+        }
+    }
+
+    private void UpdateRowColAfterMove(Cell newCursor)
+    {
+        // Check if row and col still contain cursor, else update row and/or col
+        if (CursorRow!.GetCursor() == null || CursorColumn!.GetCursor() == null)
+        {
+            // update
+            CursorRow!.HasCursor = false;
+            var row = Components.First(c => c is Row && c.Y == newCursor.Y) as Row;
+            row!.HasCursor = true;
+            var col = row.SetColHasCursor(newCursor.X);
+            CursorColumn = col;
+            CursorRow = row;
+        }
+    }
+
+    private Square FindCursorSquare()
+    {
+        foreach (var component in Components)
+        {
+            if (component is not Square square) continue;
+            var cursor = square.GetCursor();
+            if (cursor != null) return square;
+        }
         
+        return null!;
+    }
+    
+    public Cell MoveCursorRight(Cell cursor)
+    {
         // Move cursor
         cursor.IsCursor = false;
         var cursorNewX = cursor.X + 1;
@@ -65,39 +103,62 @@ public class SudokuBoard : Component
 
         var newCursor = GetNewCursor(cursorNewX, cursorNewY);
         newCursor.IsCursor = true;
-        CursorRow!.IsCursor = false;
-        CursorColumn!.IsCursor = false;
         
-        // Check if current square still contains cursor, else update
-        var square = CursorSquare as Square;
-        var squareCursor = square!.GetCursor();
-        if (squareCursor == null)
-        {
-            CursorSquare.HasCursor = false;
-            
-        }
-        
-        
-        
-        // Setup new CursorRow and CursorColumn
-        return false;
+        // update cols, rows and squares. 
+        UpdateSquareAfterMove();
+        UpdateRowColAfterMove(newCursor);
+
+        return newCursor;
     }
 
-    public bool MoveCursorLeft(Cell cursor)
+    public Cell MoveCursorLeft(Cell cursor)
     {
-        FindCursorRowColSquare();
-        return false;
+        // Move cursor
+        cursor.IsCursor = false;
+        var cursorNewX = cursor.X - 1;
+        var cursorNewY = cursor.Y;
+
+        var newCursor = GetNewCursor(cursorNewX, cursorNewY);
+        newCursor.IsCursor = true;
+        
+        // update cols, rows and squares. 
+        UpdateSquareAfterMove();
+        UpdateRowColAfterMove(newCursor);
+
+        return newCursor;
     }
 
-    public bool MoveCursorDown(Cell cursor)
+    public Cell MoveCursorDown(Cell cursor)
     {
-        FindCursorRowColSquare();
-        return false;
-    }
+        // Move cursor
+        cursor.IsCursor = false;
+        var cursorNewX = cursor.X;
+        var cursorNewY = cursor.Y + 1;
 
-    public bool MoveCursorUp(Cell cursor)
+        var newCursor = GetNewCursor(cursorNewX, cursorNewY);
+        newCursor.IsCursor = true;
+        
+        // update cols, rows and squares. 
+        UpdateSquareAfterMove();
+        UpdateRowColAfterMove(newCursor);
+
+        return newCursor;
+    }
+    
+    public Cell MoveCursorUp(Cell cursor)
     {
-        FindCursorRowColSquare();
-        return false;
+        // Move cursor
+        cursor.IsCursor = false;
+        var cursorNewX = cursor.X;
+        var cursorNewY = cursor.Y - 1;
+
+        var newCursor = GetNewCursor(cursorNewX, cursorNewY);
+        newCursor.IsCursor = true;
+        
+        // update cols, rows and squares. 
+        UpdateSquareAfterMove();
+        UpdateRowColAfterMove(newCursor);
+
+        return newCursor;
     }
 }

@@ -1,46 +1,87 @@
 ﻿using GenerateLib.Helpers;
 using GenerateLib.Viewable;
-using Sprache;
 
 namespace GenerateLib.Visitors;
 
 public class ConsoleVisitor : IPrintBoardVisitor
 {
+    private List<IViewable> _board = new();
+    private List<ISimpleViewMessage>? _messages;
+    private string _state = "";
     
-    public void Draw(List<IViewable> board, BoardTypes type)
+    public void PreBoardDraw(List<ISimpleViewMessage>? messages)
     {
+        DrawMessages(messages);
+    }
+
+    public void DrawStatic()
+    {
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine(_state);
+        Console.ResetColor();
+    }
+
+    private void DrawMessages(List<ISimpleViewMessage>? messages)
+    {
+        if (messages == null) return;
+        foreach (var message in messages)
+        {
+            Console.ForegroundColor = message.MessageColor;
+            Console.WriteLine(message.Message);
+            Console.ResetColor();
+        }
+    }
+
+    public void PostBoardDraw(List<ISimpleViewMessage>? messages)
+    {
+        DrawMessages(messages);
+    }
+
+    public void Draw(IViewData viewData, BoardTypes type)
+    {
+        _board = viewData.Viewables;
+        _state = viewData.State;
+        DrawStatic();
+        PreBoardDraw(viewData.PreBoardMessages);
 
         switch (type)
         {
             case BoardTypes.nine:
-                DrawRegular(board, 9);
+                DrawRegularBoard(9);
                 break;
             case BoardTypes.six:
-                DrawRegular(board, 6);
+                DrawRegularBoard(6);
                 break;
             case BoardTypes.four:
-                DrawRegular(board, 4);
+                DrawRegularBoard(4);
                 break;
             case BoardTypes.jigsaw:
-                DrawJigSaw(board, 9);
+                DrawJigSawBoard(9);
                 break;
             // case BoardTypes.samurai:
             //     return 0;
             default:
-                DrawRegular(board, 9);
-                break;
+                throw new ArgumentException("Invalid board type");
         }
+        
+        PostBoardDraw(viewData.PostBoardMessages);
     }
 
-    private void DrawRegular(List<IViewable> board, int size)
+    private void DrawRegularBoard(int size)
     {
         var verC = 0;
-        var squareSize =  (int) Math.Sqrt(size);
-        var horizontalLine = "-------------------------------";
+        var squareSize = (int) Math.Sqrt(size);
+
+        var set = new Dictionary<int, string>();
+        set.Add(6, "----------------------");
+        set.Add(9, "-------------------------------");
+        set.Add(4, "---------------");
+
+        var horizontalLine = set.First(e => e.Key == size).Value;
 
         Console.WriteLine(horizontalLine);
 
-        for (var index = 0; index < board.Count; index++)
+        for (var index = 0; index < _board.Count; index++)
         {
             if (index != 0 && index % size == 0)
             {
@@ -62,11 +103,13 @@ public class ConsoleVisitor : IPrintBoardVisitor
                 Console.Write("|");
             }
 
-            var boardValue = board[index].Value == 0 ? " " : board[index].Value.ToString();
-            if (board[index].IsCursor)
+            var boardValue = _board[index].Value == 0 ? " " : _board[index].Value.ToString();
+            if (_board[index].IsCursor)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($" {boardValue} ");
+                if (_board[index].Value == 0) Console.Write(" _ ");
+                else Console.Write($" {boardValue} ");
+                ;
                 Console.ResetColor();
             }
             else
@@ -80,7 +123,7 @@ public class ConsoleVisitor : IPrintBoardVisitor
         Console.WriteLine(horizontalLine);
     }
 
-    public void DrawJigSaw(List<IViewable> board, int size)
+    public void DrawJigSawBoard(int size)
     {
         throw new NotImplementedException();
     }

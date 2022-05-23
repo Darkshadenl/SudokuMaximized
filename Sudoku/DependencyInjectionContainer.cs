@@ -1,9 +1,9 @@
 ﻿using GenerateLib.Boards;
+using GenerateLib.Builder;
+using GenerateLib.Interpreters;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 using Sudoku.Controller;
-using Sudoku.View.Game;
-
 
 namespace Sudoku;
 
@@ -34,13 +34,15 @@ public static class DependencyInjectionContainer
                         "GenerateLib.Components",
                         "GenerateLib.Factory.Config",
                         "GenerateLib.Boards",
-                        "GenerateLib.Interpreters",
                         "GenerateLib.Visitors"
                     });
                 })
                 .AsImplementedInterfaces()
+                
+                .AddClasses(c => c.InNamespaceOf<BoardBuildDirector>())
+                .AsSelf()
         );
-
+        
         services.Scan(scan => scan
             .FromCallingAssembly()
 

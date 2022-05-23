@@ -12,9 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Factory\Config\InterpreterFactoryConfiguration.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
       <None Update="Factory\Config\ComponentFactoryConfiguration.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>

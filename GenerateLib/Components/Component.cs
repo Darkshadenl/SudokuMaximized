@@ -74,6 +74,23 @@ public abstract class Component : IViewable
         var columns = Components.First(e => e is Row).Components.Where(c => c is Column);
         return columns.Select(c => c.Components).ToList();
     }
+    
+    public List<IViewable> GetAllDataAsViewable(int rows, int squares, int cols)
+    {
+        var columns = Components.First(e => e is Row).Components.Where(c => c is Column).ToArray();
+        List<IViewable> data = new List<IViewable>();
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                var c = columns[j] as Column;
+                data.Add(c!.GetXthElement(i));
+            }
+        }
+
+        return data;
+    }
 
     public virtual Cell? GetCursor()
     {

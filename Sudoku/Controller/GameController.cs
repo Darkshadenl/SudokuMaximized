@@ -1,6 +1,7 @@
 ﻿using GenerateLib.Boards;
 using GenerateLib.Factory;
 using GenerateLib.Helpers;
+using GenerateLib.Viewable;
 using Sudoku.Model.Game;
 using Sudoku.View.Game;
 
@@ -15,6 +16,7 @@ public class GameController
     public GameController(Game game, IBoardView view, IVisitorFactory visitorFactory)
     {
         _game = game;
+        _game.Controller = this;
         _boardView = view;
         _visitorFactory = visitorFactory;
         _boardView.Controller(this);
@@ -28,59 +30,47 @@ public class GameController
 
         Console.WriteLine("Starting your Sudoku game. Press ESC to quit the game.");
         _boardView.BoardType = _game.BoardType;
-        _boardView.DrawBoard(_game.GetViewableData());
         
-        do {
-            while (!Console.KeyAvailable) {
-                switch (Console.ReadKey(true).Key)
+        ReDraw();
+
+        do
+        {
+            while (!Console.KeyAvailable)
+            {
+                var cki = Console.ReadKey(true);
+
+                if ((cki.Modifiers & ConsoleModifiers.Shift) != 0 && cki.Key == ConsoleKey.S)
+                    _game.ShiftState.Execute();
+
+                switch (cki.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        _game.Board.MoveCursor(Directions.UP);
+                        _game.Board.MoveCursor(Directions.Up);
                         break;
                     case ConsoleKey.DownArrow:
-                        _game.Board.MoveCursor(Directions.DOWN);
+                        _game.Board.MoveCursor(Directions.Down);
                         break;
                     case ConsoleKey.RightArrow:
-                        _game.Board.MoveCursor(Directions.RIGHT);
+                        _game.Board.MoveCursor(Directions.Right);
                         break;
                     case ConsoleKey.LeftArrow:
-                        _game.Board.MoveCursor(Directions.LEFT);
+                        _game.Board.MoveCursor(Directions.Left);
+                        break;
+                    case ConsoleKey.Enter:
+                        _game.Select.Execute();
                         break;
                 }
-                _boardView.DrawBoard(_game.GetViewableData());
+                
+                ReDraw();
             }
-            
         } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+    }
+
+    public void ReDraw(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
+    {
+        var viewData = new ViewData(_game.GetViewableData(), _game.State.State,
+            pre, post);
         
-        
-        // while (true) TODO remove if not needed
-        // {
-        //     _boardView.DrawBoard(_game.GetViewableData());
-        //
-        //     if (Console.KeyAvailable)
-        //     {
-        //         ConsoleKeyInfo key = Console.ReadKey(true);
-        //
-        //         switch (key.Key)
-        //         {
-        //             case ConsoleKey.UpArrow:
-        //                 // TODO move cursor
-        //                 _game.MoveCursor(Directions.UP);
-        //                 continue;
-        //             case ConsoleKey.DownArrow:
-        //                 _game.MoveCursor(Directions.DOWN);
-        //                 continue;
-        //             case ConsoleKey.RightArrow:
-        //                 _game.MoveCursor(Directions.RIGHT);
-        //                 continue;
-        //             case ConsoleKey.LeftArrow:
-        //                 _game.MoveCursor(Directions.LEFT);
-        //                 continue;
-        //         }
-        //     }
-        //
-        //     Thread.Sleep(300);
-        // }
-        
+        _boardView.DrawBoard(viewData);
     }
 }

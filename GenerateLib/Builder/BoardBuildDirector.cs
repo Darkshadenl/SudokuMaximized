@@ -28,8 +28,9 @@ public class BoardBuildDirector
             .SetBoardFile(boardFile)
             .SetCols(6)
             .SetRows(6)
-            .SetSquareLength(3)
             .SetSquares(6)
+            .SetSquareLength(3)
+            .SetCursorPosition(0, 0)
             .SetType(BoardTypes.six);
     }
     
@@ -40,8 +41,9 @@ public class BoardBuildDirector
             .SetBoardFile(boardFile)
             .SetCols(4)
             .SetRows(4)
-            .SetSquareLength(2)
             .SetSquares(4)
+            .SetSquareLength(2)
+            .SetCursorPosition(0, 0)
             .SetType(BoardTypes.four);
     }
     

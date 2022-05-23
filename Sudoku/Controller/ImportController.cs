@@ -1,6 +1,7 @@
 ﻿using GenerateLib.Boards;
 using GenerateLib.Factory;
 using GenerateLib.Import;
+using GenerateLib.Interpreters;
 using Generating.Import;
 using Sudoku.Model;
 using Sudoku.Model.Import;
@@ -12,14 +13,15 @@ public class ImportController
 {
     private readonly ImportView _view;
     private readonly ImportHandler _importHandler;
-    private readonly IBoardInterpreterFactory _boardInterpreterFactory;
+    // private readonly IBoardInterpreterFactory _boardInterpreterFactory;
+    private readonly IInterpreter _interpreter;
 
-    public ImportController(ImportView view, ImportHandler importHandler, 
-        IBoardInterpreterFactory boardInterpreterFactory)
+    public ImportController(ImportView view, ImportHandler importHandler, IInterpreter interpreter)
     {
         _view = view;
         _importHandler = importHandler;
-        _boardInterpreterFactory = boardInterpreterFactory;
+        // _boardInterpreterFactory = boardInterpreterFactory;
+        _interpreter = interpreter;
         _view.SetController(this);
     }
 
@@ -36,8 +38,8 @@ public class ImportController
 
     private AbstractBoard Interpret(BoardFile boardFile)
     {
-        var factory = _boardInterpreterFactory.Create(boardFile.Extension);
-        return factory.Interpret(boardFile);
+        // var factory = _boardInterpreterFactory.Create(boardFile.Extension);
+        return _interpreter.Interpret(boardFile);
     }
 
     private BoardFile StartImport()
@@ -45,8 +47,9 @@ public class ImportController
         var regular = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.9x9";
         var jigsaw = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.jigsaw";
         var samurai = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.samurai";
-        
-        
+        var four = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.4x4";
+        var six = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle2.6x6";
+
         _view.ShowWelcome();
         // var fileInfo = _view.HandleImportUserInput();   // TODO uncomment
         var fileInfo =

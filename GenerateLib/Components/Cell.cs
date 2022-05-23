@@ -2,12 +2,15 @@
 
 public class Cell : Component
 {
+    // HardNumber = had a value above 0 from the start. Unchangeable. 
+    public bool HardNumber { get; }
     public Row Row { get; set; }
     public Square Square { get; set; }
     public Column Column { get; set; }
 
-    public Cell(int value, int x, int y)
+    public Cell(int value, int x, int y, bool hardNumber)
     {
+        HardNumber = hardNumber;
         Value = value;
         X = x;
         Y = y;

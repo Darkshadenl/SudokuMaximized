@@ -1,5 +1,4 @@
 C:\Users\qmb\Documents\Repos\SudokuMaximized\GenerateLib\bin\Debug\net6.0\Factory\Config\ComponentFactoryConfiguration.json
-C:\Users\qmb\Documents\Repos\SudokuMaximized\GenerateLib\bin\Debug\net6.0\Factory\Config\InterpreterFactoryConfiguration.json
 C:\Users\qmb\Documents\Repos\SudokuMaximized\GenerateLib\bin\Debug\net6.0\GenerateLib.deps.json
 C:\Users\qmb\Documents\Repos\SudokuMaximized\GenerateLib\bin\Debug\net6.0\GenerateLib.dll
 C:\Users\qmb\Documents\Repos\SudokuMaximized\GenerateLib\bin\Debug\net6.0\GenerateLib.pdb

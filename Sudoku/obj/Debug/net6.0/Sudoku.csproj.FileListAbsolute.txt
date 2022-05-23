@@ -20,7 +20,6 @@ C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\obj\Debug\net6.0\Sudoku.cspr
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Scrutor.dll
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Factory\Config\ComponentFactoryConfiguration.json
-C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Factory\Config\InterpreterFactoryConfiguration.json
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\GenerateLib.dll
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\GenerateLib.pdb
 C:\Users\qmb\Documents\Repos\SudokuMaximized\Sudoku\bin\Debug\net6.0\Factory\Config\VisitorFactoryConfiguration.json

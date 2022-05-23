@@ -39,9 +39,14 @@ public class Row : Component
         return data;
     }
 
-    public void SetColHasCursor(int x)
+    public Column? SetColHasCursor(int x)
     {
-        Components.First(c => c.X == x).HasCursor = true;
+        if (Components.First(c => c is Column && c.X == x) is Column col)
+        {
+            col.HasCursor = true;
+            return col;
+        }
+        return null;
     }
 
     public override Cell GetNewCursor(int x, int y)

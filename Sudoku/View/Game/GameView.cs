@@ -16,10 +16,10 @@ public class GameView : IBoardView
         _controller = controller;
     }
 
-    public void DrawBoard(List<IViewable> viewables)
+    public void DrawBoard(IViewData viewData)
     {
         Console.Clear();
-        _visitor.Draw(viewables, BoardType);
+        _visitor.Draw(viewData, BoardType);
     }
 
     public void Accept(IPrintBoardVisitor visitor)
