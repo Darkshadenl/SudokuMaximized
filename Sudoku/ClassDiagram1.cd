@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Sudoku.Command.DefSelectCommand" BaseTypeListCollapsed="true">
-    <Position X="5.75" Y="3" Width="1.5" />
+    <Position X="5.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Command\DefSelectCommand.cs</FileName>
@@ -9,15 +9,18 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Sudoku.Command.HelpSelectCommand" BaseTypeListCollapsed="true">
-    <Position X="9.25" Y="3" Width="1.5" />
+    <Position X="7.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Command\HelpSelectCommand.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_game" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Sudoku.Command.StateToDefinitiveCommand" BaseTypeListCollapsed="true">
-    <Position X="4" Y="3" Width="1.5" />
+    <Position X="5.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Command\StateToDefinitiveCommand.cs</FileName>
@@ -25,7 +28,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Sudoku.Command.StateToHelpCommand" BaseTypeListCollapsed="true">
-    <Position X="7.5" Y="3" Width="1.5" />
+    <Position X="7.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Command\StateToHelpCommand.cs</FileName>
@@ -35,25 +38,25 @@
   <Class Name="Sudoku.Controller.GameController">
     <Position X="10.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAARAAAAAAAQ=</HashCode>
       <FileName>Controller\GameController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_boardView" />
       <Field Name="_game" />
+      <Field Name="_boardView" />
       <Field Name="_visitorFactory" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Sudoku.Controller.ImportController">
-    <Position X="14" Y="7" Width="1.5" />
+    <Position X="14" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAAwAAAAAEAAAAAAAAAACAAAAEAAAA=</HashCode>
       <FileName>Controller\ImportController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Field Name="_view" />
       <Field Name="_importHandler" />
       <Field Name="_interpreter" />
-      <Field Name="_view" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Sudoku.Controller.MainController">
@@ -65,17 +68,6 @@
     <ShowAsAssociation>
       <Field Name="_gameController" />
       <Field Name="_importController" />
-      <Field Name="_menuController" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Sudoku.Controller.MenuController">
-    <Position X="12.25" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Controller\MenuController.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="_menuView" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Sudoku.DependencyInjectionContainer">
@@ -97,6 +89,8 @@
     <AssociationLine Name="ShiftState" Type="Sudoku.Command.ICommand" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="10" Y="11.97" />
+        <Point X="10.579" Y="11.97" Type="JumpStart" />
+        <Point X="10.746" Y="11.97" Type="JumpEnd" />
         <Point X="11.44" Y="11.97" />
         <Point X="11.44" Y="12.827" />
         <Point X="11.438" Y="12.827" />
@@ -104,22 +98,15 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>gAAgAIAAABAEAAAAEAAAAAAAAAAAAAAAAAAARCAAAAA=</HashCode>
+      <HashCode>gAAhAIAAARAEAAAAEAAAAAAAAAAAIAAAAAAAZCAAAIA=</HashCode>
       <FileName>Model\Game\Game.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_board" />
       <Field Name="_solver" />
-      <Field Name="Select" />
-      <Field Name="ShiftState" />
+      <Field Name="_board" />
+      <Property Name="Select" />
+      <Property Name="ShiftState" />
     </ShowAsAssociation>
-  </Class>
-  <Class Name="Sudoku.View.Menu.MenuView">
-    <Position X="12.25" Y="9.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>View\Menu\MenuView.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Model.Import.ImportHandler">
     <Position X="17.5" Y="6" Width="1.5" />
@@ -137,8 +124,65 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="GenerateLib.Boards.AbstractBoard">
-    <Position X="6.5" Y="11.5" Width="1.5" />
+    <Position X="5.25" Y="12.5" Width="1.5" />
     <TypeIdentifier />
+  </Class>
+  <Class Name="Sudoku.State.DefinitiveState">
+    <Position X="12.75" Y="11.5" Width="1.5" />
+    <AssociationLine Name="_game" Type="Sudoku.Model.Game.Game" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.562" Y="11.5" />
+        <Point X="13.562" Y="11.25" />
+        <Point X="12.75" Y="11.25" />
+        <Point X="12.75" Y="11.449" />
+        <Point X="10.825" Y="11.449" />
+        <Point X="10.825" Y="11.438" />
+        <Point X="10.746" Y="11.438" Type="JumpStart" />
+        <Point X="10.579" Y="11.438" Type="JumpEnd" />
+        <Point X="10" Y="11.438" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAABAAAAAAAAAAAAAAAAABAAAAAQ=</HashCode>
+      <FileName>State\DefinitiveState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_game" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.State.HelpState">
+    <Position X="14.5" Y="11.5" Width="1.5" />
+    <AssociationLine Name="_game" Type="Sudoku.Model.Game.Game" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.25" Y="11.5" />
+        <Point X="15.25" Y="11.25" />
+        <Point X="12.75" Y="11.25" />
+        <Point X="12.75" Y="11.438" />
+        <Point X="10.746" Y="11.438" Type="JumpStart" />
+        <Point X="10.579" Y="11.438" Type="JumpEnd" />
+        <Point X="10" Y="11.438" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAABAAAAAAAAAAAAAAAAABAAAAAQ=</HashCode>
+      <FileName>State\HelpState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_game" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GenerateLib.Boards.Board" Collapsed="true">
+    <Position X="5.25" Y="17" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="GenerateLib.Builder.BoardBuildDirector">
+    <Position X="11.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="BoardBuilder" />
+    </ShowAsAssociation>
   </Class>
   <Interface Name="Sudoku.Command.ICommand">
     <Position X="11" Y="13" Width="1.5" />
@@ -148,7 +192,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Sudoku.View.Game.IBoardView">
-    <Position X="10.5" Y="9.5" Width="1.5" />
+    <Position X="11" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAQAEAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>View\Game\IBoardView.cs</FileName>
@@ -163,7 +207,15 @@
     <TypeIdentifier />
   </Interface>
   <Interface Name="GenerateLib.SolveAlgo.ISolver">
-    <Position X="8.5" Y="13" Width="1.5" />
+    <Position X="4.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="GenerateLib.Builder.IBoardBuilder">
+    <Position X="7.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="GenerateLib.Builder.IBoardConfig">
+    <Position X="9" Y="14.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />

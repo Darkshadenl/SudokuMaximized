@@ -4,12 +4,12 @@ public class SimpleViewMessage : ISimpleViewMessage
 {
     public string Message { get; }
     public ConsoleColor MessageColor { get; }
-    public BoardDrawTimings Position { get; }
+    public BoardDrawTimings Timing { get; }
 
-    public SimpleViewMessage(string message, ConsoleColor messageColor, BoardDrawTimings placement)
+    public SimpleViewMessage(string message, ConsoleColor messageColor, BoardDrawTimings timing)
     {
         Message = message;
         MessageColor = messageColor;
-        Position = placement;
+        Timing = timing;
     }
 }

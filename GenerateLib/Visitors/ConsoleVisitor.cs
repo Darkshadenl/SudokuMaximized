@@ -1,26 +1,87 @@
-﻿using GenerateLib.Helpers;
+﻿using GenerateLib.DrawingAlgsConsole;
+using GenerateLib.Helpers;
 using GenerateLib.Viewable;
 
 namespace GenerateLib.Visitors;
 
 public class ConsoleVisitor : IPrintBoardVisitor
 {
-    private List<IViewable> _board = new();
-    private List<ISimpleViewMessage>? _messages;
-    private string _state = "";
+    private IDraw? _draw;
+    private readonly IDraw _definitive = new DefinitiveDraw();
+    private readonly IDraw _help = new HelpDraw();
+
+    public void Draw(IViewData viewData, BoardTypes type)
+    {
+        DrawStatic(viewData.State);
+        PreBoardDraw(viewData.PreBoardMessages);
+
+        switch (viewData.State)
+        {
+            case States.Definitive:
+                DrawDefinitive(type, viewData.Viewables);
+                break;
+            case States.Help:
+                DrawHelp(type, viewData.Viewables);
+                break;
+            default:
+                throw new ArgumentException("Invalid state");
+        }
+
+        PostBoardDraw(viewData.PostBoardMessages);
+    }
+
+    private void DrawDefinitive(BoardTypes type, List<IViewable> board)
+    {
+        if (_draw is not DefinitiveDraw)
+            _draw = _definitive;
+        
+        switch (type)
+        {
+            case BoardTypes.nine:
+                _draw.DrawRegularBoard(9, board);
+                break;
+            case BoardTypes.six:
+                _draw.DrawRegularBoard(6, board);
+                break;
+            case BoardTypes.four:
+                _draw.DrawRegularBoard(4, board);
+                break;
+            case BoardTypes.jigsaw:
+                _draw.DrawJigSawBoard(9, board);
+                break;
+            // case BoardTypes.samurai:
+            //     return 0;
+            default:
+                throw new ArgumentException("Invalid board type");
+        }
+    }
+
+    private void DrawHelp(BoardTypes type, List<IViewable> board)
+    {
+        if (_draw is not HelpDraw)
+            _draw = _help;
+        
+        switch (type)
+        {
+            case BoardTypes.nine:
+                _draw.DrawRegularBoard(9, board);
+                break;
+            case BoardTypes.six:
+                _draw.DrawRegularBoard(6, board);
+                break;
+            case BoardTypes.four:
+                _draw.DrawRegularBoard(4, board);
+                break;
+            case BoardTypes.jigsaw:
+                _draw.DrawJigSawBoard(9, board);
+                break;
+            // case BoardTypes.samurai:
+            //     return 0;
+            default:
+                throw new ArgumentException("Invalid board type");
+        }
+    }
     
-    public void PreBoardDraw(List<ISimpleViewMessage>? messages)
-    {
-        DrawMessages(messages);
-    }
-
-    public void DrawStatic()
-    {
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine(_state);
-        Console.ResetColor();
-    }
-
     private void DrawMessages(List<ISimpleViewMessage>? messages)
     {
         if (messages == null) return;
@@ -31,100 +92,26 @@ public class ConsoleVisitor : IPrintBoardVisitor
             Console.ResetColor();
         }
     }
+    
+    public void DrawStatic(States state)
+    {
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine(state switch
+        {
+            States.Definitive => "Definitive",
+            States.Help => "Help",
+            _ => throw new ArgumentOutOfRangeException()
+        });
+        Console.ResetColor();
+    }
+    public void PreBoardDraw(List<ISimpleViewMessage>? messages)
+    {
+        DrawMessages(messages);
+    }
 
     public void PostBoardDraw(List<ISimpleViewMessage>? messages)
     {
         DrawMessages(messages);
     }
-
-    public void Draw(IViewData viewData, BoardTypes type)
-    {
-        _board = viewData.Viewables;
-        _state = viewData.State;
-        DrawStatic();
-        PreBoardDraw(viewData.PreBoardMessages);
-
-        switch (type)
-        {
-            case BoardTypes.nine:
-                DrawRegularBoard(9);
-                break;
-            case BoardTypes.six:
-                DrawRegularBoard(6);
-                break;
-            case BoardTypes.four:
-                DrawRegularBoard(4);
-                break;
-            case BoardTypes.jigsaw:
-                DrawJigSawBoard(9);
-                break;
-            // case BoardTypes.samurai:
-            //     return 0;
-            default:
-                throw new ArgumentException("Invalid board type");
-        }
-        
-        PostBoardDraw(viewData.PostBoardMessages);
-    }
-
-    private void DrawRegularBoard(int size)
-    {
-        var verC = 0;
-        var squareSize = (int) Math.Sqrt(size);
-
-        var set = new Dictionary<int, string>();
-        set.Add(6, "----------------------");
-        set.Add(9, "-------------------------------");
-        set.Add(4, "---------------");
-
-        var horizontalLine = set.First(e => e.Key == size).Value;
-
-        Console.WriteLine(horizontalLine);
-
-        for (var index = 0; index < _board.Count; index++)
-        {
-            if (index != 0 && index % size == 0)
-            {
-                Console.Write("|");
-                Console.WriteLine();
-                if (verC == squareSize - 1)
-                {
-                    Console.WriteLine(horizontalLine);
-                    verC = 0;
-                }
-                else
-                {
-                    verC++;
-                }
-            }
-
-            if (index % squareSize == 0)
-            {
-                Console.Write("|");
-            }
-
-            var boardValue = _board[index].Value == 0 ? " " : _board[index].Value.ToString();
-            if (_board[index].IsCursor)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                if (_board[index].Value == 0) Console.Write(" _ ");
-                else Console.Write($" {boardValue} ");
-                ;
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.Write($" {boardValue} ");
-            }
-        }
-
-        Console.Write("|");
-        Console.WriteLine();
-        Console.WriteLine(horizontalLine);
-    }
-
-    public void DrawJigSawBoard(int size)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

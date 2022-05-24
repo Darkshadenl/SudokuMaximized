@@ -7,7 +7,7 @@ namespace Sudoku.Model.Import;
 
 public class ImportHandler
 {
-    private string[] _validExtensions =
+    private string[] _validExtensions = // TODO config file
     {
         ".4x4",
         ".6x6",

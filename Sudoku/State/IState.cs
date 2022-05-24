@@ -1,9 +1,10 @@
 ﻿using GenerateLib.Components;
+using GenerateLib.Helpers;
 
 namespace Sudoku.State;
 
 public interface IState
 {
-    public string State { get; set; }
-    public void Configure();
+    public States State { get; set; }
+    
 }

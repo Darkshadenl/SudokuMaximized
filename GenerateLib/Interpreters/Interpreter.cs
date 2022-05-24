@@ -27,7 +27,7 @@ public class Interpreter : IInterpreter
                 return _boardBuilder.Build();
             // TODO case ".jigsaw": 
             //     break;
-            // TODO case ".samurai":
+            // TODO case ".\samurai":
             //     break;
             default:
                 throw new ArgumentException("Invalid board file extension");

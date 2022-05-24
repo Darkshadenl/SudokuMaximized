@@ -18,5 +18,6 @@ public class StateToHelpCommand : ICommand
     public void Execute()
     {
         _game.State = new HelpState(_game, _availableKeys);
+        _game.ForceRedraw();
     }
 }

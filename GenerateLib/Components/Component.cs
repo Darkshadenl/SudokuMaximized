@@ -6,7 +6,7 @@ namespace GenerateLib.Components;
 public abstract class Component : IViewable
 {
     public int Value { get; set; }
-    public List<int> PossibleValues { get; set; }
+    public List<int> PossibleValues { get; set; } = new();
     public bool IsCursor { get; set; }
     
     protected List<Component> Components = new ();

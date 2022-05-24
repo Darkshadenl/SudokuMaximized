@@ -28,11 +28,11 @@ public class Game
     public IState State { get; set; }
     public GameController Controller { get; set; }
 
-    public ICommand Select;
-    public ICommand ShiftState;
+    public ICommand Select { get; set; }
+    public ICommand ShiftState { get; set; }
 
-    private List<ISimpleViewMessage> _preBoardMessages = new();
-    private List<ISimpleViewMessage> _postBoardMessages = new();
+    private readonly List<ISimpleViewMessage> _preBoardMessages = new();
+    private readonly List<ISimpleViewMessage> _postBoardMessages = new();
 
     private readonly Dictionary<ConsoleKey, int> _availableKeys = new()
     {
@@ -49,8 +49,8 @@ public class Game
     public Game(ISolver solver)
     {
         _solver = solver;
-        State = new DefinitiveState(this, _availableKeys);
-        State.Configure();
+        // TODO make definitive again
+        State = new HelpState(this, _availableKeys);
     }
 
     public void AddMessages(ISimpleViewMessage message)
@@ -69,6 +69,8 @@ public class Game
     public void ForceRedraw()
     {
         Controller.ReDraw(_preBoardMessages, _postBoardMessages);
+        _preBoardMessages.Clear();
+        _postBoardMessages.Clear();
     }
 
     public List<IViewable> GetViewableData()

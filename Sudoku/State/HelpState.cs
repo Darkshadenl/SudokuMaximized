@@ -1,4 +1,5 @@
 ﻿using GenerateLib.Components;
+using GenerateLib.Helpers;
 using Sudoku.Command;
 using Sudoku.Model.Game;
 
@@ -8,16 +9,16 @@ public class HelpState : IState
 {
     private readonly Game _game;
     private readonly Dictionary<ConsoleKey, int> _availableKeys;
-    public string State { get; set; } = "Help";
+    public States State { get; set; } = States.Help;
 
     public HelpState(Game game, Dictionary<ConsoleKey, int> availableKeys)
     {
         _game = game;
         _availableKeys = availableKeys;
+        Configure();
     }
 
-
-    public void Configure()
+    private void Configure()
     {
         _game.Select = new HelpSelectCommand(_game, _availableKeys);
         _game.ShiftState = new StateToDefinitiveCommand(_game, _availableKeys);
