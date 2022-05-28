@@ -1,9 +1,0 @@
-﻿{
-  "visitor": [
-    {
-      "match": "console",
-      "library": "GenerateLib",
-      "_namespace": "GenerateLib.Visitors.ConsoleVisitor"
-    }
-  ]
-}
