@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenerateLib.Factory
+namespace Sudoku.Model.Import.Config.JSONModel
 {
-    internal interface BoardFactory
+    public class ImportJSONModel
     {
+        public string[] extensions { get; set; }
     }
 }
