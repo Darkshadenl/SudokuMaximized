@@ -420,3 +420,12 @@ SudokuTesting/obj/project.assets.json
 SudokuTesting/obj/project.nuget.cache
 SudokuTesting/obj/SudokuTesting.csproj.nuget.dgspec.json
 SudokuTesting/obj/SudokuTesting.csproj.nuget.g.props
+GenerateLib/obj/Debug/net6.0/GenerateLib.assets.cache
+GenerateLib/obj/Debug/net6.0/GenerateLib.csproj.AssemblyReference.cache
+GenerateLib/obj/Debug/net6.0/GenerateLib.GeneratedMSBuildEditorConfig.editorconfig
+Sudoku/obj/Debug/net6.0/Sudoku.assets.cache
+Sudoku/obj/Debug/net6.0/Sudoku.csproj.AssemblyReference.cache
+Sudoku/obj/Debug/net6.0/Sudoku.GeneratedMSBuildEditorConfig.editorconfig
+SudokuTesting/obj/Debug/net6.0/SudokuTesting.assets.cache
+SudokuTesting/obj/Debug/net6.0/SudokuTesting.csproj.AssemblyReference.cache
+SudokuTesting/obj/Debug/net6.0/SudokuTesting.GeneratedMSBuildEditorConfig.editorconfig
