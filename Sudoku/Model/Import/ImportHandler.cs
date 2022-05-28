@@ -20,7 +20,7 @@ public class ImportHandler
     {
         try
         {
-            var json = File.ReadAllText(Environment.GetEnvironmentVariable("IMPORTCONFIG") ??
+            var json = File.ReadAllText(Environment.GetEnvironmentVariable("IMPORTVALIDEXTENSIONCONFIG") ??
             "./Model/Import/Config/ImportFileExtensionConfiguration.json");
 
             _validExtensions = JsonConvert.DeserializeObject<string[]>(json);
