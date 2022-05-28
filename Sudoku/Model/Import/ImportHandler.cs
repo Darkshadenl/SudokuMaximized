@@ -3,6 +3,7 @@ using System.Text;
 using GenerateLib.Import;
 using Generating.Import;
 using Newtonsoft.Json;
+using Sudoku.Model.Import.Config.JSONModel;
 
 namespace Sudoku.Model.Import;
 
@@ -10,20 +11,21 @@ public class ImportHandler
 {
     private string[] _validExtensions;
 
-    public ImportHandler()
-    {
-        // fills list of valid extensions on initialization
-        FillValidExtensionsList();
-    }
-
     private void FillValidExtensionsList()
     {
         try
         {
             var json = File.ReadAllText(Environment.GetEnvironmentVariable("IMPORTVALIDEXTENSIONCONFIG") ??
-            "./Model/Import/Config/ImportFileExtensionConfiguration.json");
+            "./Factory/Config/ImportValidFileExtensionConfiguration.json");
 
-            _validExtensions = JsonConvert.DeserializeObject<string[]>(json);
+            var res = JsonConvert.DeserializeObject<ImportJSONModel>(json);
+
+            _validExtensions = new string[res.validExtensions.Count()];
+
+            for(int x  = 0; x < res.validExtensions.Count();x++)
+            {
+                _validExtensions[x] = res.validExtensions[x];
+            }
         }
         catch (Exception e)
         {
@@ -35,6 +37,9 @@ public class ImportHandler
 
     public BoardFile ImportFromPath(FileInfo fileInfo)
     {
+        // fills list of valid extensions on initialization
+        FillValidExtensionsList();
+
         Debug.Assert(fileInfo.DirectoryName != null, "fileInfo.DirectoryName != null");
         string data = File.ReadAllText(fileInfo.FullName);
         string extension = fileInfo.Extension;

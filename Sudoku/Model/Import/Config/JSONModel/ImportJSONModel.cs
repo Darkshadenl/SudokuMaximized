@@ -8,6 +8,6 @@ namespace Sudoku.Model.Import.Config.JSONModel
 {
     public class ImportJSONModel
     {
-        public string[] extensions { get; set; }
+        public string[] validExtensions { get; set; }
     }
 }
