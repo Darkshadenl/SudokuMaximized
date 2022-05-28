@@ -44,11 +44,12 @@ public class ImportController
 
     private BoardFile StartImport()
     {
-        var regular = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.9x9";
-        var jigsaw = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.jigsaw";
-        var samurai = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.samurai";
-        var four = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.4x4";
-        var six = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle2.6x6";
+        // THIS IS ONLY FOR TEMP SOLUTION ....
+        var regular = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.9x9";
+        var jigsaw = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.jigsaw";
+        var samurai = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.samurai";
+        var four = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.4x4";
+        var six = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle2.6x6";
 
         _view.ShowWelcome();
         // var fileInfo = _view.HandleImportUserInput();   // TODO uncomment
