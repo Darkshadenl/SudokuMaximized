@@ -1,6 +1,6 @@
 ﻿using GenerateLib.Viewable;
 
-namespace GenerateLib.DrawingAlgsConsole;
+namespace GenerateLib.Visitors.DrawingAlgsConsole;
 
 public class DefinitiveDraw : IDraw
 {
@@ -46,7 +46,6 @@ public class DefinitiveDraw : IDraw
                 Console.ForegroundColor = ConsoleColor.Red;
                 if (board[index].Value == 0) Console.Write(" _ ");
                 else Console.Write($" {boardValue} ");
-                ;
                 Console.ResetColor();
             }
             else

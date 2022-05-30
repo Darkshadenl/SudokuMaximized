@@ -44,7 +44,7 @@ public class ImportController
 
     private BoardFile StartImport()
     {
-        // THIS IS ONLY FOR TEMP SOLUTION ....
+        // THIS IS ONLY FOR TEMP SOLUTION .... TODO remove after testing
         var regular = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.9x9";
         var jigsaw = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.jigsaw";
         var samurai = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.samurai";

@@ -1,15 +1,12 @@
-﻿using GenerateLib.Components;
-using GenerateLib.Helpers;
-using Sudoku.Command;
-using Sudoku.Model.Game;
+﻿using Sudoku.Model.Game;
 
-namespace Sudoku.State;
+namespace Sudoku.Command.States;
 
 public class DefinitiveState : IState
 {
     private readonly Game _game;
     private readonly Dictionary<ConsoleKey, int> _availableKeys;
-    public States State { get; set; } = States.Definitive;
+    public GenerateLib.Helpers.States State { get; set; } = GenerateLib.Helpers.States.Definitive;
 
     public DefinitiveState(Game game, Dictionary<ConsoleKey, int> availableKeys)
     {

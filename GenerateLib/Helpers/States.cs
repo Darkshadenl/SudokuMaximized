@@ -3,5 +3,6 @@
 public enum States
 {
     Definitive,
-    Help
+    Help,
+    Cheat
 }
