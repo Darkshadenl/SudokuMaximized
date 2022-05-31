@@ -4,17 +4,20 @@ namespace GenerateLib.Visitors.DrawingAlgsConsole;
 
 public class DefinitiveDraw : IDraw
 {
+
+    private Dictionary<int, string> lines = new()
+    {
+        {6, "----------------------"},
+        {9, "-------------------------------"},
+        {4, "---------------"},
+    };
+
     public void DrawRegularBoard(int size, List<IViewable> board)
     {
         var verC = 0;
         var squareSize = (int) Math.Sqrt(size);
 
-        var set = new Dictionary<int, string>();
-        set.Add(6, "----------------------");
-        set.Add(9, "-------------------------------");
-        set.Add(4, "---------------");
-
-        var horizontalLine = set.First(e => e.Key == size).Value;
+        var horizontalLine = lines.First(e => e.Key == size).Value;
 
         Console.WriteLine(horizontalLine);
 
