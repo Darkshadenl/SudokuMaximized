@@ -6,8 +6,8 @@ public class HelpDraw : IDraw
 {
     public HelpDraw()
     {
-        Console.SetWindowSize(99, 99);
-        Console.SetBufferSize(200, 680);
+        Console.SetWindowSize(80, 50);
+        Console.SetBufferSize(150, 150);
     }
     
     private Dictionary<int, string> lines = new()
