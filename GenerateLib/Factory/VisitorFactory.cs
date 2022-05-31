@@ -1,4 +1,4 @@
-﻿using GenerateLib.Factory.Config.JSONModel;
+﻿using GenerateLib.Config.Factory.JSONModel;
 using GenerateLib.Interpreters;
 using GenerateLib.Visitors;
 using Newtonsoft.Json;
@@ -12,7 +12,7 @@ public class VisitorFactory : IVisitorFactory
     public VisitorFactory()
     {
         var json = File.ReadAllText(Environment.GetEnvironmentVariable("VISITORCONFIG") ?? 
-                                    "./Factory/Config/VisitorFactoryConfiguration.json");
+                                    "./Config/Factory/VisitorFactoryConfiguration.json");
         
         var deserializeObject = JsonConvert.DeserializeObject<VisitorJSONModel>(json);
         

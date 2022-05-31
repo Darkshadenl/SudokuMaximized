@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using GenerateLib.Config.ImportHandler.JSONModel;
 using GenerateLib.Import;
-using Generating.Import;
 using Newtonsoft.Json;
-using Sudoku.Model.Import.Config.JSONModel;
 
 namespace Sudoku.Model.Import;
 
@@ -16,21 +15,22 @@ public class ImportHandler
         try
         {
             var json = File.ReadAllText(Environment.GetEnvironmentVariable("IMPORTVALIDEXTENSIONCONFIG") ??
-            "./Factory/Config/ImportValidFileExtensionConfiguration.json");
+            "./Config/ImportHandler/ImportValidFileExtensionConfiguration.json");
 
             var res = JsonConvert.DeserializeObject<ImportJSONModel>(json);
 
             _validExtensions = new string[res.validExtensions.Count()];
 
-            for(int x  = 0; x < res.validExtensions.Count();x++)
+            for(int i = 0; i < res.validExtensions.Count(); i++)
             {
-                _validExtensions[x] = res.validExtensions[x];
+                _validExtensions[i] = res.validExtensions[i].extension;
             }
         }
         catch (Exception e)
         {
             Console.WriteLine("Valid file extension list could not be loaded");
             Console.WriteLine(e);
+            return;
         }
     }
 

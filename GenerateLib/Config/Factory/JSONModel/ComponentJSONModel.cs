@@ -1,4 +1,4 @@
-﻿namespace GenerateLib.Factory.Config.JSONModel;
+﻿namespace GenerateLib.Config.Factory.JSONModel;
 
 public class ComponentJSONModel
 {
