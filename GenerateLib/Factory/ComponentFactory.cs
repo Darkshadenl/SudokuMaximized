@@ -1,4 +1,4 @@
-﻿using GenerateLib.Factory.Config.JSONModel;
+﻿using GenerateLib.Config.Factory.JSONModel;
 using Newtonsoft.Json;
 
 namespace GenerateLib.Factory;
@@ -10,7 +10,7 @@ public class ComponentFactory : IComponentFactory
     public ComponentFactory()
     {
         var json = File.ReadAllText(Environment.GetEnvironmentVariable("COMPONENTCONFIG") ?? 
-                                    "./Factory/Config/ComponentFactoryConfiguration.json");
+                                    "./Config/Factory/ComponentFactoryConfiguration.json");
         
         var deserializeObject = JsonConvert.DeserializeObject<ComponentJSONModel>(json);
         foreach (var component in deserializeObject.components)
