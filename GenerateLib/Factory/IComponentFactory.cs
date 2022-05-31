@@ -1,4 +1,4 @@
-﻿using GenerateLib.Factory.Config.JSONModel;
+﻿using GenerateLib.Config.Factory.JSONModel;
 
 namespace GenerateLib.Factory;
 

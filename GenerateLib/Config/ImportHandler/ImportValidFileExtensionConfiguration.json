@@ -1,0 +1,19 @@
+{
+  "validExtensions": [
+    {
+      "extension": ".4x4"
+    },
+    {
+      "extension": ".6x6"
+    },
+    {
+      "extension": ".9x9"
+    },
+    {
+      "extension": ".jigsaw"
+    },
+    {
+      "extension": ".samurai"
+    }
+  ]
+}
