@@ -396,9 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
-# allows config files to be added again
-!/Sudoku/bin/Debug/net6.0/Factory/Config/
-!**/Sudoku/bin/Debug/net6.0/Factory/Config/*
-!/GenerateLib/bin/Debug/net6.0/Factory/Config/
-!**/GenerateLib/bin/Debug/net6.0/Factory/Config/*
