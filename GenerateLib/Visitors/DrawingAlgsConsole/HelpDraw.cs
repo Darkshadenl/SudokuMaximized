@@ -116,8 +116,6 @@ public class HelpDraw : IDraw
                 baseRow += 3;
             }
         }
-
-        var t = 't';
     }
 
     private void ConfigureVarsBasedOnOddEven(int size, out int squareHeight, 
