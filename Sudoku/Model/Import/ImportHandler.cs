@@ -10,6 +10,12 @@ public class ImportHandler
 {
     private string[] _validExtensions;
 
+
+    public ImportHandler()
+    {
+        FillValidExtensionsList();
+    }
+
     private void FillValidExtensionsList()
     {
         try
@@ -37,17 +43,16 @@ public class ImportHandler
 
     public BoardFile ImportFromPath(FileInfo fileInfo)
     {
-        // fills list of valid extensions on initialization
-        FillValidExtensionsList();
-
         Debug.Assert(fileInfo.DirectoryName != null, "fileInfo.DirectoryName != null");
         string data = File.ReadAllText(fileInfo.FullName);
         string extension = fileInfo.Extension;
 
-        if (ValidExtension(extension))
-        {
-            return new BoardFile(data, extension);
-        }
+        // if (ValidExtension(extension)) TODO UNCOMMENT
+        // {
+        //     return new BoardFile(data, extension);
+        // }
+        
+        return new BoardFile(data, extension);
 
         var sb = new StringBuilder("Wrong file. Accepted extensions are");
 

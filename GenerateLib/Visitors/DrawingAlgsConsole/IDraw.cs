@@ -1,6 +1,6 @@
 ﻿using GenerateLib.Viewable;
 
-namespace GenerateLib.DrawingAlgsConsole;
+namespace GenerateLib.Visitors.DrawingAlgsConsole;
 
 public interface IDraw
 {

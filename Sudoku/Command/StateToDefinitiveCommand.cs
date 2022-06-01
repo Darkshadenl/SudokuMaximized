@@ -1,5 +1,5 @@
-﻿using Sudoku.Model.Game;
-using Sudoku.State;
+﻿using Sudoku.Command.States;
+using Sudoku.Model.Game;
 
 namespace Sudoku.Command;
 

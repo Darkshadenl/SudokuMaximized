@@ -1,6 +1,6 @@
-﻿using GenerateLib.DrawingAlgsConsole;
-using GenerateLib.Helpers;
+﻿using GenerateLib.Helpers;
 using GenerateLib.Viewable;
+using GenerateLib.Visitors.DrawingAlgsConsole;
 
 namespace GenerateLib.Visitors;
 
@@ -12,7 +12,7 @@ public class ConsoleVisitor : IPrintBoardVisitor
 
     public void Draw(IViewData viewData, BoardTypes type)
     {
-        DrawStatic(viewData.State);
+        DrawStatic(viewData.State); 
         PreBoardDraw(viewData.PreBoardMessages);
 
         switch (viewData.State)
@@ -23,6 +23,8 @@ public class ConsoleVisitor : IPrintBoardVisitor
             case States.Help:
                 DrawHelp(type, viewData.Viewables);
                 break;
+            case States.Cheat:
+                throw new NotImplementedException(); // TODO add cheat mode
             default:
                 throw new ArgumentException("Invalid state");
         }

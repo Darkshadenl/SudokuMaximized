@@ -38,7 +38,7 @@ public class HelpSelectCommand : ICommand
                 } else if (contains)
                 {
                     // If same, remove.
-                    _game.Board.Cursor.PossibleValues.Add(0);
+                    _game.Board.Cursor.PossibleValues.Remove(val);
                 }
             }
         }
