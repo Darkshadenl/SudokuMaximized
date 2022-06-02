@@ -17,23 +17,20 @@ public class ImportView : IImportView
         Console.WriteLine("Welcome to the Sudoku importer!");
     }
 
-    public FileInfo HandleImportUserInput(string[] availableFiles)
+    public FileInfo HandleImportUserInput(string[] availableFiles, string[] extensions)
     {
         FileInfo fileInfo = null;
 
         while (fileInfo == null)
         {
-            Console.WriteLine("\nAvailable sudoku files: ");
-            // prints all files avaiable
-            for (int i = 0; i < availableFiles.Count(); i++)
-            {
-                Console.Write(availableFiles[i] + " ");
-            }
+            // prints available sudoku files
+            PrintAvailableSudokuFiles(availableFiles);
 
-            Console.WriteLine("\n\nPlease enter the sudoku file (with extension) or full path you wish to import.");
-            Console.WriteLine("Accepted file extensions: .4x4, .6.6, .9.9, .jigsaw, .samurai");
+            Console.WriteLine("\nPlease enter the sudoku file (with extension) or full path you wish to import.");
 
-            Console.Write("User input: ");
+            // prints allowed extensions
+            PrintAllowedExtensions(extensions);
+
             var filePath = @"" + Console.ReadLine();
 
             // if chosen file is from the available list then ...
@@ -49,5 +46,47 @@ public class ImportView : IImportView
         }
 
         return fileInfo;
+    }
+
+    private void PrintAvailableSudokuFiles(string[] availableFiles)
+    {
+        Console.WriteLine("\nAvailable sudoku files: ");
+
+        // prints all sudoku files available
+        for (int i = 0; i < availableFiles.Count(); i++)
+        {
+            if (i != availableFiles.Count() - 1)
+            {
+                // enters every 3 items so sudokufiles doesnt go offscreeeeeeeen
+                if (i % 3 == 2)
+                {
+                    Console.WriteLine(availableFiles[i] + ", ");
+                }
+                else
+                {
+                    Console.Write(availableFiles[i] + ", ");
+                }
+            }
+            else
+            {
+                Console.Write(availableFiles[i] + "\n");
+            }
+        }
+    }
+
+    private void PrintAllowedExtensions(string[] extensions)
+    {
+        Console.Write("Allowed file extensions: ");
+        for (int x = 0; x < extensions.Count(); x++)
+        {
+            if (x != extensions.Count() - 1)
+            {
+                Console.Write(extensions[x] + ", ");
+            }
+            else
+            {
+                Console.Write(extensions[x] + "\n\n");
+            }
+        }
     }
 }
