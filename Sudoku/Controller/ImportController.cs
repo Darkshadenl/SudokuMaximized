@@ -44,7 +44,7 @@ public class ImportController
         _view.ShowWelcome();
 
         // import file from user input
-        var fileInfo = _view.HandleImportUserInput(_importHandler.GetAvailableImportableFiles());
+        var fileInfo = _view.HandleImportUserInput(_importHandler.GetAvailableImportableFiles(), _importHandler.GetValidExtensions());
         
         BoardFile boardFile;
         try
