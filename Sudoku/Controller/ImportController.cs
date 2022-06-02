@@ -13,6 +13,7 @@ public class ImportController
 {
     private readonly ImportView _view;
     private readonly ImportHandler _importHandler;
+    // wat wil je hiermee?
     // private readonly IBoardInterpreterFactory _boardInterpreterFactory;
     private readonly IInterpreter _interpreter;
 
@@ -20,6 +21,7 @@ public class ImportController
     {
         _view = view;
         _importHandler = importHandler;
+        // wat wil je hiermee?
         // _boardInterpreterFactory = boardInterpreterFactory;
         _interpreter = interpreter;
         _view.SetController(this);
@@ -38,23 +40,17 @@ public class ImportController
 
     private AbstractBoard Interpret(BoardFile boardFile)
     {
-        // var factory = _boardInterpreterFactory.Create(boardFile.Extension);
+        // wat wil je hiermee?
+        // var factory = _boardInterpreterFactory.Create(boardFile.Extension); 
         return _interpreter.Interpret(boardFile);
     }
 
     private BoardFile StartImport()
     {
-        // THIS IS ONLY FOR TEMP SOLUTION .... TODO remove after testing
-        var regular = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.9x9";
-        var jigsaw = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.jigsaw";
-        var samurai = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.samurai";
-        var four = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle.4x4";
-        var six = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle2.6x6";
-
         _view.ShowWelcome();
-        var fileInfo = _view.HandleImportUserInput();   // TODO uncomment
-        // var fileInfo =
-        //     new FileInfo(regular);
+
+        // import file from user input
+        var fileInfo = _view.HandleImportUserInput(_importHandler.GetAvailableImportableFiles());
         
         BoardFile boardFile;
         try
@@ -69,5 +65,4 @@ public class ImportController
 
         return boardFile;
     }
-    
 }
