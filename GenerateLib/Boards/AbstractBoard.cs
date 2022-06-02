@@ -8,7 +8,7 @@ namespace GenerateLib.Boards;
 
 public abstract class AbstractBoard
 {
-    protected Component SudokuBoard;
+    public Component SudokuBoard { get; set; }
     public BoardTypes Type { get; set; }
     public ISolver Solver { get; set; }
     public int Columns { get; set; }

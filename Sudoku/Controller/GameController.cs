@@ -1,4 +1,5 @@
 ﻿using GenerateLib.Boards;
+using GenerateLib.Components;
 using GenerateLib.Factory;
 using GenerateLib.Helpers;
 using GenerateLib.Viewable;
@@ -30,7 +31,7 @@ public class GameController
 
         Console.WriteLine("Starting your Sudoku game. Press ESC to quit the game.");
         _boardView.BoardType = _game.BoardType;
-        
+
         ReDraw();
 
         do
@@ -59,6 +60,9 @@ public class GameController
                     case ConsoleKey.Enter:
                         _game.Select.Execute();
                         break;
+                    case ConsoleKey.Spacebar:
+                        _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
+                        break;
                 }
                 
                 ReDraw();
@@ -69,6 +73,14 @@ public class GameController
     public void ReDraw(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
     {
         var viewData = new ViewData(_game.GetViewableData(), _game.State.State,
+            pre, post);
+        
+        _boardView.DrawBoard(viewData);
+    }
+    
+    public void ReDraw(List<IViewable> viewables, List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
+    {
+        var viewData = new ViewData(viewables, _game.State.State,
             pre, post);
         
         _boardView.DrawBoard(viewData);

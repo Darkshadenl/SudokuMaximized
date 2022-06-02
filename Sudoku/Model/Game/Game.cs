@@ -10,7 +10,7 @@ namespace Sudoku.Model.Game;
 
 public class Game
 {
-    private readonly ISolver _solver;
+    public ISolver Solver { get; }
     public BoardTypes BoardType => Board.Type;
 
     private AbstractBoard? _board; 
@@ -21,7 +21,7 @@ public class Game
         {
             if (_board != null) return;
             _board = value;
-            _board.Solver = _solver;
+            _board.Solver = Solver;
         }
     }
 
@@ -48,9 +48,8 @@ public class Game
     };
     public Game(ISolver solver)
     {
-        _solver = solver;
-        // TODO make definitive again
-        State = new HelpState(this, _availableKeys);
+        Solver = solver;
+        State = new DefinitiveState(this, _availableKeys);
     }
 
     public void AddMessages(ISimpleViewMessage message)
