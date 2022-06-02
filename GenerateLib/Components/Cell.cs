@@ -31,7 +31,7 @@ public class Cell : Component
         Console.Write($" {Value} ");
     }
 
-    public override Cell? GetCursor()
+    public Cell? GetCursor()
     {
         if (IsCursor)
             return this;
