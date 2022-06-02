@@ -34,50 +34,7 @@ public class Board : AbstractBoard
         else squareHeight = SquareLength;
 
         // Build
-        #region OldBuild
 
-        // for (int y = 0; y < Rows; y++)
-        // {
-        //     var row = rowsAndCols[y];
-        //     
-        //     for (int x = 0; x < Columns; x++)
-        //     {
-        //         if (x % SquareLength == 0 && x != 0)
-        //             squareNr++;
-        //         
-        //         var activeSquare = squares[squareNr];
-        //         int value = data[y][x];
-        //         var columnX = x;
-        //         var rowY = y;
-        //         var cell = new Cell(value, columnX, rowY, value > 0);
-        //
-        //         if (x == StartCursorX && y == StartCursorY)
-        //         {
-        //             cell.IsCursor = true;
-        //             Cursor = cell;
-        //             row.HasCursor = true;
-        //             var column = row.SetColHasCursor((int) StartCursorX);
-        //             sudokuBoard.CursorColumn = column;
-        //             sudokuBoard.CursorRow = row;
-        //             sudokuBoard.CursorSquare = activeSquare;
-        //             activeSquare.HasCursor = true;
-        //         }
-        //         activeSquare.Add(cell);
-        //         row.AddCellToCol(cell);
-        //     }
-        //     if ((y + 1) % SquareLength == 0 && y != 0)
-        //     {
-        //         startSquareNr += (int) SquareLength;
-        //         squareNr = startSquareNr;
-        //     }
-        //     else
-        //     {
-        //         squareNr = startSquareNr;
-        //     }
-        // }
-
-        #endregion
-        
         for (int j = 0; j < Rows; j++)
         {
             var rowY = j;
@@ -100,13 +57,6 @@ public class Board : AbstractBoard
                 {
                     Cursor = cell;
                     cell.IsCursor = true;
-                    col.HasCursor = true;
-                    row.HasCursor = true;
-                    activeSquare.HasCursor = true;
-                    
-                    //             sudokuBoard.CursorColumn = column;
-                    //             sudokuBoard.CursorRow = row;
-                    //             sudokuBoard.CursorSquare = activeSquare;
                 }
         
                 col.Add(cell);
@@ -127,24 +77,10 @@ public class Board : AbstractBoard
             {
                 squareNr = startSquareNr;
             }
-            
         }
         
         // merge
-        #region OldMerge
 
-        // foreach (var s in squares)
-        // {
-        //     sudokuBoard.Add(s);
-        // }
-        //
-        // foreach (var row in rowsAndCols)
-        // {
-        //     SudokuBoard.Add(row);
-        // }
-
-        #endregion
-        
         foreach (var column in cols)
         {
             SudokuBoard.Add(column);

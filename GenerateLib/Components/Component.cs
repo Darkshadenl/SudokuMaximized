@@ -12,7 +12,6 @@ public abstract class Component : IViewable
     protected List<Component> Components = new ();
     public int X { get; set; }
     public int Y { get; set; }
-    public bool HasCursor { get; set; }
 
     public virtual void Add(Component c)
     {
