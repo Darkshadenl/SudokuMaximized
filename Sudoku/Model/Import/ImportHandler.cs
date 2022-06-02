@@ -9,11 +9,14 @@ namespace Sudoku.Model.Import;
 public class ImportHandler
 {
     private string[] _validExtensions;
-
+    private string[] _availableImportableFiles;
+    private string filePath;
 
     public ImportHandler()
     {
+        filePath = "Resources\\Sudoku-files\\"; // its hardcoded filepath is that ok?
         FillValidExtensionsList();
+        FillAvailableFilesList();
     }
 
     private void FillValidExtensionsList()
@@ -40,17 +43,45 @@ public class ImportHandler
         }
     }
 
+    private void FillAvailableFilesList()
+    {
+        try
+        {
+            // checks if path exists + dir has any files
+            if (Directory.Exists(filePath) && Directory.GetFiles(filePath).Any())
+            {
+                // puts allowed files (with valid ext) in arr
+                var allowedFiles = Directory.GetFiles(filePath).Where(file => ValidExtension(Path.GetExtension(file))).ToArray();
+
+                // initializes arr with amount of files that are allowed
+                _availableImportableFiles = new string[allowedFiles.Count()];
+
+                for (int i = 0; i < allowedFiles.Count(); i++)
+                {
+                    _availableImportableFiles[i] = Path.GetFileName(allowedFiles[i]);
+                }
+            }
+            else
+            {
+                // if folder exists but has no files
+                _availableImportableFiles = new string[1];
+                _availableImportableFiles[0] = "No available sudoku files found!";
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Sudoku file folder can't be found.");
+            Console.WriteLine(e);
+            return;
+        }
+    }
+
 
     public BoardFile ImportFromPath(FileInfo fileInfo)
     {
         Debug.Assert(fileInfo.DirectoryName != null, "fileInfo.DirectoryName != null");
         string data = File.ReadAllText(fileInfo.FullName);
         string extension = fileInfo.Extension;
-
-        // if (ValidExtension(extension)) TODO UNCOMMENT
-        // {
-        //     return new BoardFile(data, extension);
-        // }
         
         return new BoardFile(data, extension);
 
@@ -69,8 +100,13 @@ public class ImportHandler
         throw new InvalidDataException(sb.ToString());
     }
 
-    private bool ValidExtension(string extension)
+    public bool ValidExtension(string extension)
     {
         return _validExtensions.Contains(extension);
+    }
+
+    public string[] GetAvailableImportableFiles()
+    {
+        return _availableImportableFiles;
     }
 }
