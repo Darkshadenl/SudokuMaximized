@@ -82,7 +82,12 @@ public class ImportHandler
         Debug.Assert(fileInfo.DirectoryName != null, "fileInfo.DirectoryName != null");
         string data = File.ReadAllText(fileInfo.FullName);
         string extension = fileInfo.Extension;
-        
+
+        if (ValidExtension(extension))
+        {
+            return new BoardFile(data, extension);
+        }
+
         return new BoardFile(data, extension);
 
         var sb = new StringBuilder("Wrong file. Accepted extensions are");
