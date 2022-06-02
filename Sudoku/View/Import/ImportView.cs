@@ -35,7 +35,6 @@ public class ImportView : IImportView
 
             Console.Write("User input: ");
             var filePath = @"" + Console.ReadLine();
-            filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.9x9";
 
             // if chosen file is from the available list then ...
             if (availableFiles.Contains(filePath))
