@@ -33,6 +33,9 @@ public class ImportView : IImportView
 
             var filePath = @"" + Console.ReadLine();
 
+            // removal of any whitespaces 
+            filePath.Trim();
+
             // if chosen file is from the available list then ...
             if (availableFiles.Contains(filePath))
             {
