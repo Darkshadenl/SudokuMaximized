@@ -54,7 +54,7 @@ public class ImportController
         _view.ShowWelcome();
         // var fileInfo = _view.HandleImportUserInput();   // TODO uncomment
         var fileInfo =
-            new FileInfo(four);
+            new FileInfo(regular);
         
         BoardFile boardFile;
         try
