@@ -13,14 +13,12 @@ public class ImportController
 {
     private readonly ImportView _view;
     private readonly ImportHandler _importHandler;
-    // private readonly IBoardInterpreterFactory _boardInterpreterFactory;
     private readonly IInterpreter _interpreter;
 
     public ImportController(ImportView view, ImportHandler importHandler, IInterpreter interpreter)
     {
         _view = view;
         _importHandler = importHandler;
-        // _boardInterpreterFactory = boardInterpreterFactory;
         _interpreter = interpreter;
         _view.SetController(this);
     }
@@ -38,7 +36,6 @@ public class ImportController
 
     private AbstractBoard Interpret(BoardFile boardFile)
     {
-        // var factory = _boardInterpreterFactory.Create(boardFile.Extension); 
         return _interpreter.Interpret(boardFile);
     }
 
