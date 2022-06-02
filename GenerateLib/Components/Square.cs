@@ -9,9 +9,4 @@ public class Square : Component
         // X = coordinateX;
         // Y = coordinateY;
     }
-
-    public override Cell? GetCursor()
-    {
-        return Components.FirstOrDefault(c => c.IsCursor) as Cell;
-    }
 }
