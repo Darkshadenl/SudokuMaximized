@@ -11,17 +11,17 @@ public abstract class AbstractBoard
     protected Component SudokuBoard;
     public BoardTypes Type { get; set; }
     public ISolver Solver { get; set; }
-    public int? Columns { get; set; }
-    public int? Rows { get; set; }
-    public int? Squares { get; set; }
-    public int? SquareLength { get; set; }
-    public int? StartCursorX { get; set; }
-    public int? StartCursorY { get; set; }
+    public int Columns { get; set; }
+    public int Rows { get; set; }
+    public int Squares { get; set; }
+    public int SquareLength { get; set; }
+    public int StartCursorX { get; set; }
+    public int StartCursorY { get; set; }
     public Cell Cursor { get; set; }
     
     public List<IViewable> GetViewables()
     {
-        return SudokuBoard.GetAllDataAsViewable((int) Rows!, (int) Squares!, (int) Columns!);
+        return SudokuBoard.GetAllDataAsViewable(Rows, Squares, Columns);
     }
 
     public virtual AbstractBoard CreateBoardBuild(BoardFile boardFile)

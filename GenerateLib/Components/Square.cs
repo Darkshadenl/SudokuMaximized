@@ -2,10 +2,12 @@
 
 public class Square : Component
 {
-    public Square(int coordinateX, int coordinateY)
+    public int Id { get; set; }
+    public Square(int id)
     {
-        X = coordinateX;
-        Y = coordinateY;
+        Id = id;
+        // X = coordinateX;
+        // Y = coordinateY;
     }
 
     public override Cell? GetCursor()

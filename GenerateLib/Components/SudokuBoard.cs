@@ -7,10 +7,6 @@ public class SudokuBoard : Component
     public int BoardHeight { get; set; }
     public int BoardWidth { get; set; }
 
-    public Component? CursorRow { get; set; }
-    public Component? CursorColumn { get; set; }
-    public Component? CursorSquare { get; set; }
-
     public override Cell? FindEmptyCell()
     {
         foreach (var component in Components)
@@ -44,15 +40,15 @@ public class SudokuBoard : Component
         }
     }
 
-    private void FindCursorRowColSquare()
-    {
-        if (CursorRow != null || CursorColumn != null) return;
-        
-        CursorRow = Components.First(e => e is Row {HasCursor: true});
-        var row = CursorRow as Row;
-        CursorColumn = row!.GetCursorCol();
-        CursorSquare = Components.First(s => s is Square {HasCursor: true});
-    }
+    // private void FindCursorRowColSquare()
+    // {
+    //     if (CursorRow != null || CursorColumn != null) return;
+    //     
+    //     CursorRow = Components.First(e => e is Row {HasCursor: true});
+    //     var row = CursorRow as Row;
+    //     CursorColumn = row!.GetCursorCol();
+    //     CursorSquare = Components.First(s => s is Square {HasCursor: true});
+    // }
 
     private void UpdateSquareAfterMove()
     {
