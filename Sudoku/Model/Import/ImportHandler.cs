@@ -51,7 +51,7 @@ public class ImportHandler
             if (Directory.Exists(filePath) && Directory.GetFiles(filePath).Any())
             {
                 // puts allowed files (with valid ext) in arr
-                var allowedFiles = Directory.GetFiles(filePath).Where(file => ValidExtension(Path.GetExtension(file))).ToArray();
+                var allowedFiles = Directory.GetFiles(filePath).Where(file => IsValidExtension(Path.GetExtension(file))).ToArray();
 
                 // initializes arr with amount of files that are allowed
                 _availableImportableFiles = new string[allowedFiles.Count()];
@@ -84,7 +84,7 @@ public class ImportHandler
         string data = File.ReadAllText(fileInfo.FullName);
         string extension = fileInfo.Extension;
 
-        if (ValidExtension(extension))
+        if (IsValidExtension(extension))
         {
             return new BoardFile(data, extension);
         }
@@ -106,9 +106,14 @@ public class ImportHandler
         throw new InvalidDataException(sb.ToString());
     }
 
-    public bool ValidExtension(string extension)
+    public bool IsValidExtension(string extension)
     {
         return _validExtensions.Contains(extension);
+    }
+
+    public string[] GetValidExtensions()
+    {
+        return _validExtensions;
     }
 
     public string[] GetAvailableImportableFiles()
