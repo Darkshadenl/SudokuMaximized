@@ -4,19 +4,25 @@ namespace Sudoku.Controller;
 
 public class MainController
 {
-    private readonly GameController _gameController;
-    private readonly MenuController _menuController;
-    private readonly ImportController _importController;
+    public GameController GameController { get; }
+    public MenuController MenuController { get; }
+    public ImportController ImportController { get; }
 
     public MainController(GameController gameController,
-        MenuController menuController, ImportController importController) => 
-    (_gameController, _menuController, _importController) =
+        MenuController menuController, ImportController importController)
+    {
+        (GameController, MenuController, ImportController) =
             (gameController, menuController, importController);
+        GameController.Controller = this;
+        MenuController.Controller = this;
+        ImportController.Controller = this;
+    } 
+    
 
 
     public void Run()
     {
-        var board = _importController.RunImport();
-        _gameController.RunGame(board);
+        var board = ImportController.RunImport();
+        GameController.RunGame(board);
     }
 }

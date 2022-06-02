@@ -27,6 +27,8 @@ public class ImportController
         _view.SetController(this);
     }
 
+    public MainController Controller { get; set; }
+
     public AbstractBoard RunImport()
     {
         BoardFile import = StartImport();

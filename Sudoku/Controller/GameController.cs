@@ -13,6 +13,7 @@ public class GameController
     private readonly Game _game;
     private readonly IBoardView _boardView;
     private readonly IVisitorFactory _visitorFactory;
+    public MainController Controller { get; set; }
 
     public GameController(Game game, IBoardView view, IVisitorFactory visitorFactory)
     {
@@ -22,6 +23,7 @@ public class GameController
         _visitorFactory = visitorFactory;
         _boardView.Controller(this);
     }
+
 
     public void RunGame(AbstractBoard board)
     {
@@ -62,6 +64,8 @@ public class GameController
                         break;
                     case ConsoleKey.Spacebar:
                         _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
+                        ReDraw();
+                        RequestNewGame();
                         break;
                 }
                 
@@ -70,17 +74,34 @@ public class GameController
         } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
     }
 
+    private void RequestNewGame()
+    {
+        ConsoleKey yesOrNo = 0;
+        ConsoleKeyInfo keyPressed;
+        do
+        {
+            Console.WriteLine("Would you like to start a new game? (y/n)");
+            keyPressed = Console.ReadKey(true);
+
+            if (keyPressed.Key == ConsoleKey.Y)
+            {
+                break;
+            }
+
+            if (keyPressed.Key == ConsoleKey.N)
+            {
+                Console.WriteLine("Thank you for playing!");
+                yesOrNo = ConsoleKey.N;
+                Environment.Exit(0);
+            }
+        } while (yesOrNo != ConsoleKey.Y || yesOrNo != ConsoleKey.N);
+        _game.Reset();
+        Controller.ImportController.RunImport();
+    }
+
     public void ReDraw(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
     {
         var viewData = new ViewData(_game.GetViewableData(), _game.State.State,
-            pre, post);
-        
-        _boardView.DrawBoard(viewData);
-    }
-    
-    public void ReDraw(List<IViewable> viewables, List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
-    {
-        var viewData = new ViewData(viewables, _game.State.State,
             pre, post);
         
         _boardView.DrawBoard(viewData);

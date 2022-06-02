@@ -77,4 +77,8 @@ public class Game
         return Board.GetViewables();
     }
 
+    public void Reset()
+    {
+        _board = null;
+    }
 }
