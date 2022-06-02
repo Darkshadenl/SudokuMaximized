@@ -16,20 +16,20 @@ public class BoardFile : IBoardFile
     // <summary>
     // boardsize is either x or y size of board.
     // </summary>
-    public int[][] ConvertData(int boardSize)
+    public int[][] ConvertData(int columns, int rows)
     {
-        var dataArray = new int[boardSize][];
+        var dataArray = new int[rows][];
         int rowNumber = -1;
         
         for (int i = 0; i < Data.Length; i++)
         {
-            if (i % boardSize == 0)
+            if (i % rows == 0)
             {
                 rowNumber++;
-                dataArray[rowNumber] = new int[9];
+                dataArray[rowNumber] = new int[columns];
             }
             char c = Data[i];
-            dataArray[rowNumber][i%9] = int.Parse(c.ToString()); 
+            dataArray[rowNumber][i%columns] = int.Parse(c.ToString()); 
         }
 
         return dataArray;
