@@ -21,12 +21,12 @@ public class GameController
         _game.Controller = this;
         _boardView = view;
         _visitorFactory = visitorFactory;
-        _boardView.Controller(this);
     }
 
 
-    public void RunGame(AbstractBoard board)
+    public bool RunGame(AbstractBoard board)
     {
+        var gameOver = false;
         _game.Board = board;
 
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
@@ -64,39 +64,37 @@ public class GameController
                         break;
                     case ConsoleKey.Spacebar:
                         _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
-                        ReDraw();
-                        RequestNewGame();
+                        gameOver = true;
                         break;
                 }
                 
                 ReDraw();
+                
+                if (gameOver) break;
             }
+            if (gameOver) break;
         } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+        
+        return RequestNewGame();
     }
 
-    private void RequestNewGame()
+    private bool RequestNewGame()
     {
-        ConsoleKey yesOrNo = 0;
         ConsoleKeyInfo keyPressed;
         do
         {
-            Console.WriteLine("Would you like to start a new game? (y/n)");
+            _boardView.StartNewGameMessage();
             keyPressed = Console.ReadKey(true);
 
             if (keyPressed.Key == ConsoleKey.Y)
-            {
-                break;
-            }
+                return true;
 
             if (keyPressed.Key == ConsoleKey.N)
             {
-                Console.WriteLine("Thank you for playing!");
-                yesOrNo = ConsoleKey.N;
-                Environment.Exit(0);
+                _boardView.EndGameMessage();
+                return false;
             }
-        } while (yesOrNo != ConsoleKey.Y || yesOrNo != ConsoleKey.N);
-        _game.Reset();
-        Controller.ImportController.RunImport();
+        } while (true);
     }
 
     public void ReDraw(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)

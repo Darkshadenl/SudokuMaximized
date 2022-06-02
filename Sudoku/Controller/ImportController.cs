@@ -34,9 +34,8 @@ public class ImportController
         BoardFile import = StartImport();
 
         while (import == null)
-        {
             import = StartImport();
-        }
+        
         return Interpret(import);
     }
 

@@ -8,18 +8,22 @@ namespace Sudoku.View.Game;
 public class GameView : IBoardView
 {
     private IPrintBoardVisitor _visitor;
-    private GameController _controller;
     public BoardTypes BoardType { get; set; } = BoardTypes.nine;
-    
-    public void Controller(GameController controller)
-    {
-        _controller = controller;
-    }
 
     public void DrawBoard(IViewData viewData)
     {
         Console.Clear();
         _visitor.Draw(viewData, BoardType);
+    }
+
+    public void StartNewGameMessage()
+    {
+        Console.WriteLine("Would you like to start a new game? (y/n)");
+    }
+
+    public void EndGameMessage()
+    {
+        Console.WriteLine("Thank you for playing!");
     }
 
     public void Accept(IPrintBoardVisitor visitor)

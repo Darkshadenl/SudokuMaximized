@@ -19,7 +19,6 @@ public class Game
         get => _board!;
         set
         {
-            if (_board != null) return;
             _board = value;
             _board.Solver = Solver;
         }

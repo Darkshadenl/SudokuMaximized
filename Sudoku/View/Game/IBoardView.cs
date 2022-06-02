@@ -7,10 +7,11 @@ namespace Sudoku.View.Game;
 
 public interface IBoardView
 {
-    void Controller(GameController controller);
-
     void DrawBoard(IViewData viewData);
 
     void Accept(IPrintBoardVisitor visitor);
     BoardTypes BoardType { get; set; }
+    
+    void StartNewGameMessage();
+    void EndGameMessage();
 }

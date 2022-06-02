@@ -13,16 +13,24 @@ public class MainController
     {
         (GameController, MenuController, ImportController) =
             (gameController, menuController, importController);
+        
         GameController.Controller = this;
         MenuController.Controller = this;
         ImportController.Controller = this;
     } 
     
-
-
     public void Run()
     {
         var board = ImportController.RunImport();
-        GameController.RunGame(board);
+        var startNewGame = GameController.RunGame(board);
+
+        while (startNewGame)
+        {
+            
+            board = ImportController.RunImport();
+            startNewGame = GameController.RunGame(board);
+        }
+        
+        Environment.Exit(0);
     }
 }
