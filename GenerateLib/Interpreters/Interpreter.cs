@@ -8,7 +8,12 @@ public class Interpreter : IInterpreter
 {
     private readonly BoardBuildDirector _director;
     private readonly BoardBuilder _boardBuilder;
-
+    public Interpreter(BoardBuildDirector director, BoardBuilder boardBuilder)
+    {
+        _director = director;
+        _boardBuilder = boardBuilder;
+    }
+    
     public AbstractBoard Interpret(BoardFile boardFile)
     {
         switch (boardFile.Extension)
@@ -34,9 +39,5 @@ public class Interpreter : IInterpreter
         }
     }
 
-    public Interpreter(BoardBuildDirector director, BoardBuilder boardBuilder)
-    {
-        _director = director;
-        _boardBuilder = boardBuilder;
-    }
+    
 }

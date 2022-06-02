@@ -52,9 +52,9 @@ public class ImportController
         var six = @"..\\..\\..\\Resources\\Sudoku-files\\puzzle2.6x6";
 
         _view.ShowWelcome();
-        var fileInfo = _view.HandleImportUserInput();   // TODO uncomment
-        // var fileInfo =
-        //     new FileInfo(regular);
+        // var fileInfo = _view.HandleImportUserInput();   // TODO uncomment
+        var fileInfo =
+            new FileInfo(four);
         
         BoardFile boardFile;
         try
