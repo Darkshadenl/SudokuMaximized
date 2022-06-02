@@ -57,13 +57,6 @@ public class Board : AbstractBoard
                 {
                     Cursor = cell;
                     cell.IsCursor = true;
-                    col.HasCursor = true;
-                    row.HasCursor = true;
-                    activeSquare.HasCursor = true;
-                    
-                    //             sudokuBoard.CursorColumn = column;
-                    //             sudokuBoard.CursorRow = row;
-                    //             sudokuBoard.CursorSquare = activeSquare;
                 }
         
                 col.Add(cell);
@@ -84,7 +77,6 @@ public class Board : AbstractBoard
             {
                 squareNr = startSquareNr;
             }
-            
         }
         
         // merge
