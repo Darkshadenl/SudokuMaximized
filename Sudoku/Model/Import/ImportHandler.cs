@@ -58,12 +58,13 @@ public class ImportHandler
 
                 for (int i = 0; i < allowedFiles.Count(); i++)
                 {
+                    // fills arr with FILE NAME (not whole path to file)
                     _availableImportableFiles[i] = Path.GetFileName(allowedFiles[i]);
                 }
             }
             else
             {
-                // if folder exists but has no files
+                // no found folder and files
                 _availableImportableFiles = new string[1];
                 _availableImportableFiles[0] = "No available sudoku files found!";
             }
