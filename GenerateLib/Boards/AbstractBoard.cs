@@ -21,7 +21,9 @@ public abstract class AbstractBoard
     
     public List<IViewable> GetViewables()
     {
-        return SudokuBoard.GetAllDataAsViewable(Rows, Squares, Columns);
+        var s = SudokuBoard as SudokuBoard;
+        var v =s!.GetAllDataAsViewable();
+        return v;
     }
 
     public virtual AbstractBoard CreateBoardBuild(BoardFile boardFile)

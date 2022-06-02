@@ -30,15 +30,8 @@ public class Board : AbstractBoard
         var squareNr = startSquareNr;
         int squareHeight = 0;
 
-        if (Rows % 2 == 0)
-        {
-            squareHeight = Rows / SquareLength;
-        }
-        else
-        {
-            squareHeight = SquareLength;
-        }
-        
+        if (Rows % 2 == 0) squareHeight = Rows / SquareLength;
+        else squareHeight = SquareLength;
 
         // Build
         #region OldBuild
