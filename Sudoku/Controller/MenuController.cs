@@ -10,4 +10,6 @@ public class MenuController
     {
         _menuView = menuView;
     }
+
+    public MainController Controller { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using GenerateLib.Boards;
+using GenerateLib.Components;
 using GenerateLib.Factory;
 using GenerateLib.Helpers;
 using GenerateLib.Viewable;
@@ -12,6 +13,7 @@ public class GameController
     private readonly Game _game;
     private readonly IBoardView _boardView;
     private readonly IVisitorFactory _visitorFactory;
+    public MainController Controller { get; set; }
 
     public GameController(Game game, IBoardView view, IVisitorFactory visitorFactory)
     {
@@ -19,18 +21,18 @@ public class GameController
         _game.Controller = this;
         _boardView = view;
         _visitorFactory = visitorFactory;
-        _boardView.Controller(this);
     }
 
-    public void RunGame(AbstractBoard board)
+
+    public bool RunGame(AbstractBoard board)
     {
+        var gameOver = false;
         _game.Board = board;
 
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
-
-        Console.WriteLine("Starting your Sudoku game. Press ESC to quit the game.");
+        _boardView.WelcomeMessage();
         _boardView.BoardType = _game.BoardType;
-        
+
         ReDraw();
 
         do
@@ -59,11 +61,39 @@ public class GameController
                     case ConsoleKey.Enter:
                         _game.Select.Execute();
                         break;
+                    case ConsoleKey.Spacebar:
+                        _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
+                        gameOver = true;
+                        break;
                 }
                 
                 ReDraw();
+                
+                if (gameOver) break;
             }
+            if (gameOver) break;
         } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+        
+        return RequestNewGame();
+    }
+
+    private bool RequestNewGame()
+    {
+        ConsoleKeyInfo keyPressed;
+        do
+        {
+            _boardView.StartNewGameMessage();
+            keyPressed = Console.ReadKey(true);
+
+            if (keyPressed.Key == ConsoleKey.Y)
+                return true;
+
+            if (keyPressed.Key == ConsoleKey.N)
+            {
+                _boardView.EndGameMessage();
+                return false;
+            }
+        } while (true);
     }
 
     public void ReDraw(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)

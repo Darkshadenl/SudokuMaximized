@@ -51,7 +51,8 @@ public class ImportHandler
             if (Directory.Exists(filePath) && Directory.GetFiles(filePath).Any())
             {
                 // puts allowed files (with valid ext) in arr
-                var allowedFiles = Directory.GetFiles(filePath).Where(file => ValidExtension(Path.GetExtension(file))).ToArray();
+                var allowedFiles = Directory.GetFiles(filePath).
+                    Where(file => ValidExtension(Path.GetExtension(file))).ToArray();
 
                 // initializes arr with amount of files that are allowed
                 _availableImportableFiles = new string[allowedFiles.Count()];
@@ -72,7 +73,6 @@ public class ImportHandler
         {
             Console.WriteLine("Sudoku file folder can't be found.");
             Console.WriteLine(e);
-            return;
         }
     }
 
