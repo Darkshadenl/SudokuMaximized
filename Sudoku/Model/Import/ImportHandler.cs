@@ -52,7 +52,7 @@ public class ImportHandler
             {
                 // puts allowed files (with valid ext) in arr
                 var allowedFiles = Directory.GetFiles(filePath).
-                    Where(file => ValidExtension(Path.GetExtension(file))).ToArray();
+                    Where(file => IsValidExtension(Path.GetExtension(file))).ToArray();
 
                 // initializes arr with amount of files that are allowed
                 _availableImportableFiles = new string[allowedFiles.Count()];
