@@ -12,13 +12,13 @@ public static class DependencyInjectionContainer
 
     public static IServiceCollection ConfigureSingleton(this IServiceCollection services)
     {
-        services.Scan(scan => scan
-            .FromCallingAssembly()
-            
-            .AddClasses(c => c.InNamespaceOf<MainController>())
-            .AsSelf()
-            .WithSingletonLifetime()
-        );
+        // services.Scan(scan => scan
+        //     .FromCallingAssembly()
+        //     
+        //     .AddClasses(c =>  c.InNamespaceOf<MainController>())
+        //     .AsSelf()
+        //     .WithSingletonLifetime()
+        // );
         return services;
     }
 
@@ -50,12 +50,15 @@ public static class DependencyInjectionContainer
                     .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                     .AsImplementedInterfaces()
                 
-                .AddClasses(c =>
+            .AddClasses(c =>
                 {
                     c.NotInNamespaces("Sudoku.Controller", "Sudoku.Resources",
                         "Sudoku.View.Game", "Sudoku.Visitor");
                 })
                 .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                .AsSelf()
+        
+            .AddClasses(c =>  c.InNamespaceOf<MainController>())
                 .AsSelf()
         
         );
