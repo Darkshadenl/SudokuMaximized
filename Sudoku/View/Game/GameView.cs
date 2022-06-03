@@ -16,6 +16,11 @@ public class GameView : IBoardView
         _visitor.Draw(viewData, BoardType);
     }
 
+    public void WelcomeMessage()
+    {
+        Console.WriteLine("Starting your Sudoku game. Press ESC to quit the game.");
+    }
+
     public void StartNewGameMessage()
     {
         Console.WriteLine("Would you like to start a new game? (y/n)");

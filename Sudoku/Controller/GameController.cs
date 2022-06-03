@@ -30,8 +30,7 @@ public class GameController
         _game.Board = board;
 
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
-
-        Console.WriteLine("Starting your Sudoku game. Press ESC to quit the game.");
+        _boardView.WelcomeMessage();
         _boardView.BoardType = _game.BoardType;
 
         ReDraw();

@@ -14,4 +14,5 @@ public interface IBoardView
     
     void StartNewGameMessage();
     void EndGameMessage();
+    void WelcomeMessage();
 }
