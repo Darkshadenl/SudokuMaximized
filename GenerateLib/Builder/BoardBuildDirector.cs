@@ -33,7 +33,7 @@ public class BoardBuildDirector
             .SetCursorPosition(0, 0)
             .SetType(BoardTypes.six);
     }
-    
+
     public void Construct4X4Board(BoardFile boardFile)
     {
         BoardBuilder
@@ -46,11 +46,24 @@ public class BoardBuildDirector
             .SetCursorPosition(0, 0)
             .SetType(BoardTypes.four);
     }
-    
+
 
     public void ConstructJigsawBoard()
     {
-        
+
+    }
+
+    public void ConstructSamuraiBoard(BoardFile boardFile)
+    {
+        BoardBuilder
+            .Reset()
+            .SetBoardFile(boardFile)
+            .SetCols(9)
+            .SetRows(9)
+            .SetSquares(9)
+            .SetSquareLength(3)
+            .SetCursorPosition(0, 0)
+            .SetType(BoardTypes.samurai);
     }
 
 }
