@@ -5,13 +5,17 @@ namespace GenerateLib.Builder;
 
 public class BoardBuilder : IBoardBuilder
 {
-    private AbstractBoard _board = new Board();
+    private AbstractBoard _board;
     private IBoardConfig _boardConfig;
     
     public BoardBuilder()
     {
+        // initialize board here
+        _board = new Board();
+
         Reset();
     }
+
     public IBoardBuilder Reset()
     {
         _board = new Board();
