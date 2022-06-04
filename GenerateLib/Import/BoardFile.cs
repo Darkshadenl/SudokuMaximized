@@ -20,16 +20,30 @@ public class BoardFile : IBoardFile
     {
         var dataArray = new int[rows][];
         int rowNumber = -1;
-        
-        for (int i = 0; i < Data.Length; i++)
+
+        var data = Data; // variable for different modes
+
+        if (Extension == ".samurai")
+        {
+            // samurai has 5 x Data
+            // splits every line of data (every 'board') in a seperate index in arr
+            var samuraiData = Data.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            // for import purposes you only need to display the 'first' board :)
+            // so we use arr[0]
+            // to know which board is prev/next use indexes as references
+            // from the imported list
+            data = samuraiData[0];
+        }
+
+        for (int i = 0; i < data.Length; i++)
         {
             if (i % rows == 0)
             {
                 rowNumber++;
                 dataArray[rowNumber] = new int[columns];
             }
-            char c = Data[i];
-            dataArray[rowNumber][i%columns] = int.Parse(c.ToString()); 
+            char c = data[i];
+            dataArray[rowNumber][i % columns] = int.Parse(c.ToString());
         }
 
         return dataArray;

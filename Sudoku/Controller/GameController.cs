@@ -4,6 +4,7 @@ using GenerateLib.Factory;
 using GenerateLib.Helpers;
 using GenerateLib.Viewable;
 using Sudoku.Model.Game;
+using Sudoku.Model.Import;
 using Sudoku.View.Game;
 
 namespace Sudoku.Controller;
@@ -13,12 +14,14 @@ public class GameController
     private readonly Game _game;
     private readonly IBoardView _boardView;
     private readonly IVisitorFactory _visitorFactory;
+
     public MainController Controller { get; set; }
 
     public GameController(Game game, IBoardView view, IVisitorFactory visitorFactory)
     {
         _game = game;
         _game.Controller = this;
+        _game.BoardList = new List<AbstractBoard>(); // initializing of lists of boards ONCE on startup
         _boardView = view;
         _visitorFactory = visitorFactory;
     }
@@ -39,11 +42,28 @@ public class GameController
         {
             while (!Console.KeyAvailable)
             {
+                // reading user input
                 var cki = Console.ReadKey(true);
 
+                // switches states with shift + s
                 if ((cki.Modifiers & ConsoleModifiers.Shift) != 0 && cki.Key == ConsoleKey.S)
                     _game.ShiftState.Execute();
 
+                // checks if boardtype is samurai
+                if(_game.BoardType == BoardTypes.samurai)
+                {
+                    // if list empty fill list
+                    if (!_game.BoardList.Any())
+                    {
+                        //foreach (var line in Controller.IC._importHandler.FilesDataList)
+                        //{
+                        //    //_game.BoardList.Add(line);
+                        //}
+                    }
+                }
+
+                // moves within sudoku with arrow keys
+                // or enter sudoku number with "enter" key
                 switch (cki.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -66,6 +86,7 @@ public class GameController
                         gameOver = true;
                         break;
                 }
+
                 
                 ReDraw();
                 
@@ -102,5 +123,10 @@ public class GameController
             pre, post);
         
         _boardView.DrawBoard(viewData);
+    }
+
+    private void fillSamurai()
+    {
+        //_game.BoardList;
     }
 }

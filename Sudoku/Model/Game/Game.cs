@@ -13,7 +13,7 @@ public class Game
     public ISolver Solver { get; }
     public BoardTypes BoardType => Board.Type;
 
-    private AbstractBoard? _board; 
+    private AbstractBoard _board; 
     public AbstractBoard Board
     {
         get => _board!;
@@ -21,6 +21,16 @@ public class Game
         {
             _board = value;
             _board.Solver = Solver;
+        }
+    }
+
+    private List<AbstractBoard> _boards;
+    public List<AbstractBoard> BoardList 
+    { 
+        get => _boards;
+        set 
+        { 
+            _boards = value;
         }
     }
 

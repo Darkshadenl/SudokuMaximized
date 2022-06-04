@@ -13,7 +13,6 @@ public class BoardConfig : IBoardConfig
     {
         _boardFile = boardFile;
         _board = board;
-        
     }
 
     public IBoardConfig SetRows(int i)

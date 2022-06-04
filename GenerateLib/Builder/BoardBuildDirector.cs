@@ -6,7 +6,7 @@ namespace GenerateLib.Builder;
 
 public class BoardBuildDirector
 {
-    public IBoardBuilder BoardBuilder { private get; set; }
+    public IBoardBuilder BoardBuilder { get; set; }
 
     public void ConstructRegularBoard(BoardFile boardFile)
     {
@@ -65,5 +65,4 @@ public class BoardBuildDirector
             .SetCursorPosition(0, 0)
             .SetType(BoardTypes.samurai);
     }
-
 }

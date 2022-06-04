@@ -129,4 +129,10 @@ public class HelpDraw : IDraw
     {
         throw new NotImplementedException();
     }
+
+    public void DrawSamuraiBoard(int size, List<IViewable> board)
+    {
+        // samurai is just regular board 
+        DrawRegularBoard(size, board);
+    }
 }

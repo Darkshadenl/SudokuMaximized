@@ -6,7 +6,7 @@ namespace GenerateLib.Visitors;
 
 public class ConsoleVisitor : IPrintBoardVisitor
 {
-    private IDraw? _draw;
+    private IDraw _draw;
     private readonly IDraw _definitive = new DefinitiveDraw();
     private readonly IDraw _help = new HelpDraw();
 
@@ -36,33 +36,20 @@ public class ConsoleVisitor : IPrintBoardVisitor
     {
         if (_draw is not DefinitiveDraw)
             _draw = _definitive;
-        
-        switch (type)
-        {
-            case BoardTypes.nine:
-                _draw.DrawRegularBoard(9, board);
-                break;
-            case BoardTypes.six:
-                _draw.DrawRegularBoard(6, board);
-                break;
-            case BoardTypes.four:
-                _draw.DrawRegularBoard(4, board);
-                break;
-            case BoardTypes.jigsaw:
-                _draw.DrawJigSawBoard(9, board);
-                break;
-            // case BoardTypes.samurai:
-            //     return 0;
-            default:
-                throw new ArgumentException("Invalid board type");
-        }
+
+        DrawBoardOnType(type, board);
     }
 
     private void DrawHelp(BoardTypes type, List<IViewable> board)
     {
         if (_draw is not HelpDraw)
             _draw = _help;
-        
+
+        DrawBoardOnType(type, board);
+    }
+
+    private void DrawBoardOnType(BoardTypes type, List<IViewable> board)
+    {
         switch (type)
         {
             case BoardTypes.nine:
@@ -77,8 +64,9 @@ public class ConsoleVisitor : IPrintBoardVisitor
             case BoardTypes.jigsaw:
                 _draw.DrawJigSawBoard(9, board);
                 break;
-            // case BoardTypes.samurai:
-            //     return 0;
+            case BoardTypes.samurai:
+                _draw.DrawSamuraiBoard(9, board);
+                break;
             default:
                 throw new ArgumentException("Invalid board type");
         }

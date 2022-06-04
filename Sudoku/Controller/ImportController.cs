@@ -13,7 +13,7 @@ namespace Sudoku.Controller;
 public class ImportController
 {
     private readonly ImportView _view;
-    private readonly ImportHandler _importHandler;
+    public readonly ImportHandler _importHandler;
     private readonly IInterpreter _interpreter;
 
     public ImportController(ImportView view, ImportHandler importHandler, IInterpreter interpreter)
@@ -30,32 +30,32 @@ public class ImportController
 
     public MainController Controller { get; set; }
 
-    public AbstractBoard RunImport()
+    public List<AbstractBoard> RunImport()
     {
-        BoardFile import = StartImport();
+        List<BoardFile> import = StartImport();
 
-        while (import == null)
+        while (import == null || !import.Any())
             import = StartImport();
 
         return Interpret(import);
     }
 
-    private AbstractBoard Interpret(BoardFile boardFile)
+    private List<AbstractBoard> Interpret(List<BoardFile> boardFileList)
     {
-        return _interpreter.Interpret(boardFile);
+        return _interpreter.Interpret(boardFileList);
     }
 
-    private BoardFile StartImport()
+    private List<BoardFile> StartImport()
     {
         _view.ShowWelcome();
 
         // import file from user input
         var fileInfo = _view.HandleImportUserInput(_importHandler.AvailableImportableFiles, _importHandler.ValidExtensions);
 
-        BoardFile boardFile;
+        List<BoardFile> boardFileList;
         try
         {
-            boardFile = ImportFromPath(fileInfo);
+            boardFileList = ImportFromPath(fileInfo);
         }
         catch (Exception e)
         {
@@ -63,7 +63,7 @@ public class ImportController
             return null;
         }
 
-        return boardFile;
+        return boardFileList;
     }
 
     private void FillValidExtensionsList()
@@ -124,7 +124,7 @@ public class ImportController
         }
     }
 
-    private BoardFile ImportFromPath(FileInfo fileInfo)
+    private List<BoardFile> ImportFromPath(FileInfo fileInfo)
     {
         Debug.Assert(fileInfo.DirectoryName != null, "fileInfo.DirectoryName != null");
         string data = File.ReadAllText(fileInfo.FullName);
@@ -132,11 +132,25 @@ public class ImportController
 
         if (IsValidExtension(extension))
         {
-            return new BoardFile(data, extension);
+            // temp list
+            List<BoardFile> templist = new List<BoardFile>();
+
+            // if ext is samurai then add the other lines as new boardfile to the list
+            if (extension == ".samurai")
+            {
+                var splitData = data.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
+                foreach (var s in splitData)
+                {
+                    templist.Add(new BoardFile(s, extension));
+                }
+                return templist;
+            }
+
+            templist.Add(new BoardFile(data, extension));
+            return templist;
         }
 
-        return new BoardFile(data, extension);
-
+        // if it all goes wrong 
         var sb = new StringBuilder("Wrong file. Accepted extensions are");
 
         foreach (var ext in _importHandler.ValidExtensions)
@@ -151,7 +165,6 @@ public class ImportController
 
         throw new InvalidDataException(sb.ToString());
     }
-
 
     public bool IsValidExtension(string extension)
     {

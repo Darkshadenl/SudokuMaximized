@@ -22,6 +22,7 @@ public static class DependencyInjectionContainer
         return services;
     }
 
+    // kan je ff checken of deze func nog klopt? 
     public static IServiceCollection ConfigureTransient(this IServiceCollection services)
     {
         services.Scan(scan => scan
