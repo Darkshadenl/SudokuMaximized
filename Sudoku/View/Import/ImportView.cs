@@ -5,7 +5,7 @@ namespace Sudoku.View.Import;
 public class ImportView : IImportView
 {
     private ImportController _importController;
-    
+
     public void SetController(ImportController controller)
     {
         _importController = controller;
@@ -17,7 +17,7 @@ public class ImportView : IImportView
         Console.WriteLine("Welcome to the Sudoku importer!");
     }
 
-    public FileInfo HandleImportUserInput(string[] availableFiles, string[] extensions)
+    public FileInfo HandleImportUserInput(List<string> availableFiles, List<string> extensions)
     {
         FileInfo fileInfo = null;
 
@@ -51,45 +51,44 @@ public class ImportView : IImportView
         return fileInfo;
     }
 
-    private void PrintAvailableSudokuFiles(string[] availableFiles)
+    private void PrintAvailableSudokuFiles(List<string> availableFiles)
     {
         Console.WriteLine("\nAvailable sudoku files: ");
 
         // prints all sudoku files available
-        for (int i = 0; i < availableFiles.Count(); i++)
+        foreach (var file in availableFiles)
         {
-            if (i != availableFiles.Count() - 1)
+            // if file is not last
+            if (file != availableFiles.Last())
             {
                 // enters every 3 items so sudokufiles doesnt go offscreeeeeeeen
-                if (i % 3 == 2)
+                if (availableFiles.IndexOf(file) % 3 == 2)
                 {
-                    Console.WriteLine(availableFiles[i] + ", ");
+                    Console.WriteLine(file + ", ");
                 }
                 else
                 {
-                    Console.Write(availableFiles[i] + ", ");
+                    Console.Write(file + ", ");
                 }
+                continue;
             }
-            else
-            {
-                Console.Write(availableFiles[i] + "\n");
-            }
+            // prints last file
+            Console.WriteLine(file);
         }
     }
 
-    private void PrintAllowedExtensions(string[] extensions)
+    private void PrintAllowedExtensions(List<string> extensions)
     {
         Console.Write("Allowed file extensions: ");
-        for (int x = 0; x < extensions.Count(); x++)
+
+        foreach (var ext in extensions)
         {
-            if (x != extensions.Count() - 1)
+            if (ext != extensions.Last())
             {
-                Console.Write(extensions[x] + ", ");
+                Console.Write(ext + ", ");
+                continue;
             }
-            else
-            {
-                Console.Write(extensions[x] + "\n\n");
-            }
+            Console.WriteLine(ext + "\n");
         }
     }
 }
