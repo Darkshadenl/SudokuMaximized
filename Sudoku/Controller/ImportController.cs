@@ -13,7 +13,7 @@ namespace Sudoku.Controller;
 public class ImportController
 {
     private readonly ImportView _view;
-    public readonly ImportHandler _importHandler;
+    private readonly ImportHandler _importHandler;
     private readonly IInterpreter _interpreter;
 
     public ImportController(ImportView view, ImportHandler importHandler, IInterpreter interpreter)
