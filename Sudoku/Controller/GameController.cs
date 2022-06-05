@@ -4,7 +4,6 @@ using GenerateLib.Factory;
 using GenerateLib.Helpers;
 using GenerateLib.Viewable;
 using Sudoku.Model.Game;
-using Sudoku.Model.Import;
 using Sudoku.View.Game;
 
 namespace Sudoku.Controller;
@@ -21,22 +20,27 @@ public class GameController
     {
         _game = game;
         _game.Controller = this;
-        _game.BoardList = new List<AbstractBoard>(); // initializing of lists of boards ONCE on startup
         _boardView = view;
         _visitorFactory = visitorFactory;
     }
 
 
-    public bool RunGame(AbstractBoard board)
+    public bool RunGame(List<AbstractBoard> boardList)
     {
         var gameOver = false;
-        _game.Board = board;
+
+        // set game data
+        _game.Board = boardList.First();
+        _game.BoardList = boardList;
 
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
         _boardView.WelcomeMessage();
         _boardView.BoardType = _game.BoardType;
 
         ReDraw();
+
+        var currentBoardIndex = 0;
+        var boardCount = _game.BoardList.Count();
 
         do
         {
@@ -48,19 +52,6 @@ public class GameController
                 // switches states with shift + s
                 if ((cki.Modifiers & ConsoleModifiers.Shift) != 0 && cki.Key == ConsoleKey.S)
                     _game.ShiftState.Execute();
-
-                // checks if boardtype is samurai
-                if(_game.BoardType == BoardTypes.samurai)
-                {
-                    // if list empty fill list
-                    if (!_game.BoardList.Any())
-                    {
-                        //foreach (var line in Controller.IC._importHandler.FilesDataList)
-                        //{
-                        //    //_game.BoardList.Add(line);
-                        //}
-                    }
-                }
 
                 // moves within sudoku with arrow keys
                 // or enter sudoku number with "enter" key
@@ -85,16 +76,41 @@ public class GameController
                         _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
                         gameOver = true;
                         break;
+                    //next samurai board
+                    case ConsoleKey.E:
+                        // checks if boardtype is samurai
+                        if (_game.BoardType == BoardTypes.samurai)
+                        {
+                            // not index out of bounds (+1)
+                            if (currentBoardIndex + 1 < boardCount)
+                            {
+                                _game.Board = _game.BoardList[currentBoardIndex + 1];
+                                currentBoardIndex++;
+                            }
+                        }
+                        break;
+                    //prev samurai board
+                    case ConsoleKey.W:
+                        // checks if boardtype is samurai
+                        if (_game.BoardType == BoardTypes.samurai)
+                        {
+                            // not index out of bounds (-1)
+                            if (currentBoardIndex - 1 != (-1))
+                            {
+                                _game.Board = _game.BoardList[currentBoardIndex - 1];
+                                currentBoardIndex--;
+                            }
+                        }
+                        break;
                 }
 
-                
                 ReDraw();
-                
+
                 if (gameOver) break;
             }
             if (gameOver) break;
         } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
-        
+
         return RequestNewGame();
     }
 
@@ -121,12 +137,7 @@ public class GameController
     {
         var viewData = new ViewData(_game.GetViewableData(), _game.State.State,
             pre, post);
-        
-        _boardView.DrawBoard(viewData);
-    }
 
-    private void fillSamurai()
-    {
-        //_game.BoardList;
+        _boardView.DrawBoard(viewData);
     }
 }

@@ -4,13 +4,9 @@ namespace Sudoku.Controller;
 
 public class MainController
 {
-    private GameController _gameController;
-    private MenuController _menuController;
-    private ImportController _importController;
-
-    public GameController GC { get => _gameController; }
-    public MenuController MC { get => _menuController; }
-    public ImportController IC { get => _importController; }
+    private readonly GameController _gameController;
+    private readonly MenuController _menuController;
+    private readonly ImportController _importController;
 
     public MainController(GameController gameController,
         MenuController menuController, ImportController importController)
@@ -25,13 +21,13 @@ public class MainController
 
     public void Run()
     {
-        var board = _importController.RunImport();
-        var startNewGame = _gameController.RunGame(board.First());
+        var boardList = _importController.RunImport();
+        var startNewGame = _gameController.RunGame(boardList);
 
         while (startNewGame)
         {
-            board = _importController.RunImport();
-            startNewGame = _gameController.RunGame(board.First());
+            boardList = _importController.RunImport();
+            startNewGame = _gameController.RunGame(boardList);
         }
 
         Environment.Exit(0);
