@@ -84,6 +84,9 @@ public class GameController
                             // not index out of bounds (+1)
                             if (currentBoardIndex + 1 < boardCount)
                             {
+                                // save curr progress back to list
+                                _game.BoardList[currentBoardIndex] = _game.Board;
+                                // sets new board
                                 _game.Board = _game.BoardList[currentBoardIndex + 1];
                                 currentBoardIndex++;
                             }
@@ -97,6 +100,9 @@ public class GameController
                             // not index out of bounds (-1)
                             if (currentBoardIndex - 1 != (-1))
                             {
+                                // save curr progress back to list
+                                _game.BoardList[currentBoardIndex] = _game.Board;
+                                // sets new board
                                 _game.Board = _game.BoardList[currentBoardIndex - 1];
                                 currentBoardIndex--;
                             }

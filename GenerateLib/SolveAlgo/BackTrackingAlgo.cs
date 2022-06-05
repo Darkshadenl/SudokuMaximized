@@ -19,7 +19,7 @@ public class BackTrackingAlgo : ISolver
     
     private bool Solve()
     {
-        Cell? cellNoNumber = FindEmpty();
+        Cell cellNoNumber = FindEmpty();
     
         if (cellNoNumber == null)
         {
@@ -56,7 +56,7 @@ public class BackTrackingAlgo : ISolver
         return true;
     }
 
-    private Cell? FindEmpty()
+    private Cell FindEmpty()
     {
         return SudokuBoard.FindEmptyCell();
     }
