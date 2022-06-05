@@ -70,6 +70,10 @@ public class GameController
                         _game.Select.Execute();
                         break;
                     case ConsoleKey.Spacebar:
+
+                        // TODO
+                        // MAKE SOLVER ALSO INPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
+
                         _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
 
                         // resolving only 1 board of 5 samurai checcccccccck
