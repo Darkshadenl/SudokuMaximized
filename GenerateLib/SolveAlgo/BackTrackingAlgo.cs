@@ -6,7 +6,7 @@ public class BackTrackingAlgo : ISolver
 {
     public Component SudokuBoard { get; set; }
 
-    public Component? SolveBoard(SudokuBoard board)
+    public Component SolveBoard(SudokuBoard board)
     {
         SudokuBoard = board;
         var solved = Solve();

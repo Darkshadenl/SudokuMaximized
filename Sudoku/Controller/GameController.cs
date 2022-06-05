@@ -27,19 +27,16 @@ public class GameController
 
     public bool RunGame(List<AbstractBoard> boardList)
     {
-        var gameOver = false;
+        // initialize game data
+        InitializingGameData(boardList);
 
-        // set game data
-        _game.Board = boardList.First();
-        _game.BoardList = boardList;
-
-        _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
-        _boardView.WelcomeMessage();
-        _boardView.BoardType = _game.BoardType;
-
+        // draw board 
         ReDraw();
 
+        // temp vars
+        var gameOver = false;
         var currentBoardIndex = 0;
+        var solvedBoardIndex = new List<int>();
         var boardCount = _game.BoardList.Count();
 
         do
@@ -74,6 +71,26 @@ public class GameController
                         break;
                     case ConsoleKey.Spacebar:
                         _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
+
+                        // resolving only 1 board of 5 samurai checcccccccck
+                        if (_game.BoardType == BoardTypes.samurai)
+                        {
+                            if (!solvedBoardIndex.Contains(_game.BoardList.IndexOf(_game.Board)) && solvedBoardIndex.Count() != boardCount)
+                            {
+                                // save curr progress back to list
+                                _game.BoardList[currentBoardIndex] = _game.Board;
+
+                                solvedBoardIndex.Add(_game.BoardList.IndexOf(_game.Board));
+
+                                if (solvedBoardIndex.Count == boardCount)
+                                {
+                                    gameOver = true;
+                                    break;
+                                }
+                                break;
+                            }
+                        }
+
                         gameOver = true;
                         break;
                     //next samurai board
@@ -118,6 +135,18 @@ public class GameController
         } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
 
         return RequestNewGame();
+    }
+
+    private void InitializingGameData(List<AbstractBoard> boardList)
+    {
+
+        // set game data
+        _game.Board = boardList.First();
+        _game.BoardList = boardList;
+
+        _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
+        _boardView.WelcomeMessage();
+        _boardView.BoardType = _game.BoardType;
     }
 
     private bool RequestNewGame()
