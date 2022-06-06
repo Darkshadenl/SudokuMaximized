@@ -17,10 +17,11 @@ public class Board : AbstractBoard
             throw new Exception("Board not correctly configured.");
 
         var amount = boardFile.GetAmountBoards();
+        amount = 1;
 
         if (amount == 1)
         {
-            // Single board stuff
+            SudokuBoards.Add(new SudokuBoard());
         }
         else
         {
@@ -94,17 +95,17 @@ public class Board : AbstractBoard
 
         foreach (var column in cols)
         {
-            SudokuBoards.Add(column);
+            SudokuBoards[0].Add(column); // TODO change to dynamic
         }
         
         foreach (var row in rows)
         {
-            SudokuBoards.Add(row);
+            SudokuBoards[0].Add(row);
         }
         
         foreach (var s in squares)
         {
-            sudokuBoard.Add(s);
+            SudokuBoards[0].Add(s);
         }
         
         return this;

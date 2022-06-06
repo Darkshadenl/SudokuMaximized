@@ -4,12 +4,15 @@ public class Cell : Component
 {
     // HardNumber = had a value above 0 from the start. Unchangeable. 
     public bool HardNumber { get; }
-    public List<Row> Row { get; set; }
-    public List<Square> Square { get; set; }
-    public List<Column> Column { get; set; }
+    public List<Row> Row { get; }
+    public List<Square> Square { get;}
+    public List<Column> Column { get; }
 
     public Cell(int value, int x, int y, bool hardNumber)
     {
+        Row = new List<Row>();
+        Square = new List<Square>();
+        Column = new List<Column>();
         HardNumber = hardNumber;
         Value = value;
         X = x;

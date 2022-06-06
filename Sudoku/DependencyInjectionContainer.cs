@@ -1,6 +1,5 @@
 ﻿using GenerateLib.Boards;
 using GenerateLib.Builder;
-using GenerateLib.Interpreters;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 using Sudoku.Controller;
@@ -12,17 +11,9 @@ public static class DependencyInjectionContainer
 
     public static IServiceCollection ConfigureSingleton(this IServiceCollection services)
     {
-        // services.Scan(scan => scan
-        //     .FromCallingAssembly()
-        //     
-        //     .AddClasses(c =>  c.InNamespaceOf<MainController>())
-        //     .AsSelf()
-        //     .WithSingletonLifetime()
-        // );
         return services;
     }
-
-    // kan je ff checken of deze func nog klopt? 
+    
     public static IServiceCollection ConfigureTransient(this IServiceCollection services)
     {
         services.Scan(scan => scan
@@ -33,7 +24,6 @@ public static class DependencyInjectionContainer
                     c.NotInNamespaces(new[]
                     {
                         "GenerateLib.Components",
-                        "GenerateLib.Factory.Config",
                         "GenerateLib.Boards",
                         "GenerateLib.Visitors"
                     });
