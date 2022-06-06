@@ -18,123 +18,86 @@ public class Board : AbstractBoard
 
         var amountOfBoards = boardFile.GetAmountBoards();
 
-        if (amountOfBoards == 1) // for single boarded games
+        for (int x = 0; x < amountOfBoards; x++)
         {
             SudokuBoards.Add(new SudokuBoard());
-        }
-        else // Multiple board stuff
-        {
-            for (int x = 0; x < amountOfBoards; x++)
+
+            var sudokuBoard = SudokuBoards[x] as SudokuBoard;
+            sudokuBoard.BoardHeight = Rows;
+            sudokuBoard.BoardWidth = Columns;
+
+            // Setup 
+            var squares = CreateSquares();
+            var rows = CreateRows();
+            var cols = CreateColumns();
+
+            var data = boardFile.ConvertData(Columns, Rows, x);
+
+            int startSquareNr = 0;
+            var squareNr = startSquareNr;
+            int squareHeight = 0;
+
+            if (Rows % 2 == 0) squareHeight = Rows / SquareLength;
+            else squareHeight = SquareLength;
+
+            // Build
+            for (int j = 0; j < Rows; j++)
             {
-                SudokuBoards.Add(new SudokuBoard());
-            }
-        }
-
-        var sudokuBoard = SudokuBoards[0] as SudokuBoard;
-        sudokuBoard.BoardHeight = Rows;
-        sudokuBoard.BoardWidth = Columns;
-
-        // Setup 
-        var squares = CreateSquares();
-        var rows = CreateRows();
-        var cols = CreateColumns();
-
-        var data = boardFile.ConvertData(Columns, Rows);
-        int startSquareNr = 0;
-        var squareNr = startSquareNr;
-        int squareHeight = 0;
-
-        if (Rows % 2 == 0) squareHeight = Rows / SquareLength;
-        else squareHeight = SquareLength;
-
-        // Build
-
-        for (int j = 0; j < Rows; j++)
-        {
-            var rowY = j;
-            for (int i = 0; i < Columns; i++)
-            {
-                var columnX = i;
-
-                var row = rows[rowY];
-                var col = cols[columnX];
-
-                if (columnX % SquareLength == 0 && columnX != 0)
-                    squareNr++;
-
-                var activeSquare = squares[squareNr];
-
-                int value = data[rowY][columnX];
-                var cell = new Cell(value, columnX, rowY, value > 0);
-
-                if (rowY == StartCursorX && columnX == StartCursorY)
+                var rowY = j;
+                for (int i = 0; i < Columns; i++)
                 {
-                    Cursor = cell;
-                    cell.IsCursor = true;
+                    var columnX = i;
+
+                    var row = rows[rowY];
+                    var col = cols[columnX];
+
+                    if (columnX % SquareLength == 0 && columnX != 0)
+                        squareNr++;
+
+                    var activeSquare = squares[squareNr];
+
+                    int value = data[rowY][columnX];
+                    var cell = new Cell(value, columnX, rowY, value > 0);
+
+                    if (rowY == StartCursorX && columnX == StartCursorY)
+                    {
+                        Cursor = cell;
+                        cell.IsCursor = true;
+                    }
+
+                    col.Add(cell);
+                    row.Add(cell);
+                    activeSquare.Add(cell);
+
+                    cell.Row.Add(row);
+                    cell.Column.Add(col);
+                    cell.Square.Add(activeSquare);
                 }
 
-                col.Add(cell);
-                row.Add(cell);
-                activeSquare.Add(cell);
-
-                cell.Row.Add(row);
-                cell.Column.Add(col);
-                cell.Square.Add(activeSquare);
-            }
-
-            if ((rowY + 1) % squareHeight == 0 && rowY != 0)
-            {
-                startSquareNr += squareHeight;
-                squareNr = startSquareNr;
-            }
-            else
-            {
-                squareNr = startSquareNr;
-            }
-        }
-
-        // merge
-
-        foreach (var column in cols)
-        {
-            if (amountOfBoards > 0)
-            {
-                for (int i = 0; i < amountOfBoards; i++)
+                if ((rowY + 1) % squareHeight == 0 && rowY != 0)
                 {
-                    SudokuBoards[i].Add(column);
+                    startSquareNr += squareHeight;
+                    squareNr = startSquareNr;
                 }
-                continue;
-            }
-
-            SudokuBoards[0].Add(column);
-        }
-
-        foreach (var row in rows)
-        {
-            if (amountOfBoards > 0)
-            {
-                for (int i = 0; i < amountOfBoards; i++)
+                else
                 {
-                    SudokuBoards[i].Add(row);
+                    squareNr = startSquareNr;
                 }
-                continue;
             }
 
-            SudokuBoards[0].Add(row);
-        }
-
-        foreach (var s in squares)
-        {
-            if (amountOfBoards > 0)
+            // merge
+            foreach (var column in cols)
             {
-                for (int i = 0; i < amountOfBoards; i++)
-                {
-                    SudokuBoards[i].Add(s);
-                }
-                continue;
+                SudokuBoards[x].Add(column);
             }
-
-            SudokuBoards[0].Add(s);
+            foreach (var row in rows)
+            {
+                SudokuBoards[x].Add(row);
+            }
+            foreach (var s in squares)
+            {
+                SudokuBoards[x].Add(s);
+            }
         }
 
         return this;

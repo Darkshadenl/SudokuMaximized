@@ -35,7 +35,7 @@ public class GameController
 
         // temp vars
         var gameOver = false;
-        var currentBoardIndex = 0;
+        var currentBoardIndex = _game.Board.CurrentBoardIndex;
         var solvedBoardIndex = new List<int>();
         var boardCount = _game.Board.SudokuBoards.Count;
 
@@ -101,7 +101,7 @@ public class GameController
                         if (_game.BoardType == BoardTypes.samurai)
                         {
                             // not index out of bounds (+1)
-                            if (currentBoardIndex + 1 < boardCount) 
+                            if (currentBoardIndex + 1 < boardCount)
                             {
                                 // sets new board index
                                 currentBoardIndex++;
@@ -120,8 +120,6 @@ public class GameController
                                 // sets new board index
                                 currentBoardIndex--;
                                 _game.Board.CurrentBoardIndex = currentBoardIndex;
-
-
                             }
                         }
                         break;
@@ -141,6 +139,9 @@ public class GameController
     {
         // set game data
         _game.Board = abstractBoard;
+        if (_game.BoardType == BoardTypes.samurai)
+            _game.Board.CurrentBoardIndex = 2;
+
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
         _boardView.WelcomeMessage();
         _boardView.BoardType = _game.BoardType;

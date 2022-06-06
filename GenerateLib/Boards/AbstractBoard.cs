@@ -44,7 +44,7 @@ public abstract class AbstractBoard
     public void MoveCursor(Directions direction)
     {
         // check if chosen direction has a cell
-        var sudokuBoard = SudokuBoards[0] as SudokuBoard;
+        var sudokuBoard = SudokuBoards[CurrentBoardIndex] as SudokuBoard;
         var canMove = sudokuBoard!.CanCursorMove(direction, Cursor);
 
         switch (canMove)
