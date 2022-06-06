@@ -4,9 +4,9 @@ public class Cell : Component
 {
     // HardNumber = had a value above 0 from the start. Unchangeable. 
     public bool HardNumber { get; }
-    public Row Row { get; set; }
-    public Square Square { get; set; }
-    public Column Column { get; set; }
+    public List<Row> Row { get; set; }
+    public List<Square> Square { get; set; }
+    public List<Column> Column { get; set; }
 
     public Cell(int value, int x, int y, bool hardNumber)
     {
@@ -49,18 +49,18 @@ public class Cell : Component
         return null;
     }
 
-    public bool IsCellValueDuplicateInRow(int number)
+    public bool IsCellValueDuplicateInRows(int number)
     {
-        return Row.HasDuplicate(this, number);
+        return Row.All(c => c.HasDuplicate(this, number));
     }
 
-    public bool IsCellValueDuplicateInColumn(int number)
+    public bool IsCellValueDuplicateInColumns(int number)
     {
-        return Column.HasDuplicate(this, number);
+        return Column.All(c => c.HasDuplicate(this, number));
     }
 
-    public bool IsCellValueDuplicateInSquare(int number)
+    public bool IsCellValueDuplicateInSquares(int number)
     {
-        return Square.HasDuplicate(this, number);
+        return Square.All(c => c.HasDuplicate(this, number));   // TODO possible bug
     }
 }

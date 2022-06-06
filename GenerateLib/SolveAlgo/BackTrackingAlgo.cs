@@ -44,13 +44,13 @@ public class BackTrackingAlgo : ISolver
 
     private bool Valid(Cell emptyCell, int number)
     {
-        var foundDuplicate = emptyCell.IsCellValueDuplicateInRow(number);
+        var foundDuplicate = emptyCell.IsCellValueDuplicateInRows(number);
         if (foundDuplicate) return false;
         
-        foundDuplicate = emptyCell.IsCellValueDuplicateInColumn(number);
+        foundDuplicate = emptyCell.IsCellValueDuplicateInColumns(number);
         if (foundDuplicate) return false;
         
-        foundDuplicate = emptyCell.IsCellValueDuplicateInSquare(number);
+        foundDuplicate = emptyCell.IsCellValueDuplicateInSquares(number);
         if (foundDuplicate) return false;
     
         return true;

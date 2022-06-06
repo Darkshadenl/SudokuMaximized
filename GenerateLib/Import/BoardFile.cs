@@ -16,7 +16,7 @@ public class BoardFile : IBoardFile
     // <summary>
     // boardsize is either x or y size of board.
     // </summary>
-    public int[][] ConvertData(int columns, int rows)
+    public int[][] ConvertData(int columns, int rows)  
     {
         var dataArray = new int[rows][];
         int rowNumber = -1;
@@ -47,5 +47,10 @@ public class BoardFile : IBoardFile
         }
 
         return dataArray;
+    }
+
+    public int GetAmountBoards()
+    {
+        return 0;
     }
 }

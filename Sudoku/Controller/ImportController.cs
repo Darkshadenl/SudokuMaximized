@@ -30,32 +30,32 @@ public class ImportController
 
     public MainController Controller { get; set; }
 
-    public List<AbstractBoard> RunImport()
+    public AbstractBoard RunImport()
     {
-        List<BoardFile> import = StartImport();
+        BoardFile import = StartImport();
 
-        while (import == null || !import.Any())
+        while (import == null)
             import = StartImport();
 
         return Interpret(import);
     }
 
-    private List<AbstractBoard> Interpret(List<BoardFile> boardFileList)
+    private AbstractBoard Interpret(BoardFile boardFile)
     {
-        return _interpreter.Interpret(boardFileList);
+        return _interpreter.Interpret(boardFile);
     }
 
-    private List<BoardFile> StartImport()
+    private BoardFile StartImport()
     {
         _view.ShowWelcome();
 
         // import file from user input
         var fileInfo = _view.HandleImportUserInput(_importHandler.AvailableImportableFiles, _importHandler.ValidExtensions);
 
-        List<BoardFile> boardFileList;
+        BoardFile boardFile;
         try
         {
-            boardFileList = ImportFromPath(fileInfo);
+            boardFile = ImportFromPath(fileInfo);
         }
         catch (Exception e)
         {
@@ -63,7 +63,7 @@ public class ImportController
             return null;
         }
 
-        return boardFileList;
+        return boardFile;
     }
 
     private void FillValidExtensionsList()
@@ -124,7 +124,7 @@ public class ImportController
         }
     }
 
-    private List<BoardFile> ImportFromPath(FileInfo fileInfo)
+    private BoardFile ImportFromPath(FileInfo fileInfo)
     {
         Debug.Assert(fileInfo.DirectoryName != null, "fileInfo.DirectoryName != null");
         string data = File.ReadAllText(fileInfo.FullName);
@@ -132,22 +132,7 @@ public class ImportController
 
         if (IsValidExtension(extension))
         {
-            // temp list
-            List<BoardFile> templist = new List<BoardFile>();
-
-            // if ext is samurai then add the other lines as new boardfile to the list
-            if (extension == ".samurai")
-            {
-                var splitData = data.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
-                foreach (var s in splitData)
-                {
-                    templist.Add(new BoardFile(s, extension));
-                }
-                return templist;
-            }
-
-            templist.Add(new BoardFile(data, extension));
-            return templist;
+            return new BoardFile(data, extension);
         }
 
         // if it all goes wrong 

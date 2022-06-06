@@ -8,7 +8,7 @@ namespace GenerateLib.Boards;
 
 public abstract class AbstractBoard
 {
-    public Component SudokuBoard { get; set; }
+    public List<Component> SudokuBoards { get; set; }
     public BoardTypes Type { get; set; }
     public ISolver Solver { get; set; }
     public int Columns { get; set; }
@@ -21,7 +21,7 @@ public abstract class AbstractBoard
     
     public List<IViewable> GetViewables()
     {
-        var s = SudokuBoard as SudokuBoard;
+        var s = SudokuBoards[0] as SudokuBoard;
         var v =s!.GetAllDataAsViewable();
         return v;
     }
@@ -31,10 +31,15 @@ public abstract class AbstractBoard
         throw new NotImplementedException();
     }
 
+    public Component GetBoardByIndex(int index)
+    {
+        return SudokuBoards.ToArray()[index];
+    }
+
     public void MoveCursor(Directions direction)
     {
         // check if chosen direction has a cell
-        var sudokuBoard = SudokuBoard as SudokuBoard;
+        var sudokuBoard = SudokuBoards[0] as SudokuBoard;
         var canMove = sudokuBoard!.CanCursorMove(direction, Cursor);
         
         switch (canMove)

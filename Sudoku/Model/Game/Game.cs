@@ -24,16 +24,6 @@ public class Game
         }
     }
 
-    private List<AbstractBoard> _boards;
-    public List<AbstractBoard> BoardList 
-    { 
-        get => _boards;
-        set 
-        { 
-            _boards = value;
-        }
-    }
-
     public IState State { get; set; }
     public GameController Controller { get; set; }
 

@@ -21,13 +21,13 @@ public class MainController
 
     public void Run()
     {
-        var boardList = _importController.RunImport();
-        var startNewGame = _gameController.RunGame(boardList);
+        var board = _importController.RunImport();
+        var startNewGame = _gameController.RunGame(board);
 
         while (startNewGame)
         {
-            boardList = _importController.RunImport();
-            startNewGame = _gameController.RunGame(boardList);
+            board = _importController.RunImport();
+            startNewGame = _gameController.RunGame(board);
         }
 
         Environment.Exit(0);

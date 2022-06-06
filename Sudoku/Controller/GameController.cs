@@ -25,10 +25,10 @@ public class GameController
     }
 
 
-    public bool RunGame(List<AbstractBoard> boardList)
+    public bool RunGame(AbstractBoard abstractBoard)
     {
         // initialize game data
-        InitializingGameData(boardList);
+        InitializingGameData(abstractBoard);
 
         // draw board 
         ReDraw();
@@ -37,7 +37,7 @@ public class GameController
         var gameOver = false;
         var currentBoardIndex = 0;
         var solvedBoardIndex = new List<int>();
-        var boardCount = _game.BoardList.Count();
+        var boardCount = _game.Board.SudokuBoards.Count;
 
         do
         {
@@ -71,31 +71,29 @@ public class GameController
                         break;
                     case ConsoleKey.Spacebar:
 
-                        // TODO
-                        // MAKE SOLVER ALSO INPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
+                        // TODO MAKE SOLVER ALSO INPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
 
-                        _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
-
-                        // resolving only 1 board of 5 samurai checcccccccck
-                        if (_game.BoardType == BoardTypes.samurai)
-                        {
-                            if (!solvedBoardIndex.Contains(_game.BoardList.IndexOf(_game.Board)) && solvedBoardIndex.Count() != boardCount)
-                            {
-                                // save curr progress back to list
-                                _game.BoardList[currentBoardIndex] = _game.Board;
-
-                                solvedBoardIndex.Add(_game.BoardList.IndexOf(_game.Board));
-
-                                if (solvedBoardIndex.Count == boardCount)
-                                {
-                                    gameOver = true;
-                                    break;
-                                }
-                                break;
-                            }
-                        }
-
-                        gameOver = true;
+                        // _game.Solver.SolveBoard((_game.Board.SudokuBoards as SudokuBoard)!);
+                        //
+                        // // resolving only 1 board of 5 samurai checcccccccck
+                        // if (_game.BoardType == BoardTypes.samurai)
+                        // {
+                        //     if (!solvedBoardIndex.Contains(_game.BoardList.IndexOf(_game.Board)) && solvedBoardIndex.Count() != boardCount)
+                        //     {
+                        //         // save curr progress back to list
+                        //         _game.BoardList[currentBoardIndex] = _game.Board;
+                        //
+                        //         solvedBoardIndex.Add(_game.BoardList.IndexOf(_game.Board));
+                        //
+                        //         if (solvedBoardIndex.Count == boardCount)
+                        //         {
+                        //             gameOver = true;
+                        //         }
+                        //         break;
+                        //     }
+                        // }
+                        //
+                        // gameOver = true;
                         break;
                     //next samurai board
                     case ConsoleKey.E:
@@ -106,9 +104,9 @@ public class GameController
                             if (currentBoardIndex + 1 < boardCount)
                             {
                                 // save curr progress back to list
-                                _game.BoardList[currentBoardIndex] = _game.Board;
+                                // _game.Board.SudokuBoards.ToArray()[currentBoardIndex] = _game.Board;
                                 // sets new board
-                                _game.Board = _game.BoardList[currentBoardIndex + 1];
+                                // _game.Board = _game.BoardList[currentBoardIndex + 1];
                                 currentBoardIndex++;
                             }
                         }
@@ -122,9 +120,9 @@ public class GameController
                             if (currentBoardIndex - 1 != (-1))
                             {
                                 // save curr progress back to list
-                                _game.BoardList[currentBoardIndex] = _game.Board;
+                                // _game.BoardList[currentBoardIndex] = _game.Board;
                                 // sets new board
-                                _game.Board = _game.BoardList[currentBoardIndex - 1];
+                                // _game.Board = _game.BoardList[currentBoardIndex - 1];
                                 currentBoardIndex--;
                             }
                         }
@@ -141,13 +139,10 @@ public class GameController
         return RequestNewGame();
     }
 
-    private void InitializingGameData(List<AbstractBoard> boardList)
+    private void InitializingGameData(AbstractBoard abstractBoard)
     {
-
         // set game data
-        _game.Board = boardList.First();
-        _game.BoardList = boardList;
-
+        _game.Board = abstractBoard;
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
         _boardView.WelcomeMessage();
         _boardView.BoardType = _game.BoardType;

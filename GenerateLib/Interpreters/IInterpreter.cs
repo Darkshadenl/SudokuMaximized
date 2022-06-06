@@ -5,5 +5,5 @@ namespace GenerateLib.Interpreters;
 
 public interface IInterpreter
 {
-    public List<AbstractBoard> Interpret(List<BoardFile> boardFileList);
+    public AbstractBoard Interpret(BoardFile boardFile);
 }

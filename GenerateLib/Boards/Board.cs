@@ -7,7 +7,7 @@ public class Board : AbstractBoard
 {
     public Board()
     {
-        SudokuBoard = new SudokuBoard();
+        SudokuBoards = new List<Component>();
     }
 
     public override AbstractBoard CreateBoardBuild(BoardFile boardFile)
@@ -16,12 +16,23 @@ public class Board : AbstractBoard
             StartCursorX == null || StartCursorY == null)
             throw new Exception("Board not correctly configured.");
 
+        var amount = boardFile.GetAmountBoards();
+
+        if (amount == 1)
+        {
+            // Single board stuff
+        }
+        else
+        {
+            // Multiple board stuff
+        }
+
         // Setup 
         var squares = CreateSquares();
         var rows = CreateRows();
         var cols = CreateColumns();
         
-        var sudokuBoard = SudokuBoard as SudokuBoard;
+        var sudokuBoard = SudokuBoards[0] as SudokuBoard;
         sudokuBoard!.BoardHeight = Rows;
         sudokuBoard.BoardWidth = Columns;
         
@@ -63,9 +74,9 @@ public class Board : AbstractBoard
                 row.Add(cell);
                 activeSquare.Add(cell);
                 
-                cell.Row = row;
-                cell.Column = col;
-                cell.Square = activeSquare;
+                cell.Row.Add(row);
+                cell.Column.Add(col);
+                cell.Square.Add(activeSquare);
             }
             
             if ((rowY + 1) % squareHeight == 0 && rowY != 0)
@@ -83,12 +94,12 @@ public class Board : AbstractBoard
 
         foreach (var column in cols)
         {
-            SudokuBoard.Add(column);
+            SudokuBoards.Add(column);
         }
         
         foreach (var row in rows)
         {
-            SudokuBoard.Add(row);
+            SudokuBoards.Add(row);
         }
         
         foreach (var s in squares)
@@ -98,7 +109,7 @@ public class Board : AbstractBoard
         
         return this;
     }
-    
+
     private Square[] CreateSquares()
     {
         var squares = new List<Square>();

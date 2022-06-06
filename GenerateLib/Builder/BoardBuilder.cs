@@ -10,9 +10,6 @@ public class BoardBuilder : IBoardBuilder
     
     public BoardBuilder()
     {
-        // initialize board here
-        _board = new Board();
-
         Reset();
     }
 
@@ -32,7 +29,5 @@ public class BoardBuilder : IBoardBuilder
     {
         return _boardConfig.Build();
     }
-
-
-
+    
 }
