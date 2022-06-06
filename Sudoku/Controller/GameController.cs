@@ -101,13 +101,11 @@ public class GameController
                         if (_game.BoardType == BoardTypes.samurai)
                         {
                             // not index out of bounds (+1)
-                            if (currentBoardIndex + 1 < boardCount)
+                            if (currentBoardIndex + 1 < boardCount) 
                             {
-                                // save curr progress back to list
-                                // _game.Board.SudokuBoards.ToArray()[currentBoardIndex] = _game.Board;
-                                // sets new board
-                                // _game.Board = _game.BoardList[currentBoardIndex + 1];
+                                // sets new board index
                                 currentBoardIndex++;
+                                _game.Board.CurrentBoardIndex = currentBoardIndex;
                             }
                         }
                         break;
@@ -119,11 +117,11 @@ public class GameController
                             // not index out of bounds (-1)
                             if (currentBoardIndex - 1 != (-1))
                             {
-                                // save curr progress back to list
-                                // _game.BoardList[currentBoardIndex] = _game.Board;
-                                // sets new board
-                                // _game.Board = _game.BoardList[currentBoardIndex - 1];
+                                // sets new board index
                                 currentBoardIndex--;
+                                _game.Board.CurrentBoardIndex = currentBoardIndex;
+
+
                             }
                         }
                         break;

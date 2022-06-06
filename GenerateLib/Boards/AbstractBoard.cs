@@ -9,6 +9,7 @@ namespace GenerateLib.Boards;
 public abstract class AbstractBoard
 {
     public List<Component> SudokuBoards { get; set; }
+    public int CurrentBoardIndex { get; set; }
     public BoardTypes Type { get; set; }
     public ISolver Solver { get; set; }
     public int Columns { get; set; }
@@ -18,12 +19,16 @@ public abstract class AbstractBoard
     public int StartCursorX { get; set; }
     public int StartCursorY { get; set; }
     public Cell Cursor { get; set; }
-    
+
     public List<IViewable> GetViewables()
     {
-        var s = SudokuBoards[0] as SudokuBoard;
-        var v =s!.GetAllDataAsViewable();
+        var s = getBoard();
+        var v = s!.GetAllDataAsViewable();
         return v;
+    }
+    private SudokuBoard getBoard()
+    {
+        return SudokuBoards[CurrentBoardIndex] as SudokuBoard;
     }
 
     public virtual AbstractBoard CreateBoardBuild(BoardFile boardFile)
@@ -41,12 +46,12 @@ public abstract class AbstractBoard
         // check if chosen direction has a cell
         var sudokuBoard = SudokuBoards[0] as SudokuBoard;
         var canMove = sudokuBoard!.CanCursorMove(direction, Cursor);
-        
+
         switch (canMove)
         {
             case false:
                 return;
-            
+
             case true:
                 switch (direction)
                 {

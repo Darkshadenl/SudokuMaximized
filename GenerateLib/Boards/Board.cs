@@ -12,31 +12,33 @@ public class Board : AbstractBoard
 
     public override AbstractBoard CreateBoardBuild(BoardFile boardFile)
     {
-        if (Columns == null || Rows == null || SquareLength == null || 
+        if (Columns == null || Rows == null || SquareLength == null ||
             StartCursorX == null || StartCursorY == null)
             throw new Exception("Board not correctly configured.");
 
-        var amount = boardFile.GetAmountBoards();
-        amount = 1;
+        var amountOfBoards = boardFile.GetAmountBoards();
 
-        if (amount == 1)
+        if (amountOfBoards == 1) // for single boarded games
         {
             SudokuBoards.Add(new SudokuBoard());
         }
-        else
+        else // Multiple board stuff
         {
-            // Multiple board stuff
+            for (int x = 0; x < amountOfBoards; x++)
+            {
+                SudokuBoards.Add(new SudokuBoard());
+            }
         }
+
+        var sudokuBoard = SudokuBoards[0] as SudokuBoard;
+        sudokuBoard.BoardHeight = Rows;
+        sudokuBoard.BoardWidth = Columns;
 
         // Setup 
         var squares = CreateSquares();
         var rows = CreateRows();
         var cols = CreateColumns();
-        
-        var sudokuBoard = SudokuBoards[0] as SudokuBoard;
-        sudokuBoard!.BoardHeight = Rows;
-        sudokuBoard.BoardWidth = Columns;
-        
+
         var data = boardFile.ConvertData(Columns, Rows);
         int startSquareNr = 0;
         var squareNr = startSquareNr;
@@ -53,33 +55,33 @@ public class Board : AbstractBoard
             for (int i = 0; i < Columns; i++)
             {
                 var columnX = i;
-                
+
                 var row = rows[rowY];
                 var col = cols[columnX];
-                
+
                 if (columnX % SquareLength == 0 && columnX != 0)
                     squareNr++;
-                
+
                 var activeSquare = squares[squareNr];
-                
+
                 int value = data[rowY][columnX];
                 var cell = new Cell(value, columnX, rowY, value > 0);
-        
+
                 if (rowY == StartCursorX && columnX == StartCursorY)
                 {
                     Cursor = cell;
                     cell.IsCursor = true;
                 }
-        
+
                 col.Add(cell);
                 row.Add(cell);
                 activeSquare.Add(cell);
-                
+
                 cell.Row.Add(row);
                 cell.Column.Add(col);
                 cell.Square.Add(activeSquare);
             }
-            
+
             if ((rowY + 1) % squareHeight == 0 && rowY != 0)
             {
                 startSquareNr += squareHeight;
@@ -90,24 +92,51 @@ public class Board : AbstractBoard
                 squareNr = startSquareNr;
             }
         }
-        
+
         // merge
 
         foreach (var column in cols)
         {
-            SudokuBoards[0].Add(column); // TODO change to dynamic
+            if (amountOfBoards > 0)
+            {
+                for (int i = 0; i < amountOfBoards; i++)
+                {
+                    SudokuBoards[i].Add(column);
+                }
+                continue;
+            }
+
+            SudokuBoards[0].Add(column);
         }
-        
+
         foreach (var row in rows)
         {
+            if (amountOfBoards > 0)
+            {
+                for (int i = 0; i < amountOfBoards; i++)
+                {
+                    SudokuBoards[i].Add(row);
+                }
+                continue;
+            }
+
             SudokuBoards[0].Add(row);
         }
-        
+
         foreach (var s in squares)
         {
+            if (amountOfBoards > 0)
+            {
+                for (int i = 0; i < amountOfBoards; i++)
+                {
+                    SudokuBoards[i].Add(s);
+                }
+                continue;
+            }
+
             SudokuBoards[0].Add(s);
         }
-        
+
         return this;
     }
 

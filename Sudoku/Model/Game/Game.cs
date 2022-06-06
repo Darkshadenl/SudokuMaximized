@@ -12,6 +12,7 @@ public class Game
 {
     public ISolver Solver { get; }
     public BoardTypes BoardType => Board.Type;
+    public int CurrentBoardIndex { get; }
 
     private AbstractBoard _board; 
     public AbstractBoard Board
@@ -21,6 +22,7 @@ public class Game
         {
             _board = value;
             _board.Solver = Solver;
+            _board.CurrentBoardIndex = CurrentBoardIndex;
         }
     }
 

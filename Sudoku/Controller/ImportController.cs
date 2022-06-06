@@ -127,7 +127,8 @@ public class ImportController
     private BoardFile ImportFromPath(FileInfo fileInfo)
     {
         Debug.Assert(fileInfo.DirectoryName != null, "fileInfo.DirectoryName != null");
-        string data = File.ReadAllText(fileInfo.FullName);
+
+        string[] data = File.ReadAllText(fileInfo.FullName).Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
         string extension = fileInfo.Extension;
 
         if (IsValidExtension(extension))

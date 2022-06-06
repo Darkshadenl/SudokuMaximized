@@ -32,7 +32,6 @@ public class ImportView : IImportView
             PrintAllowedExtensions(extensions);
 
             var filePath = @"" + Console.ReadLine();
-            filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.4x4";
 
             // removal of any whitespaces 
             filePath.Trim();
@@ -40,9 +39,7 @@ public class ImportView : IImportView
             // if chosen file is from the available list then ...
             if (availableFiles.Contains(filePath))
             {
-                fileInfo = new FileInfo(filePath);
-
-                // fileInfo = new FileInfo("Resources\\Sudoku-files\\" + filePath);
+                fileInfo = new FileInfo("Resources\\Sudoku-files\\" + filePath);
             }
             // if the file path is absolute then this!
             else if (File.Exists(filePath))
