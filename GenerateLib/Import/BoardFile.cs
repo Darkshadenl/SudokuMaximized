@@ -37,7 +37,7 @@ public class BoardFile : IBoardFile
 
     public int GetAmountBoards()
     {
-        return Data.Count();
+        return Data.Length;
     }
 
     public string[] GetData()

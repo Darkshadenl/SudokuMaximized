@@ -5,7 +5,7 @@ public class Cell : Component
     // HardNumber = had a value above 0 from the start. Unchangeable. 
     public bool HardNumber { get; }
     public List<Row> Row { get; }
-    public List<Square> Square { get;}
+    public List<Square> Square { get; set; }
     public List<Column> Column { get; }
 
     public Cell(int value, int x, int y, bool hardNumber)
@@ -27,18 +27,6 @@ public class Cell : Component
     public override bool IsComposite()
     {
         return false;
-    }
-
-    public void PrintSelf()
-    {
-        Console.Write($" {Value} ");
-    }
-
-    public Cell? GetCursor()
-    {
-        if (IsCursor)
-            return this;
-        return null;
     }
 
     public override bool HasEmptyCell()

@@ -2,7 +2,7 @@
 
 public class Square : Component
 {
-    public int Id { get; set; }
+    public int Id { get; }
     public Square(int id)
     {
         Id = id;

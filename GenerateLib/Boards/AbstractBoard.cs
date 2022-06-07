@@ -36,11 +36,6 @@ public abstract class AbstractBoard
         throw new NotImplementedException();
     }
 
-    public Component GetBoardByIndex(int index)
-    {
-        return SudokuBoards.ToArray()[index];
-    }
-
     public void MoveCursor(Directions direction)
     {
         // check if chosen direction has a cell
