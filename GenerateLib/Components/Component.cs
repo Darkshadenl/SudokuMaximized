@@ -9,7 +9,7 @@ public abstract class Component : IViewable
     public List<int> PossibleValues { get; set; } = new();
     public bool IsCursor { get; set; }
     
-    protected List<Component> Components = new ();
+    public List<Component> Components = new ();
     public int X { get; set; }
     public int Y { get; set; }
 

@@ -36,7 +36,6 @@ public class GameController
         // temp vars
         var gameOver = false;
         var currentBoardIndex = _game.Board.CurrentBoardIndex;
-        var solvedBoardIndex = new List<int>();
         var boardCount = _game.Board.SudokuBoards.Count;
 
         do

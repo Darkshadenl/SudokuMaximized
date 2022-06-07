@@ -1,4 +1,5 @@
 ﻿using GenerateLib.Boards;
+using GenerateLib.Components;
 using GenerateLib.Helpers;
 using GenerateLib.SolveAlgo;
 using GenerateLib.Viewable;
