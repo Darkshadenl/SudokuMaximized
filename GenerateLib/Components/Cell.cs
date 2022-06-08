@@ -4,15 +4,15 @@ public class Cell : Component
 {
     // HardNumber = had a value above 0 from the start. Unchangeable. 
     public bool HardNumber { get; }
-    public List<Row> Row { get; }
-    public List<Square> Square { get; set; }
-    public List<Column> Column { get; }
+    public List<Row> Rows { get; }
+    public List<Square> Squares { get; set; }
+    public List<Column> Columns { get; }
 
     public Cell(int value, int x, int y, bool hardNumber)
     {
-        Row = new List<Row>();
-        Square = new List<Square>();
-        Column = new List<Column>();
+        Rows = new List<Row>();
+        Squares = new List<Square>();
+        Columns = new List<Column>();
         HardNumber = hardNumber;
         Value = value;
         X = x;
@@ -42,16 +42,16 @@ public class Cell : Component
 
     public bool IsCellValueDuplicateInRows(int number)
     {
-        return Row.All(c => c.HasDuplicate(this, number));
+        return Rows.All(c => c.HasDuplicate(this, number));
     }
 
     public bool IsCellValueDuplicateInColumns(int number)
     {
-        return Column.All(c => c.HasDuplicate(this, number));
+        return Columns.All(c => c.HasDuplicate(this, number));
     }
 
     public bool IsCellValueDuplicateInSquares(int number)
     {
-        return Square.All(c => c.HasDuplicate(this, number));   // TODO possible bug
+        return Squares.All(c => c.HasDuplicate(this, number));   // TODO possible bug
     }
 }

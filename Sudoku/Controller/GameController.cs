@@ -72,9 +72,9 @@ public class GameController
 
                         // TODO MAKE SOLVER ALSO INPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
 
-                        // _game.Solver.SolveBoard((_game.Board.SudokuBoards as SudokuBoard)!);
-                        //
-                        // // resolving only 1 board of 5 samurai checcccccccck
+                        _game.Solver.SolveBoard((_game.Board.SudokuBoards[0] as SudokuBoard)!);
+                        
+                        // resolving only 1 board of 5 samurai checcccccccck
                         // if (_game.BoardType == BoardTypes.samurai)
                         // {
                         //     if (!solvedBoardIndex.Contains(_game.BoardList.IndexOf(_game.Board)) && solvedBoardIndex.Count() != boardCount)
@@ -91,8 +91,8 @@ public class GameController
                         //         break;
                         //     }
                         // }
-                        //
-                        // gameOver = true;
+                        
+                        gameOver = true;
                         break;
                     //next samurai board
                     case ConsoleKey.E:

@@ -44,8 +44,11 @@ public class Board : AbstractBoard
 
         if (isSamurai)
         {
-            AddExtraSquaresToMiddleBoardCells();
-            FixMiddleBoardRows(); // TODO ga verder hier
+            // We need to replace the cells of the corners of the middleboard, otherwise its value won't update. 
+            // This means we need to replace it in 3 different places. Rows, cols and squares. 
+            // Cells also need to know their new rows, cols and squares
+
+            RefactorCorners();
         }
 
         #region idk 
@@ -176,47 +179,8 @@ public class Board : AbstractBoard
 
         return this;
     }
-
-    private void FixMiddleBoardRows()
-    {
-        // board 0, rows 678 range 678
-        // board 1, rows 678, range 012
-        // board 3, rows 012, range 678
-        // board 4, rows 012, range 012
-
-        var middleBoard = SudokuBoards[2] as SudokuBoard;
-        var middleBRow = middleBoard.Components.Where(c => c is Row).ToList();
-
-        // board 0
-        var board = SudokuBoards[0] as SudokuBoard;
-        var rows = board.Components.Where(c => c is Row).ToList();
-        
-        var firstRow = GetRangeFromRow((rows[6] as Row)!, 6, 8);
-        var secondRow = GetRangeFromRow((rows[7] as Row)!, 6, 8);
-        var ThirdRow = GetRangeFromRow((rows[8] as Row)!, 6, 8);
-
-        var firstMiddleRow = GetRangeFromRow((rows[6] as Row)!, 6, 8);
-
-
-        // board 1
-
-        // board 2
-
-        // board 3
-
-    }
-
-    private void SetRangeOfRow(Row row, int start, int end)
-    {
-        
-    }
-
-    private List<Component> GetRangeFromRow(Row row, int start, int end)
-    {
-        return row.Components.GetRange(start, end).ToList();
-    }
-
-    private void AddExtraSquaresToMiddleBoardCells()
+    
+    private void RefactorCorners()
     {
         var upperLeftSquare = ExtractSquareFromBoard(SudokuBoards[0] as SudokuBoard, 8);    // rechtsonder van board 0
         var upperRightSquare = ExtractSquareFromBoard(SudokuBoards[1] as SudokuBoard, 6);   // linksonder van board 1
@@ -228,21 +192,38 @@ public class Board : AbstractBoard
         var middleLowerLeftSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 2);
         var middleLowerRightSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 0);
         
+        // Got needed cells (in the form of squares). 
+        // Taking upperleft and middleUpperleft as example.
+        // upperLeftSquare is leading. 
+        // Cells of upperLeftSquare need to replace cells of middleUpperLeftSquare.
+        // Cells of upperLeftSquare need to know the row and col of corresponding cell in middleUpperLeftSquare.
+        
         var middleSquares = new List<Square>{ middleUpperLeftSquare, middleUpperRightSquare, middleLowerLeftSquare, middleLowerRightSquare };
         var otherSquares = new List<Square> { upperLeftSquare, upperRightSquare, lowerLeftSquare, lowerRightSquare};
 
         for (int i = 0; i < middleSquares.Count; i++)
         {
-            var middleSquareComponents = middleSquares[i].Components;
-
-            for (int j = 0; j < middleSquareComponents.Count; j++)
+            // needed data
+            var middleSquareCells = middleSquares[i].Components.Cast<Cell>().ToList();
+            var otherSquareCells = otherSquares[i].Components.Cast<Cell>().ToList();
+            
+            for (int j = 0; j < middleSquareCells.Count; j++)
             {
-                var middleSquareCell = middleSquareComponents[j] as Cell;
-                middleSquareCell!.Square.Add(otherSquares[i]);
+                var middleSquareCell = middleSquareCells[j];
+                var otherSquareCell = otherSquareCells[j];
+                
+                // add cols, rows of middleSquareComponents to otherSquareComponents
+                otherSquareCell.Columns.Add(middleSquareCell.Columns[0]);
+                otherSquareCell.Rows.Add(middleSquareCell.Rows[0]);
+                
+                // middleSquareCell.Column/Row should know the otherSquareCell, replacing the previous middleSquareCell
+                // This should be enough because col/row of middleSquareCell is referred by Sudokuboard. 
+                middleSquareCell.Columns[0].ReplaceCell(middleSquareCell, otherSquareCell);
+                middleSquareCell.Rows[0].ReplaceCell(middleSquareCell, otherSquareCell);
+                middleSquareCell.Squares[0].ReplaceCell(middleSquareCell, otherSquareCell);
             }
         }
     }
-
 
     private void BuildABoard(int squareNr, int[][] data, int squareHeight, int startSquareNr, int boardIndex)
     {
@@ -279,9 +260,9 @@ public class Board : AbstractBoard
                 row.Add(cell);
                 activeSquare.Add(cell);
 
-                cell.Row.Add(row);
-                cell.Column.Add(col);
-                cell.Square.Add(activeSquare);
+                cell.Rows.Add(row);
+                cell.Columns.Add(col);
+                cell.Squares.Add(activeSquare);
             }
 
             if ((rowY + 1) % squareHeight == 0 && rowY != 0)

@@ -12,9 +12,12 @@ public class SudokuBoard : Component
     {
         foreach (var component in Components)
         {
-            if (component.HasEmptyCell())
+            if (component is Square s)
             {
-                return component.FindEmptyCell();
+                if (s.HasEmptyCell())
+                {
+                    return s.FindEmptyCell();
+                }
             }
         }
 

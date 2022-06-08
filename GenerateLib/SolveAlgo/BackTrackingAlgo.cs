@@ -22,10 +22,8 @@ public class BackTrackingAlgo : ISolver
         Cell cellNoNumber = FindEmpty();
     
         if (cellNoNumber == null)
-        {
             return true;
-        }
-    
+        
         for (int targetNumber = 1; targetNumber < 10; targetNumber++) // 1 to 9
         {
             if (Valid(cellNoNumber, targetNumber))

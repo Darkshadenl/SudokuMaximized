@@ -58,11 +58,25 @@ public abstract class Component : IViewable
             var maybeEmpty = component.FindEmptyCell();
             if (maybeEmpty != null)
             {
-                emptyCell = maybeEmpty;
+                return maybeEmpty;
             }
         }
 
         return emptyCell;
+    }
+
+    public bool ReplaceCell(Cell oldCell, Cell newCell)
+    {
+        if (this is not Row && this is not Column) return false;
+        
+        if (Components.Contains(oldCell))
+        {
+            var i = Components.IndexOf(oldCell);
+            Components[i] = newCell;
+            return true;
+        }
+
+        return false;
     }
 
 }
