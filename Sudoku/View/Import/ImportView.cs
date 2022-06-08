@@ -31,9 +31,7 @@ public class ImportView : IImportView
             // prints allowed extensions
             PrintAllowedExtensions(extensions);
 
-            var filePath = @"" + Console.ReadLine();
-            filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.samurai";
-            
+            var filePath = @"" + Console.ReadLine();            
 
             // removal of any whitespaces 
             filePath.Trim();

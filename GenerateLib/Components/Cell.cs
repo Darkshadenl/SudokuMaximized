@@ -15,15 +15,22 @@ public class Cell : Component
         Columns = new List<Column>();
         HardNumber = hardNumber;
         Value = value;
-        X = x;
-        Y = y;
+        Coordinates.X = x;
+        Coordinates.Y = y;
     }
 
     public override void Add(Component c)
     {
         throw new NotImplementedException();
     }
-    
+
+    public override object Clone()
+    {
+        //var cell = new Cell(Value, Coordinates.X, Coordinates.Y, HardNumber);
+        //return cell;
+        return MemberwiseClone();
+    }
+
     public override bool IsComposite()
     {
         return false;

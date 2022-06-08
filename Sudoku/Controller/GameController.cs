@@ -72,27 +72,27 @@ public class GameController
 
                         // TODO MAKE SOLVER ALSO INPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
 
-                        _game.Solver.SolveBoard((_game.Board.SudokuBoards[0] as SudokuBoard)!);
-                        
-                        // resolving only 1 board of 5 samurai checcccccccck
+                        _game.Solver.SolveBoard((_game.Board.SudokuBoards[currentBoardIndex] as SudokuBoard)!);
+
+                        //resolving only 1 board of 5 samurai check
                         // if (_game.BoardType == BoardTypes.samurai)
-                        // {
-                        //     if (!solvedBoardIndex.Contains(_game.BoardList.IndexOf(_game.Board)) && solvedBoardIndex.Count() != boardCount)
-                        //     {
-                        //         // save curr progress back to list
-                        //         _game.BoardList[currentBoardIndex] = _game.Board;
-                        //
-                        //         solvedBoardIndex.Add(_game.BoardList.IndexOf(_game.Board));
-                        //
-                        //         if (solvedBoardIndex.Count == boardCount)
-                        //         {
-                        //             gameOver = true;
-                        //         }
-                        //         break;
-                        //     }
-                        // }
-                        
-                        gameOver = true;
+                        //{
+                        //    if (!solvedBoardIndex.Contains(_game.BoardList.IndexOf(_game.Board)) && solvedBoardIndex.Count() != boardCount)
+                        //    {
+                        //        // save curr progress back to list
+                        //        _game.BoardList[currentBoardIndex] = _game.Board;
+
+                        //        solvedBoardIndex.Add(_game.BoardList.IndexOf(_game.Board));
+
+                        //        if (solvedBoardIndex.Count == boardCount)
+                        //        {
+                        //            gameOver = true;
+                        //        }
+                        //        break;
+                        //    }
+                        //}
+
+                        //gameOver = true;
                         break;
                     //next samurai board
                     case ConsoleKey.E:
@@ -109,7 +109,7 @@ public class GameController
                         }
                         break;
                     //prev samurai board
-                    case ConsoleKey.W:
+                    case ConsoleKey.Q:
                         // checks if boardtype is samurai
                         if (_game.BoardType == BoardTypes.samurai)
                         {
