@@ -55,8 +55,6 @@ public class Board : AbstractBoard
 
     private void RefactorCornersSamurai()
     {
-        var clonedSquares = new List<int>();
-
         var lowerRightSquare = ExtractSquareFromBoard(SudokuBoards[4] as SudokuBoard, 0);   // linksboven van board 4
         var lowerLeftSquare = ExtractSquareFromBoard(SudokuBoards[3] as SudokuBoard, 2);    // rechtsboven van board 3
         var upperRightSquare = ExtractSquareFromBoard(SudokuBoards[1] as SudokuBoard, 6);   // linksonder van board 1
@@ -75,6 +73,7 @@ public class Board : AbstractBoard
 
         var middleSquares = new List<Square> { middleUpperLeftSquare, middleUpperRightSquare, middleLowerLeftSquare, middleLowerRightSquare };
         var otherSquares = new List<Square> { upperLeftSquare, upperRightSquare, lowerLeftSquare, lowerRightSquare };
+        
         for (int i = 0; i < middleSquares.Count; i++)
         {
             // needed data
@@ -90,31 +89,18 @@ public class Board : AbstractBoard
                 otherSquareCell.Columns.Add(middleSquareCell.Columns[0]);
                 otherSquareCell.Rows.Add(middleSquareCell.Rows[0]);
 
-                // pre replace middlecell location
-                // you dont want to replace object or you lose reference
-                // only property changing
+                var clone = (Cell) otherSquareCell.Clone();
+                clone.X = middleSquareCell.X;
+                clone.Y = middleSquareCell.Y;
 
-                //var coords = middleSquareCell.Coordinates.Clone() as Coordinates;
-
-                // setting cursor for samurai middle board
-                if (middleSquareCell.Coordinates.X == StartCursorX && middleSquareCell.Coordinates.Y == StartCursorY)
-                {
-                    Cursor = middleSquareCell;
-                    middleSquareCell.IsCursor = true;
-                }
+                otherSquareCell.X = 10000000;
+                otherSquareCell.Value = 99999;
 
                 // middleSquareCell.Column/Row should know the otherSquareCell, replacing the previous middleSquareCell
                 // This should be enough because col/row of middleSquareCell is referred by Sudokuboard. 
-                middleSquareCell.Columns[0].ReplaceCell(middleSquareCell, otherSquareCell);
-                middleSquareCell.Rows[0].ReplaceCell(middleSquareCell, otherSquareCell);
-                middleSquareCell.Squares[0].ReplaceCell(middleSquareCell, otherSquareCell);
-
-                // fix x/y of new middle square
-                // post replace middlecell location
-                //middleSquareCell.Coordinates.X = coords.X;
-                //middleSquareCell.Coordinates.Y = coords.Y;
-
-
+                middleSquareCell.Columns[0].ReplaceCell(middleSquareCell, clone);
+                middleSquareCell.Rows[0].ReplaceCell(middleSquareCell, clone);
+                middleSquareCell.Squares[0].ReplaceCell(middleSquareCell, clone);
             }
         }
         var t = 1;
@@ -143,8 +129,9 @@ public class Board : AbstractBoard
                 var activeSquare = squares[squareNr];
 
                 int value = data[rowY][columnX];
+                // Cell cell = new Cell(value, new Coordinates(columnX, rowY), value > 0);
                 Cell cell = new Cell(value, columnX, rowY, value > 0);
-
+                
                 if (rowY == StartCursorX && columnX == StartCursorY)
                 {
                     Cursor = cell;
@@ -185,6 +172,7 @@ public class Board : AbstractBoard
         {
             SudokuBoards[boardIndex].Add(s);
         }
+
     }
 
 

@@ -1,5 +1,4 @@
-﻿using GenerateLib.Boards;
-using GenerateLib.Helpers;
+﻿using GenerateLib.Helpers;
 using GenerateLib.Import;
 
 namespace GenerateLib.Builder;

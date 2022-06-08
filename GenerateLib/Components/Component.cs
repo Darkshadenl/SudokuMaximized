@@ -1,22 +1,28 @@
-﻿using GenerateLib.Helpers;
-using GenerateLib.Viewable;
+﻿using GenerateLib.Viewable;
 
 namespace GenerateLib.Components;
 
 public abstract class Component : IViewable, ICloneable
 {
-    public int Value { get; set; }
+    public CellValue Value { get; set; }
+
+    public record CellValue
+    {
+        public int Value { get; set; }
+    }
+
     public List<int> PossibleValues { get; set; } = new();
     public bool IsCursor { get; set; }
 
     public List<Component> Components = new();
     public int X { get; set; } // TODO weghalen
     public int Y { get; set; } // TODO weghalen
-    public Coordinates Coordinates { get; set; } = new();
+    
+    // public Coordinates Coordinates { get; set; }
 
     public virtual object Clone()
     {
-        throw new NotImplementedException();
+        return MemberwiseClone();
     }
 
     public virtual void Add(Component c)
@@ -34,7 +40,7 @@ public abstract class Component : IViewable, ICloneable
         foreach (Component component in Components)
         {
             if (component.IsComposite()) continue;
-            var c = (Cell)component;
+            var c = (Cell) component;
             if (c.Equals(cell)) continue;
             if (c.Value == number) return true;
         }
@@ -63,9 +69,7 @@ public abstract class Component : IViewable, ICloneable
         {
             var maybeEmpty = component.FindEmptyCell();
             if (maybeEmpty != null)
-            {
                 return maybeEmpty;
-            }
         }
 
         return emptyCell;

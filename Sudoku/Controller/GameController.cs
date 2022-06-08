@@ -23,8 +23,7 @@ public class GameController
         _boardView = view;
         _visitorFactory = visitorFactory;
     }
-
-
+    
     public bool RunGame(AbstractBoard abstractBoard)
     {
         // initialize game data
@@ -70,7 +69,7 @@ public class GameController
                         break;
                     case ConsoleKey.Spacebar:
 
-                        // TODO MAKE SOLVER ALSO INPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
+                        // TODO MAKE SOLVER ALSO IMPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
 
                         _game.Solver.SolveBoard((_game.Board.SudokuBoards[currentBoardIndex] as SudokuBoard)!);
 
