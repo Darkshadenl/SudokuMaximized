@@ -92,10 +92,7 @@ public class Board : AbstractBoard
                 var clone = (Cell) otherSquareCell.Clone();
                 clone.X = middleSquareCell.X;
                 clone.Y = middleSquareCell.Y;
-
-                otherSquareCell.X = 10000000;
-                otherSquareCell.Value = 99999;
-
+                
                 // middleSquareCell.Column/Row should know the otherSquareCell, replacing the previous middleSquareCell
                 // This should be enough because col/row of middleSquareCell is referred by Sudokuboard. 
                 middleSquareCell.Columns[0].ReplaceCell(middleSquareCell, clone);

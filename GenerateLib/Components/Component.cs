@@ -4,11 +4,14 @@ namespace GenerateLib.Components;
 
 public abstract class Component : IViewable, ICloneable
 {
-    public CellValue Value { get; set; }
+    private CellValueRecord _valueRecord = new ();
 
-    public record CellValue
+    private record CellValueRecord { public int Value { get; set; } }
+    
+    public int Value
     {
-        public int Value { get; set; }
+        get => _valueRecord.Value;
+        set =>  _valueRecord.Value = value;
     }
 
     public List<int> PossibleValues { get; set; } = new();
