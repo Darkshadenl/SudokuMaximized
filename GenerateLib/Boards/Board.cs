@@ -47,7 +47,6 @@ public class Board : AbstractBoard
             // We need to replace the cells of the corners of the middleboard, otherwise its value won't update. 
             // This means we need to replace it in 3 different places. Rows, cols and squares. 
             // Cells also need to know their new rows, cols and squares
-
             RefactorCorners();
         }
 
@@ -187,10 +186,10 @@ public class Board : AbstractBoard
         var lowerLeftSquare = ExtractSquareFromBoard(SudokuBoards[3] as SudokuBoard, 2);    // rechtsboven van board 3
         var lowerRightSquare = ExtractSquareFromBoard(SudokuBoards[4] as SudokuBoard, 0);   // linksboven van board 4
 
-        var middleUpperLeftSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 8);
-        var middleUpperRightSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 6);
-        var middleLowerLeftSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 2);
-        var middleLowerRightSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 0);
+        var middleUpperLeftSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 0);
+        var middleUpperRightSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 2);
+        var middleLowerLeftSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 6);
+        var middleLowerRightSquare = ExtractSquareFromBoard(SudokuBoards[2] as SudokuBoard, 8);
         
         // Got needed cells (in the form of squares). 
         // Taking upperleft and middleUpperleft as example.
