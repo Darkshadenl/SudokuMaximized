@@ -73,7 +73,7 @@ public class Board : AbstractBoard
 
         var middleSquares = new List<Square> { middleUpperLeftSquare, middleUpperRightSquare, middleLowerLeftSquare, middleLowerRightSquare };
         var otherSquares = new List<Square> { upperLeftSquare, upperRightSquare, lowerLeftSquare, lowerRightSquare };
-        
+
         for (int i = 0; i < middleSquares.Count; i++)
         {
             // needed data
@@ -89,10 +89,23 @@ public class Board : AbstractBoard
                 otherSquareCell.Columns.Add(middleSquareCell.Columns[0]);
                 otherSquareCell.Rows.Add(middleSquareCell.Rows[0]);
 
-                var clone = (Cell) otherSquareCell.Clone();
+                var clone = (Cell)otherSquareCell.Clone();
                 clone.X = middleSquareCell.X;
                 clone.Y = middleSquareCell.Y;
-                
+
+                // set middleboard cursor
+                if (clone.X == 0 && clone.Y == 0)
+                {
+                    Cursor = clone;
+                    clone.IsCursor = true;
+                }
+
+                // remove old cursor (bottom right previously)
+                if (clone.Squares[0].Id == 0)
+                {
+                    clone.IsCursor = false;
+                }
+
                 // middleSquareCell.Column/Row should know the otherSquareCell, replacing the previous middleSquareCell
                 // This should be enough because col/row of middleSquareCell is referred by Sudokuboard. 
                 middleSquareCell.Columns[0].ReplaceCell(middleSquareCell, clone);
@@ -100,7 +113,6 @@ public class Board : AbstractBoard
                 middleSquareCell.Squares[0].ReplaceCell(middleSquareCell, clone);
             }
         }
-        var t = 1;
     }
 
     private void BuildABoard(int squareNr, int[][] data, int squareHeight, int startSquareNr, int boardIndex)
@@ -128,7 +140,7 @@ public class Board : AbstractBoard
                 int value = data[rowY][columnX];
                 // Cell cell = new Cell(value, new Coordinates(columnX, rowY), value > 0);
                 Cell cell = new Cell(value, columnX, rowY, value > 0);
-                
+
                 if (rowY == StartCursorX && columnX == StartCursorY)
                 {
                     Cursor = cell;
