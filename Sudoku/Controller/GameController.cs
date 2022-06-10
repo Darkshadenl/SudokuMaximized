@@ -70,26 +70,8 @@ public class GameController
                     case ConsoleKey.Spacebar:
 
                         // TODO MAKE SOLVER ALSO IMPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
-
-                        _game.Solver.SolveBoard((_game.Board.SudokuBoards[currentBoardIndex] as SudokuBoard)!);
-
-                        //resolving only 1 board of 5 samurai check
-                        // if (_game.BoardType == BoardTypes.samurai)
-                        //{
-                        //    if (!solvedBoardIndex.Contains(_game.BoardList.IndexOf(_game.Board)) && solvedBoardIndex.Count() != boardCount)
-                        //    {
-                        //        // save curr progress back to list
-                        //        _game.BoardList[currentBoardIndex] = _game.Board;
-
-                        //        solvedBoardIndex.Add(_game.BoardList.IndexOf(_game.Board));
-
-                        //        if (solvedBoardIndex.Count == boardCount)
-                        //        {
-                        //            gameOver = true;
-                        //        }
-                        //        break;
-                        //    }
-                        //}
+                       
+                        _game.Solver.SolveBoards(_game.Board.SudokuBoards);
 
                         //gameOver = true;
                         break;

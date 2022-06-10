@@ -18,11 +18,9 @@ public abstract class Component : IViewable, ICloneable
     public bool IsCursor { get; set; }
 
     public List<Component> Components = new();
-    public int X { get; set; } // TODO weghalen
-    public int Y { get; set; } // TODO weghalen
+    public int X { get; set; }
+    public int Y { get; set; }
     
-    // public Coordinates Coordinates { get; set; }
-
     public virtual object Clone()
     {
         return MemberwiseClone();
