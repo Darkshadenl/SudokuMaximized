@@ -89,23 +89,12 @@ public class Board : AbstractBoard
                 otherSquareCell.Columns.Add(middleSquareCell.Columns[0]);
                 otherSquareCell.Rows.Add(middleSquareCell.Rows[0]);
 
+                // make clone so everything stays the same except for X and Y.
                 var clone = (Cell)otherSquareCell.Clone();
                 clone.X = middleSquareCell.X;
                 clone.Y = middleSquareCell.Y;
-
-                // set middleboard cursor
-                if (clone.X == 0 && clone.Y == 0)
-                {
-                    Cursor = clone;
-                    clone.IsCursor = true;
-                }
-
-                // remove old cursor (bottom right previously)
-                if (clone.Squares[0].Id == 0)
-                {
-                    clone.IsCursor = false;
-                }
-
+                clone.IsCursor = false;
+                
                 // middleSquareCell.Column/Row should know the otherSquareCell, replacing the previous middleSquareCell
                 // This should be enough because col/row of middleSquareCell is referred by Sudokuboard. 
                 middleSquareCell.Columns[0].ReplaceCell(middleSquareCell, clone);
@@ -113,6 +102,9 @@ public class Board : AbstractBoard
                 middleSquareCell.Squares[0].ReplaceCell(middleSquareCell, clone);
             }
         }
+
+        middleUpperLeftSquare.Components[0].IsCursor = true;
+        SudokuBoards[2].Cursor = middleUpperLeftSquare.Components[0];
     }
 
     private void BuildABoard(int squareNr, int[][] data, int squareHeight, int startSquareNr, int boardIndex)
@@ -145,6 +137,7 @@ public class Board : AbstractBoard
                 {
                     Cursor = cell;
                     cell.IsCursor = true;
+                    SudokuBoards[boardIndex].Cursor = cell;
                 }
 
                 col.Add(cell);

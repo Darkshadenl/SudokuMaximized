@@ -14,6 +14,8 @@ public class DefinitiveDraw : IDraw
 
     public void DrawRegularBoard(int size, List<IViewable> board)
     {
+        var cursors = board.Where(viewable => viewable.IsCursor).ToList();
+        
         var verC = 0;
         var squareSize = (int) Math.Sqrt(size);
 

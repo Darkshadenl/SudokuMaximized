@@ -6,7 +6,24 @@ public class Square : Component
     public Square(int id)
     {
         Id = id;
-        // X = coordinateX;
-        // Y = coordinateY;
+    }
+
+    public override Component FindCellInTree(int x, int y)
+    {
+        return Components.FirstOrDefault(c => c is Cell && c.X == x && c.Y == y);
+    }
+
+    public override List<Component> FindOldCursors()
+    {
+        var cursors = new List<Component>();
+        foreach (var component in Components)
+        {
+            if (component.IsCursor)
+            {
+                cursors.Add(component);
+            }
+        }
+
+        return cursors;
     }
 }

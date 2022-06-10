@@ -81,7 +81,7 @@ public class SudokuBoard : Component
 
         var newCursor = GetNewCursor(cursorNewX, cursorNewY);
         newCursor.IsCursor = true;
-
+        Cursor = newCursor;
         return newCursor;
     }
 
@@ -99,7 +99,7 @@ public class SudokuBoard : Component
 
         var newCursor = GetNewCursor(cursorNewX, cursorNewY);
         newCursor.IsCursor = true;
-
+        Cursor = newCursor;
         return newCursor;
     }
 
@@ -112,7 +112,7 @@ public class SudokuBoard : Component
 
         var newCursor = GetNewCursor(cursorNewX, cursorNewY);
         newCursor.IsCursor = true;
-
+        Cursor = newCursor;
         return newCursor;
     }
     
@@ -125,7 +125,7 @@ public class SudokuBoard : Component
 
         var newCursor = GetNewCursor(cursorNewX, cursorNewY);
         newCursor.IsCursor = true;
-
+        Cursor = newCursor;
         return newCursor;
     }
 }

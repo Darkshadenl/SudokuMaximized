@@ -18,14 +18,39 @@ public abstract class Component : IViewable, ICloneable
     public bool IsCursor { get; set; }
 
     public List<Component> Components = new();
-    public int X { get; set; } // TODO weghalen
-    public int Y { get; set; } // TODO weghalen
-    
-    // public Coordinates Coordinates { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
 
-    public virtual object Clone()
+    private Component _cursor;
+
+    public Component Cursor
+    {
+        get => _cursor;
+        set
+        {
+            _cursor = value;
+        }
+    }
+
+    public object Clone()
     {
         return MemberwiseClone();
+    }
+
+    public virtual Component FindCellInTree(int x, int y)
+    {
+        foreach (var component in Components)
+        {
+            if (component is not Square s) continue;
+            
+            var newCursor = s.FindCellInTree(x, y);
+            if (newCursor != null)
+            {
+                return newCursor;
+            }
+        }
+
+        return Cursor;
     }
 
     public virtual void Add(Component c)
@@ -90,5 +115,20 @@ public abstract class Component : IViewable, ICloneable
         }
 
         return false;
+    }
+
+    public virtual List<Component> FindOldCursors()
+    {
+        var oldCursors = new List<Component>();
+        
+        foreach (var component in Components)
+        {
+            if (component is Square s)
+            {
+                oldCursors.AddRange(s.FindOldCursors());
+            }
+        }
+
+        return oldCursors;
     }
 }

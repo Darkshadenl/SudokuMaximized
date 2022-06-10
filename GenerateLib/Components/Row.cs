@@ -6,6 +6,5 @@ public class Row : Component
     {
         return Components.Where(c => !c.IsComposite()).Select(c => (Cell) c).ToList();
     }
-
     
 }
