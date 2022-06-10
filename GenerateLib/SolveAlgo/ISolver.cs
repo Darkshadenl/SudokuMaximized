@@ -4,5 +4,5 @@ namespace GenerateLib.SolveAlgo;
 
 public interface ISolver
 {
-    public Component SolveBoard(SudokuBoard sudokuBoard);
+    public List<Component> SolveBoards(List<Component> sudokuBoards);
 }

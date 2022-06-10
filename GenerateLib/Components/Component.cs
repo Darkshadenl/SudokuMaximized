@@ -20,9 +20,8 @@ public abstract class Component : IViewable, ICloneable
     public List<Component> Components = new();
     public int X { get; set; }
     public int Y { get; set; }
-
+    
     private Component _cursor;
-
     public Component Cursor
     {
         get => _cursor;
@@ -31,8 +30,8 @@ public abstract class Component : IViewable, ICloneable
             _cursor = value;
         }
     }
-
-    public object Clone()
+    
+    public virtual object Clone()
     {
         return MemberwiseClone();
     }
