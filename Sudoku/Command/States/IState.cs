@@ -2,6 +2,6 @@
 
 public interface IState
 {
-    public GenerateLib.Helpers.States State { get; set; }
+    public Helpers.Helpers.States State { get; set; }
     
 }

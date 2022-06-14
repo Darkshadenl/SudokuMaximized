@@ -1,7 +1,8 @@
-﻿using GenerateLib.Boards;
-using GenerateLib.Factory;
-using GenerateLib.Helpers;
-using GenerateLib.Viewable;
+﻿using Abstraction;
+using BoardConstruction.Boards;
+using Factories.Factory;
+using Helpers.Helpers;
+using Helpers.Viewable;
 using Sudoku.Model.Game;
 using Sudoku.View.Game;
 
@@ -67,7 +68,7 @@ public class GameController
                         _game.Select.Execute();
                         break;
                     case ConsoleKey.Spacebar:
-                        _game.Solver.SolveBoards(_game.Board.SudokuBoards);
+                        _game.Solver.SolveBoards(_game.Board.SudokuBoards.Cast<IComponent>().ToList());
                         break;
                     //next samurai board
                     case ConsoleKey.E:

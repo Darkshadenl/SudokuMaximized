@@ -1,5 +1,5 @@
-﻿using GenerateLib.Boards;
-using GenerateLib.Builder;
+﻿using BoardConstruction.Boards;
+using BoardConstruction.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 using Sudoku.Controller;
@@ -16,43 +16,16 @@ public static class DependencyInjectionContainer
     
     public static IServiceCollection ConfigureTransient(this IServiceCollection services)
     {
-        services.Scan(scan => scan
-            .FromAssemblyOf<AbstractBoard>()
-
-                .AddClasses(c =>
-                {
-                    c.NotInNamespaces(new[]
-                    {
-                        "GenerateLib.Components",
-                        "GenerateLib.Boards",
-                        "GenerateLib.Visitors"
-                    });
-                })
-                .AsImplementedInterfaces()
-                
-                .AddClasses(c => c.InNamespaceOf<BoardBuildDirector>())
-                .AsSelf()
-        );
+        var EasyRegister = new Registering.Registering(services);
         
-        services.Scan(scan => scan
-            .FromCallingAssembly()
-
-            .AddClasses()
-                    .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-                    .AsImplementedInterfaces()
-                
-            .AddClasses(c =>
-                {
-                    c.NotInNamespaces("Sudoku.Controller", "Sudoku.Resources",
-                        "Sudoku.View.Game", "Sudoku.Visitor");
-                })
-                .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-                .AsSelf()
-        
-            .AddClasses(c =>  c.InNamespaceOf<MainController>())
-                .AsSelf()
-        
-        );
+        services = EasyRegister
+            .RegisterBoardConstructionAssesmbly()
+            .RegisterSudokuAssembly()
+            .RegisterFactories()
+            .RegisterHelpers()
+            .RegisterImport()
+            .RegisterSolvers()
+            .Build();
         
         return services;
     }
@@ -62,3 +35,5 @@ public static class DependencyInjectionContainer
         return services;
     }
 }
+
+    

@@ -1,4 +1,4 @@
-﻿using GenerateLib.Viewable;
+﻿using Helpers.Viewable;
 using Sudoku.Model.Game;
 
 namespace Sudoku.Command;

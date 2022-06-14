@@ -1,0 +1,9 @@
+﻿{
+  "visitor": [
+    {
+      "match": "console",
+      "library": "Helpers",
+      "_namespace": "Helpers.Visitors.ConsoleVisitor"
+    }
+  ]
+}

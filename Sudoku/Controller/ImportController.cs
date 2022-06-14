@@ -1,12 +1,12 @@
-﻿using GenerateLib.Boards;
-using GenerateLib.Config.ImportHandler.JSONModel;
-using GenerateLib.Import;
-using GenerateLib.Interpreters;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Sudoku.Model.Import;
 using Sudoku.View.Import;
 using System.Diagnostics;
 using System.Text;
+using BoardConstruction.Boards;
+using BoardConstruction.Interpreters;
+using Import.Config.JSONModel;
+using Import.Import;
 
 namespace Sudoku.Controller;
 
@@ -128,14 +128,13 @@ public class ImportController
     {
         Debug.Assert(fileInfo.DirectoryName != null, "fileInfo.DirectoryName != null");
 
-        string[] data = File.ReadAllText(fileInfo.FullName).Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+        string[] data = File.ReadAllText(fileInfo.FullName)
+            .Split(new [] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
         string extension = fileInfo.Extension;
 
         if (IsValidExtension(extension))
-        {
             return new BoardFile(data, extension);
-        }
-
+        
         // if it all goes wrong 
         var sb = new StringBuilder("Wrong file. Accepted extensions are");
 

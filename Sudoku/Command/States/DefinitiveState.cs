@@ -6,7 +6,7 @@ public class DefinitiveState : IState
 {
     private readonly Game _game;
     private readonly Dictionary<ConsoleKey, int> _availableKeys;
-    public GenerateLib.Helpers.States State { get; set; } = GenerateLib.Helpers.States.Definitive;
+    public Helpers.Helpers.States State { get; set; } = Helpers.Helpers.States.Definitive;
 
     public DefinitiveState(Game game, Dictionary<ConsoleKey, int> availableKeys)
     {

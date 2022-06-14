@@ -16,7 +16,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GenerateLib\GenerateLib.csproj" />
+      <ProjectReference Include="..\BoardConstruction\BoardConstruction.csproj" />
+      <ProjectReference Include="..\Factories\Factories.csproj" />
+      <ProjectReference Include="..\Helpers\Helpers.csproj" />
+      <ProjectReference Include="..\Import\Import.csproj" />
     </ItemGroup>
 
     <ItemGroup>

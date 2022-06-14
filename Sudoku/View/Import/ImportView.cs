@@ -23,12 +23,10 @@ public class ImportView : IImportView
 
         while (fileInfo == null)
         {
-            // prints available sudoku files
             PrintAvailableSudokuFiles(availableFiles);
 
             Console.WriteLine("\nPlease enter the sudoku file (with extension) or full path you wish to import.");
 
-            // prints allowed extensions
             PrintAllowedExtensions(extensions);
 
             var filePath = @"" + Console.ReadLine();
@@ -36,15 +34,12 @@ public class ImportView : IImportView
             // filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.9x9";
             
 
-            // removal of any whitespaces 
             filePath.Trim();
 
-            // if chosen file is from the available list then ...
             if (availableFiles.Contains(filePath))
             {
                 fileInfo = new FileInfo("Resources\\Sudoku-files\\" + filePath);
             }
-            // if the file path is absolute then this!
             else if (File.Exists(filePath))
             {
                 fileInfo = new FileInfo(filePath);

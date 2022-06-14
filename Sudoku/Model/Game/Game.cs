@@ -1,8 +1,7 @@
-﻿using GenerateLib.Boards;
-using GenerateLib.Components;
-using GenerateLib.Helpers;
-using GenerateLib.SolveAlgo;
-using GenerateLib.Viewable;
+﻿using BoardConstruction.Boards;
+using Helpers.Helpers;
+using Helpers.Viewable;
+using Solvers;
 using Sudoku.Command.States;
 using Sudoku.Controller;
 using ICommand = Sudoku.Command.ICommand;

@@ -1,0 +1,29 @@
+﻿{
+  "components": [
+    {
+      "match": "cell",
+      "library": "BoardConstruction",
+      "_namespace": "BoardConstruction.Components.Cell"
+    },
+    {
+      "match": "column",
+      "library": "BoardConstruction",
+      "_namespace": "BoardConstruction.Components.Column"
+    },
+    {
+      "match": "row",
+      "library": "BoardConstruction",
+      "_namespace": "BoardConstruction.Components.Row"
+    },
+    {
+      "match": "square",
+      "library": "BoardConstruction",
+      "_namespace": "BoardConstruction.Components.Square"
+    },
+    {
+      "match": "sudokuBoard",
+      "library": "BoardConstruction",
+      "_namespace": "BoardConstruction.Components.SudokuBoard"
+    }
+  ]
+}
