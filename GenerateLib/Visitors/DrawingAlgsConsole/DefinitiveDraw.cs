@@ -14,8 +14,6 @@ public class DefinitiveDraw : IDraw
 
     public void DrawRegularBoard(int size, List<IViewable> board)
     {
-        var cursors = board.Where(viewable => viewable.IsCursor).ToList();
-        
         var verC = 0;
         var squareSize = (int) Math.Sqrt(size);
 
@@ -71,7 +69,7 @@ public class DefinitiveDraw : IDraw
 
     public void DrawSamuraiBoard(int size, List<IViewable> board)
     {
-        // samurai is just regular board 
+        // samurai is just a bunch regular boards
         DrawRegularBoard(size, board);
     }
 }

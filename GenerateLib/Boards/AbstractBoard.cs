@@ -38,7 +38,7 @@ public abstract class AbstractBoard
     {
         // CleanOldCursors();
         var s = getBoard();
-        var v = s!.GetAllDataAsViewable();
+        var v = s!.GetAllViewables();
 
         var c = v.Where(c => c.IsCursor).ToList();
         return v;
@@ -55,7 +55,7 @@ public abstract class AbstractBoard
             return;
         
         // find cell in next board with those X and Y. 
-        var newCursorCell = currentBoard.FindCellInTree(oldBoard.Cursor.X, oldBoard.Cursor.Y);
+        var newCursorCell = currentBoard.FindCellViaCoordinates(oldBoard.Cursor.X, oldBoard.Cursor.Y);
         newCursorCell.IsCursor = true;
 
         // Remove isCursor from old Cursor.

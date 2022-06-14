@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuTesting", "SudokuTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateLib", "GenerateLib\GenerateLib.csproj", "{09917E82-069F-47C3-8D62-00F9004D2B77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandState", "CommandState\CommandState.csproj", "{0D1D1919-6F83-4284-9225-8D48596CF3FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{09917E82-069F-47C3-8D62-00F9004D2B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09917E82-069F-47C3-8D62-00F9004D2B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09917E82-069F-47C3-8D62-00F9004D2B77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1D1919-6F83-4284-9225-8D48596CF3FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1D1919-6F83-4284-9225-8D48596CF3FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1D1919-6F83-4284-9225-8D48596CF3FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1D1919-6F83-4284-9225-8D48596CF3FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

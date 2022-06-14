@@ -53,7 +53,7 @@ public class Board : AbstractBoard
         return this;
     }
 
-    private void RefactorCornersSamurai()
+    private void RefactorCornersSamurai() 
     {
         var lowerRightSquare = ExtractSquareFromBoard(SudokuBoards[4] as SudokuBoard, 0);   // linksboven van board 4
         var lowerLeftSquare = ExtractSquareFromBoard(SudokuBoards[3] as SudokuBoard, 2);    // rechtsboven van board 3
@@ -94,6 +94,7 @@ public class Board : AbstractBoard
                 clone.X = middleSquareCell.X;
                 clone.Y = middleSquareCell.Y;
                 clone.IsCursor = false;
+                clone.IsClone = true;
                 
                 // middleSquareCell.Column/Row should know the otherSquareCell, replacing the previous middleSquareCell
                 // This should be enough because col/row of middleSquareCell is referred by Sudokuboard. 

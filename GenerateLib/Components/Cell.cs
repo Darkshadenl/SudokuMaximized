@@ -1,12 +1,15 @@
-﻿namespace GenerateLib.Components;
+﻿using GenerateLib.Viewable;
 
-public class Cell : Component
+namespace GenerateLib.Components;
+
+public class Cell : Component, IViewable
 {
     // HardNumber = had a value above 0 from the start. Unchangeable. 
     public bool HardNumber { get; }
     public List<Row> Rows { get; }
-    public List<Square> Squares { get; set; }
+    public List<Square> Squares { get; }
     public List<Column> Columns { get; }
+    public bool IsClone { get; set; }
 
     public Cell(int value, int x, int y, bool hardNumber)
     {
@@ -36,22 +39,21 @@ public class Cell : Component
 
     public override Cell? FindEmptyCell()
     {
-        if (Value == 0) return this;
-        return null;
+        return Value == 0 ? this : null;
+    }
+    
+    public bool IsValueDuplicateInRows(int number)
+    {
+        return Rows.Any(row => row.HasDuplicateCellValue(this, number));
     }
 
-    public bool IsCellValueDuplicateInRows(int number)
+    public bool IsValueDuplicateInColumns(int number)
     {
-        return Rows.All(c => c.HasDuplicate(this, number));
+        return Columns.Any(col => col.HasDuplicateCellValue(this, number));
     }
 
-    public bool IsCellValueDuplicateInColumns(int number)
+    public bool IsValueDuplicateInSquares(int number)
     {
-        return Columns.All(c => c.HasDuplicate(this, number));
-    }
-
-    public bool IsCellValueDuplicateInSquares(int number)
-    {
-        return Squares.All(c => c.HasDuplicate(this, number));   // TODO possible bug
+        return Squares.Any(square => square.HasDuplicateCellValue(this, number));
     }
 }

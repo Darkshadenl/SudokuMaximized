@@ -1,5 +1,4 @@
 ﻿using GenerateLib.Boards;
-using GenerateLib.Components;
 using GenerateLib.Factory;
 using GenerateLib.Helpers;
 using GenerateLib.Viewable;
@@ -68,12 +67,7 @@ public class GameController
                         _game.Select.Execute();
                         break;
                     case ConsoleKey.Spacebar:
-
-                        // TODO MAKE SOLVER ALSO IMPLEMENT THE CORNERS OF SAMURAI OF CONNECTED BOARDS
-                       
                         _game.Solver.SolveBoards(_game.Board.SudokuBoards);
-
-                        //gameOver = true;
                         break;
                     //next samurai board
                     case ConsoleKey.E:
@@ -102,6 +96,9 @@ public class GameController
                                 _game.Board.CurrentBoardIndex = currentBoardIndex;
                             }
                         }
+                        break;
+                    case ConsoleKey.End:
+                        gameOver = true;
                         break;
                 }
 

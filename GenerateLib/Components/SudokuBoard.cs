@@ -5,6 +5,8 @@ namespace GenerateLib.Components;
 
 public class SudokuBoard : Component
 {
+    
+    private List<Cell> _cells;
     public int BoardHeight { get; set; }
     public int BoardWidth { get; set; }
 
@@ -12,33 +14,29 @@ public class SudokuBoard : Component
     {
         foreach (var component in Components)
         {
-            if (component is Square s)
-            {
-                if (s.HasEmptyCell())
-                {
-                    return s.FindEmptyCell();
-                }
-            }
+            if (component is not Row r) continue;
+            return r.FindEmptyCell();
         }
 
         return null;
     }
     
-    public List<IViewable> GetAllDataAsViewable()
+    public override List<IViewable> GetAllViewables()
     {
         var cells = GetAllCells();
         return cells.Cast<IViewable>().ToList();
     }
 
-    protected virtual List<Cell> GetAllCells()
+    public override List<Cell> GetAllCells()
     {
-        var cells = new List<Cell>();
+        if (_cells is not null) return _cells;
+        _cells = new List<Cell>();
 
         foreach (var component in Components)
             if (component is Row r)
-                cells.AddRange(r.GetAllCells());
+                _cells.AddRange(r.GetAllCells());
         
-        return cells;
+        return _cells;
     }
 
     public bool CanCursorMove(Directions direction, Cell cursor)

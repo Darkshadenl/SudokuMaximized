@@ -2,16 +2,19 @@
 
 namespace GenerateLib.Components;
 
-public abstract class Component : IViewable, ICloneable
+public abstract class Component : ICloneable
 {
-    private CellValueRecord _valueRecord = new ();
+    private CellValueRecord _valueRecord = new();
 
-    private record CellValueRecord { public int Value { get; set; } }
-    
+    private record CellValueRecord
+    {
+        public int Value { get; set; }
+    }
+
     public int Value
     {
         get => _valueRecord.Value;
-        set =>  _valueRecord.Value = value;
+        set => _valueRecord.Value = value;
     }
 
     public List<int> PossibleValues { get; set; } = new();
@@ -28,13 +31,13 @@ public abstract class Component : IViewable, ICloneable
         return MemberwiseClone();
     }
 
-    public virtual Component FindCellInTree(int x, int y)
+    public virtual Component FindCellViaCoordinates(int x, int y)
     {
         foreach (var component in Components)
         {
             if (component is not Square s) continue;
-            
-            var newCursor = s.FindCellInTree(x, y);
+
+            var newCursor = s.FindCellViaCoordinates(x, y);
             if (newCursor != null)
             {
                 return newCursor;
@@ -54,13 +57,13 @@ public abstract class Component : IViewable, ICloneable
         return true;
     }
 
-    public bool HasDuplicate(Cell cell, int number)
+    public bool HasDuplicateCellValue(Cell cell, int number)
     {
         foreach (Component component in Components)
         {
-            if (component.IsComposite()) continue;
-            var c = (Cell) component;
-            if (c.Equals(cell)) continue;
+            if (component is not Cell c) continue;
+
+            c = (Cell) component;
             if (c.Value == number) return true;
         }
 
@@ -84,9 +87,11 @@ public abstract class Component : IViewable, ICloneable
     public virtual Cell? FindEmptyCell()
     {
         Cell emptyCell = null;
+
         foreach (var component in Components)
         {
             var maybeEmpty = component.FindEmptyCell();
+
             if (maybeEmpty != null)
                 return maybeEmpty;
         }
@@ -111,7 +116,7 @@ public abstract class Component : IViewable, ICloneable
     public virtual List<Component> FindOldCursors()
     {
         var oldCursors = new List<Component>();
-        
+
         foreach (var component in Components)
         {
             if (component is Square s)
@@ -121,5 +126,15 @@ public abstract class Component : IViewable, ICloneable
         }
 
         return oldCursors;
+    }
+
+    public virtual List<IViewable> GetAllViewables()
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual List<Cell> GetAllCells()
+    {
+        throw new NotImplementedException();
     }
 }

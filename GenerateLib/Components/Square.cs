@@ -8,9 +8,14 @@ public class Square : Component
         Id = id;
     }
 
-    public override Component FindCellInTree(int x, int y)
+    public override Component FindCellViaCoordinates(int x, int y)
     {
         return Components.FirstOrDefault(c => c is Cell && c.X == x && c.Y == y);
+    }
+
+    public override Cell? FindEmptyCell()
+    {
+        return Components.FirstOrDefault(c => c is Cell && c.HasEmptyCell()) as Cell;
     }
 
     public override List<Component> FindOldCursors()
