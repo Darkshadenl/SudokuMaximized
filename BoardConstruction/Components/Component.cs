@@ -61,12 +61,14 @@ public abstract class Component : ICloneable, IComponent
 
     public bool HasDuplicateCellValue(ICell cell, int number)
     {
+        if (!IsComposite()) return false;
+        
         foreach (IComponent component in Components)
         {
             if (component is not Cell c) continue;
 
-            c = (Cell) component;
-            if (c.Value == number) return true;
+            if (c.Value == number)
+                return true;
         }
 
         return false;

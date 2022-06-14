@@ -3,7 +3,7 @@ using Helpers.Viewable;
 
 namespace BoardConstruction.Components;
 
-public class Row : Component
+public class Row : Component, IRow
 {
 
     public override Cell? FindEmptyCell()

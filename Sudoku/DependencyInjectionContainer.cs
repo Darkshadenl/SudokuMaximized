@@ -11,12 +11,24 @@ public static class DependencyInjectionContainer
 
     public static IServiceCollection ConfigureSingleton(this IServiceCollection services)
     {
+        services.Scan(scan => scan
+                .FromCallingAssembly()
+                
+                .AddClasses(c => c.InNamespaceOf<MainController>())
+                .AsImplementedInterfaces()
+                .WithSingletonLifetime()
+                
+                .AddClasses(c => c.InNamespaceOf<MainController>())
+                .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                .AsSelf()
+                .WithSingletonLifetime()
+        );
         return services;
     }
     
     public static IServiceCollection ConfigureTransient(this IServiceCollection services)
     {
-        var EasyRegister = new Registering.Registering(services);
+        var EasyRegister = new Registering(services);
         
         services = EasyRegister
             .RegisterBoardConstructionAssesmbly()
@@ -24,7 +36,7 @@ public static class DependencyInjectionContainer
             .RegisterFactories()
             .RegisterHelpers()
             .RegisterImport()
-            .RegisterSolvers()
+            // .RegisterSolvers()
             .Build();
         
         return services;

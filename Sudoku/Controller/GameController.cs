@@ -3,16 +3,30 @@ using BoardConstruction.Boards;
 using Factories.Factory;
 using Helpers.Helpers;
 using Helpers.Viewable;
+using Newtonsoft.Json;
+using Solvers;
 using Sudoku.Model.Game;
 using Sudoku.View.Game;
+using Sudoku.Resources.Config;
 
 namespace Sudoku.Controller;
 
-public class GameController
+public class GameController : IGameController
 {
     private readonly Game _game;
     private readonly IBoardView _boardView;
     private readonly IVisitorFactory _visitorFactory;
+
+    private int _currentBoardIndex;
+    public int CurrentBoardIndex
+    {
+        get => _currentBoardIndex;
+        set
+        {
+            _currentBoardIndex = value;
+            _game.Board.CurrentBoardIndex = _currentBoardIndex;
+        }
+    }
 
     public MainController Controller { get; set; }
 
@@ -22,26 +36,23 @@ public class GameController
         _game.Controller = this;
         _boardView = view;
         _visitorFactory = visitorFactory;
+        FillKeyList();
     }
     
     public bool RunGame(AbstractBoard abstractBoard)
     {
-        // initialize game data
         InitializingGameData(abstractBoard);
 
-        // draw board 
         ReDraw();
 
-        // temp vars
         var gameOver = false;
-        var currentBoardIndex = _game.Board.CurrentBoardIndex;
+        CurrentBoardIndex = _game.Board.CurrentBoardIndex;
         var boardCount = _game.Board.SudokuBoards.Count;
 
         do
         {
             while (!Console.KeyAvailable)
             {
-                // reading user input
                 var cki = Console.ReadKey(true);
 
                 // switches states with shift + s
@@ -70,31 +81,21 @@ public class GameController
                     case ConsoleKey.Spacebar:
                         _game.Solver.SolveBoards(_game.Board.SudokuBoards.Cast<IComponent>().ToList());
                         break;
-                    //next samurai board
                     case ConsoleKey.E:
-                        // checks if boardtype is samurai
                         if (_game.BoardType == BoardTypes.samurai)
                         {
-                            // not index out of bounds (+1)
-                            if (currentBoardIndex + 1 < boardCount)
+                            if (CurrentBoardIndex + 1 < boardCount)
                             {
-                                // sets new board index
-                                currentBoardIndex++;
-                                _game.Board.CurrentBoardIndex = currentBoardIndex;
+                                CurrentBoardIndex++;
                             }
                         }
                         break;
-                    //prev samurai board
                     case ConsoleKey.Q:
-                        // checks if boardtype is samurai
                         if (_game.BoardType == BoardTypes.samurai)
                         {
-                            // not index out of bounds (-1)
-                            if (currentBoardIndex - 1 != (-1))
+                            if (CurrentBoardIndex - 1 != (-1))
                             {
-                                // sets new board index
-                                currentBoardIndex--;
-                                _game.Board.CurrentBoardIndex = currentBoardIndex;
+                                CurrentBoardIndex--;
                             }
                         }
                         break;
@@ -112,13 +113,18 @@ public class GameController
 
         return RequestNewGame();
     }
-
+    
     private void InitializingGameData(AbstractBoard abstractBoard)
     {
         // set game data
         _game.Board = abstractBoard;
+        _game.Solver = new BackTrackingAlgo();
         if (_game.BoardType == BoardTypes.samurai)
+        {
             _game.Board.CurrentBoardIndex = 2;
+            _game.Solver = new SamuraiSolver();
+        }
+        _game.Solver.Controller = this;
 
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
         _boardView.WelcomeMessage();
@@ -150,5 +156,26 @@ public class GameController
             pre, post);
 
         _boardView.DrawBoard(viewData);
+    }
+    
+    private void FillKeyList()
+    {
+        try
+        {
+            var json = File.ReadAllText(Environment.GetEnvironmentVariable("GAMEKEYCONFIG") ??
+                                        "../Resources/Config/GameKeyConfig.json");
+
+            var res = JsonConvert.DeserializeObject<GameKeyJSONModel>(json);
+            
+            _game.AvailableKeys.Clear();
+
+            for (int i = 0; i < res.keys.Length; i++)
+                _game.AvailableKeys.Add(res.keys[i].key, Int32.Parse(res.keys[0].value));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Valid file extension list could not be loaded");
+            Console.WriteLine(e);
+        }
     }
 }

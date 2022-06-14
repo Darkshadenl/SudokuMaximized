@@ -26,7 +26,7 @@ public abstract class AbstractBoard
     }
 
     public BoardTypes Type { get; set; }
-    public ISolver Solver { get; set; }
+    public AbstractSolver Solver { get; set; }
     public int Columns { get; set; }
     public int Rows { get; set; }
     public int Squares { get; set; }

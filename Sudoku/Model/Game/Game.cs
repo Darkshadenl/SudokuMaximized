@@ -10,7 +10,7 @@ namespace Sudoku.Model.Game;
 
 public class Game
 {
-    public ISolver Solver { get; }
+    public AbstractSolver Solver { get; set; }
     public BoardTypes BoardType => Board.Type;
     public int CurrentBoardIndex { get; }
 
@@ -35,22 +35,10 @@ public class Game
     private readonly List<ISimpleViewMessage> _preBoardMessages = new();
     private readonly List<ISimpleViewMessage> _postBoardMessages = new();
 
-    private readonly Dictionary<ConsoleKey, int> _availableKeys = new()
+    public Dictionary<ConsoleKey, int> AvailableKeys { get; } = new();
+    public Game()
     {
-        {ConsoleKey.D1, 1},
-        {ConsoleKey.D2, 2},
-        {ConsoleKey.D3, 3},
-        {ConsoleKey.D4, 4},
-        {ConsoleKey.D5, 5},
-        {ConsoleKey.D6, 6},
-        {ConsoleKey.D7, 7},
-        {ConsoleKey.D8, 8},
-        {ConsoleKey.D9, 9}
-    };
-    public Game(ISolver solver)
-    {
-        Solver = solver;
-        State = new DefinitiveState(this, _availableKeys);
+        State = new DefinitiveState(this, AvailableKeys);
     }
 
     public void AddMessages(ISimpleViewMessage message)

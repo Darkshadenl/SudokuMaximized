@@ -42,17 +42,10 @@ public class Cell : Component, IViewable, ICell
     {
         return Value == 0 ? this : null;
     }
-    
+
     public bool IsValueDuplicateInRows(int number)
     {
-        return Rows.Any(row =>
-        {
-            if (row is Row r)
-            {
-                return row.HasDuplicateCellValue(this, number);
-            }
-            return false;
-        });
+        return Rows.Any(row => row.HasDuplicateCellValue(this, number));
     }
 
     public bool IsValueDuplicateInColumns(int number)

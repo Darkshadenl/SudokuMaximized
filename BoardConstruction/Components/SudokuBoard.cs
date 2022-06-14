@@ -13,13 +13,16 @@ public class SudokuBoard : Component
 
     public override Cell? FindEmptyCell()
     {
+        Cell? empty = null;
         foreach (var component in Components)
         {
             if (component is not Row r) continue;
-            return r.FindEmptyCell();
+            empty = r.FindEmptyCell();
+            if (empty is not null)
+                return empty;
         }
 
-        return null;
+        return empty;
     }
     
     public override List<IViewable> GetAllViewables()

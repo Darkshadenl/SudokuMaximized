@@ -56,6 +56,9 @@
       <None Update="Resources\Sudoku-files\puzzle.samurai">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Resources\Config\GameKeyConfig.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

@@ -1,22 +1,20 @@
-﻿using System.ComponentModel;
-using Abstraction;
+﻿using Abstraction;
 using IComponent = Abstraction.IComponent;
 
 namespace Solvers;
 
-public class BackTrackingAlgo : ISolver
+public class BackTrackingAlgo : AbstractSolver
 {
     public List<IComponent> SudokuBoards { get; set; }
     private List<IComponent> _squares { get; set; } = new();
 
     private List<int> _orderOfSolving = new() { 0, 1, 3, 4, 2};
-    public List<IComponent> SolveBoards(List<IComponent> boards)
+    
+    public override List<IComponent> SolveBoards(List<IComponent> boards)
     {
-        SudokuBoards = boards;
-
-        var solved = Solve(0);
-
-        Console.ReadKey();
+        SudokuBoards = boards;  // sudokuboards
+        
+        var solved = Solve(Controller.CurrentBoardIndex);
         
         return boards;
     }
@@ -34,9 +32,14 @@ public class BackTrackingAlgo : ISolver
             if (Valid(cellNoNumber, targetNumber))
             {
                 cellNoNumber.Value = targetNumber;
+                Controller.ReDraw();
+                Thread.Sleep(20);
 
                 if (Solve(i))
+                {
+                    Controller.ReDraw();
                     return true;
+                }
 
                 cellNoNumber.Value = 0;
             }
@@ -47,13 +50,13 @@ public class BackTrackingAlgo : ISolver
 
     private bool Valid(ICell emptyCell, int number)
     {
-        var foundDuplicate = emptyCell.IsValueDuplicateInRows(number);
+        var foundDuplicate = emptyCell.IsValueDuplicateInSquares(number);
         if (foundDuplicate) return false;
-
+        
         foundDuplicate = emptyCell.IsValueDuplicateInColumns(number);
         if (foundDuplicate) return false;
-
-        foundDuplicate = emptyCell.IsValueDuplicateInSquares(number);
+        
+        foundDuplicate = emptyCell.IsValueDuplicateInRows(number);
         if (foundDuplicate) return false;
 
         return true;

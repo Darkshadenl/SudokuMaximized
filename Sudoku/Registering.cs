@@ -7,9 +7,8 @@ using Import.Import;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 using Solvers;
-using Sudoku.Controller;
 
-namespace Sudoku.Registering;
+namespace Sudoku;
 
 public class Registering
 {
@@ -35,8 +34,8 @@ public class Registering
             })
             .UsingRegistrationStrategy(RegistrationStrategy.Skip)
             .AsSelf()
-            .AddClasses(c => c.InNamespaceOf<MainController>())
-            .AsSelf()
+            // .AddClasses(c => c.InNamespaceOf<MainController>())
+            // .AsSelf()
         );
         return this;
     }
@@ -99,7 +98,7 @@ public class Registering
     public Registering RegisterSolvers()
     {
         Services.Scan(scan => scan
-            .FromAssemblyOf<ISolver>()
+            .FromAssemblyOf<BackTrackingAlgo>()
             .AddClasses()
             .AsImplementedInterfaces()
         );

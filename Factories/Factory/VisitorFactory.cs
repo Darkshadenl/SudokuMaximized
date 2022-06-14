@@ -17,7 +17,7 @@ public class VisitorFactory : IVisitorFactory
         
         foreach (var visitor in deserializeObject.visitor)
         {
-            var type = Type.GetType($"{visitor._namespace}");
+            var type = Type.GetType($"{visitor._namespace}, {visitor.library}");
             
             _visitors!.Add(visitor.match, () =>
             {
