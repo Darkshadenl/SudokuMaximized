@@ -1,8 +1,8 @@
-﻿using Factories.Config.JSONModel;
+﻿using BoardConstruction.Config.JSONModel;
+using BoardConstruction.Visitors;
 using Newtonsoft.Json;
-using ObjectCreation.Visitors;
 
-namespace Factories.Factory;
+namespace BoardConstruction.Factory;
 
 public class VisitorFactory : IVisitorFactory
 {

@@ -1,6 +1,6 @@
 ﻿using Abstraction;
 using BoardConstruction.Boards;
-using Factories.Factory;
+using BoardConstruction.Factory;
 using Helpers.Helpers;
 using Helpers.Viewable;
 using Newtonsoft.Json;

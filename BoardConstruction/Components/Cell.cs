@@ -1,7 +1,7 @@
 ﻿using Abstraction;
 using Helpers.Viewable;
 
-namespace ObjectCreation.Components;
+namespace BoardConstruction.Components;
 
 public class Cell : IComponent, IViewable, ICell
 {

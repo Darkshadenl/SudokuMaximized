@@ -2,7 +2,7 @@
 using Helpers.Helpers;
 using Helpers.Viewable;
 
-namespace ObjectCreation.Visitors;
+namespace BoardConstruction.Visitors;
 
 public class ConsoleVisitor : IPrintBoardVisitor
 {

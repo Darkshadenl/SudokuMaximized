@@ -1,6 +1,4 @@
-﻿using Abstraction;
-
-namespace ObjectCreation.Components;
+﻿namespace BoardConstruction.Components;
 
 public class Square : IComponent
 {

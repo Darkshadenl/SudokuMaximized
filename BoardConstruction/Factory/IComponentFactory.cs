@@ -1,6 +1,6 @@
-﻿using Factories.Config.JSONModel;
+﻿using BoardConstruction.Config.JSONModel;
 
-namespace Factories.Factory;
+namespace BoardConstruction.Factory;
 
 public interface IComponentFactory
 {

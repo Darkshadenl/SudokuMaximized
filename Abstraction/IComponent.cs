@@ -17,15 +17,6 @@ public interface IComponent
     }
 
     public bool HasDuplicateCellValue(ICell cell, int number);
-    public virtual List<IViewable> GetAllViewables()
-    {
-        throw new NotImplementedException();
-    }
-    
-    public virtual List<ICell> GetAllCells()
-    {
-        throw new NotImplementedException();
-    }
 
     public bool ReplaceCell(ICell oldCell, ICell newCell);
 }

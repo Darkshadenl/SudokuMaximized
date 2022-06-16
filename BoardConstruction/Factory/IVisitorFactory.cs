@@ -1,6 +1,6 @@
-﻿using ObjectCreation.Visitors;
+﻿using BoardConstruction.Visitors;
 
-namespace Factories.Factory;
+namespace BoardConstruction.Factory;
 
 public interface IVisitorFactory
 {

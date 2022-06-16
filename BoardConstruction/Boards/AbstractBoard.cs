@@ -1,9 +1,9 @@
 ﻿using Abstraction;
+using BoardConstruction.Components;
 using Helpers.Helpers;
 using Helpers.Viewable;
 using Import.Import;
-using ObjectCreation.Components;
-using IComponent = ObjectCreation.Components.IComponent;
+using IComponent = BoardConstruction.Components.IComponent;
 
 namespace BoardConstruction.Boards;
 

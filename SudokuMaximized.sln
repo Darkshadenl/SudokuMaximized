@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardConstruction", "BoardConstruction\BoardConstruction.csproj", "{3002B1DC-4BF1-40D4-94B0-800DDEF68915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectCreation", "ObjectCreation\ObjectCreation.csproj", "{B034CA4A-855C-43FC-9936-9598C90F1F9E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Import", "Import\Import.csproj", "{BF85673A-F3DC-4A67-88A9-0B032F81A376}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solvers", "Solvers\Solvers.csproj", "{E4A486C9-9A38-45E5-B209-440E2F39D36D}"
@@ -38,10 +36,6 @@ Global
 		{3002B1DC-4BF1-40D4-94B0-800DDEF68915}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3002B1DC-4BF1-40D4-94B0-800DDEF68915}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3002B1DC-4BF1-40D4-94B0-800DDEF68915}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B034CA4A-855C-43FC-9936-9598C90F1F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B034CA4A-855C-43FC-9936-9598C90F1F9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B034CA4A-855C-43FC-9936-9598C90F1F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B034CA4A-855C-43FC-9936-9598C90F1F9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF85673A-F3DC-4A67-88A9-0B032F81A376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF85673A-F3DC-4A67-88A9-0B032F81A376}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF85673A-F3DC-4A67-88A9-0B032F81A376}.Release|Any CPU.ActiveCfg = Release|Any CPU

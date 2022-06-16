@@ -7,8 +7,5 @@ public interface ICell : IComponent
     public bool IsValueDuplicateInSquares(int number);
     
     public bool HardNumber { get; }
-    public List<IComponent> Rows { get; }
-    public List<IComponent> Squares { get; }
-    public List<IComponent> Columns { get; }
-    public bool IsClone { get; set; }
+    
 }

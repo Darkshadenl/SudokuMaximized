@@ -1,10 +1,10 @@
 ﻿using BoardConstruction.Boards;
 using BoardConstruction.Builder;
-using Factories.Factory;
+using BoardConstruction.Factory;
+using BoardConstruction.Visitors;
 using Helpers.Helpers;
 using Import.Import;
 using Microsoft.Extensions.DependencyInjection;
-using ObjectCreation.Visitors;
 using Scrutor;
 using Solvers;
 

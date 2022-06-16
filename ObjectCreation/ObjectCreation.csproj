@@ -9,17 +9,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="Config\ComponentFactoryConfiguration.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Include="Config\VisitorFactoryConfiguration.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      <ProjectReference Include="..\Abstraction\Abstraction.csproj" />
+      <ProjectReference Include="..\Helpers\Helpers.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Abstraction\Abstraction.csproj" />
-      <ProjectReference Include="..\Helpers\Helpers.csproj" />
+      <Folder Include="Components" />
+      <Folder Include="Config\JSONModel" />
+      <Folder Include="Factory" />
+      <Folder Include="Visitors" />
     </ItemGroup>
 
 </Project>

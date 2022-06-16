@@ -1,4 +1,4 @@
-﻿namespace Factories.Config.JSONModel;
+﻿namespace BoardConstruction.Config.JSONModel;
 
 public class ComponentJSONModel
 {
