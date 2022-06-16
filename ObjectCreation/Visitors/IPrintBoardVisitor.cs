@@ -1,7 +1,7 @@
 ﻿using Helpers.Helpers;
 using Helpers.Viewable;
 
-namespace Helpers.Visitors;
+namespace ObjectCreation.Visitors;
 
 public interface IPrintBoardVisitor
 {

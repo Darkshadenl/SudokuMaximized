@@ -2,9 +2,9 @@
 using Helpers.Helpers;
 using Helpers.Viewable;
 
-namespace BoardConstruction.Components;
+namespace ObjectCreation.Components;
 
-public class SudokuBoard : Component
+public class SudokuBoard : IComponent
 {
     
     private List<ICell> _cells;

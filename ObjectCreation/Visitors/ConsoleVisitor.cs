@@ -1,8 +1,8 @@
-﻿using Helpers.Helpers;
+﻿using Helpers.DrawingAlgsConsole;
+using Helpers.Helpers;
 using Helpers.Viewable;
-using Helpers.Visitors.DrawingAlgsConsole;
 
-namespace Helpers.Visitors;
+namespace ObjectCreation.Visitors;
 
 public class ConsoleVisitor : IPrintBoardVisitor
 {

@@ -1,8 +1,6 @@
-﻿using Abstraction;
+﻿namespace Abstraction;
 
-namespace Solvers;
-
-public abstract class AbstractSolver : ISolver
+public interface ISolver
 {
     public IGameController Controller { get; set; }
     public abstract List<IComponent> SolveBoards(List<IComponent> boards);

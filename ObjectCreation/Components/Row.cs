@@ -1,9 +1,9 @@
 ﻿using Abstraction;
 using Helpers.Viewable;
 
-namespace BoardConstruction.Components;
+namespace ObjectCreation.Components;
 
-public class Row : Component, IRow
+public class Row : IComponent, IRow
 {
 
     public override Cell? FindEmptyCell()

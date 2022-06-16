@@ -1,9 +1,9 @@
 ﻿using Abstraction;
 using Helpers.Viewable;
 
-namespace BoardConstruction.Components;
+namespace ObjectCreation.Components;
 
-public abstract class Component : ICloneable, IComponent
+public abstract class IComponent : ICloneable, Abstraction.IComponent
 {
     private CellValueRecord _valueRecord = new();
 
@@ -21,19 +21,19 @@ public abstract class Component : ICloneable, IComponent
     public List<int> PossibleValues { get; set; } = new();
     public bool IsCursor { get; set; }
 
-    public List<IComponent> Components { get; set; } = new();
+    public List<Abstraction.IComponent> Components { get; set; } = new();
     
     public int X { get; set; }
     public int Y { get; set; }
 
-    public IComponent Cursor { get; set; }
+    public Abstraction.IComponent Cursor { get; set; }
 
     public virtual object Clone()
     {
         return MemberwiseClone();
     }
 
-    public virtual IComponent FindCellViaCoordinates(int x, int y)
+    public virtual Abstraction.IComponent FindCellViaCoordinates(int x, int y)
     {
         foreach (var component in Components)
         {
@@ -49,7 +49,7 @@ public abstract class Component : ICloneable, IComponent
         return Cursor;
     }
 
-    public virtual void Add(Component c)
+    public virtual void Add(IComponent c)
     {
         Components.Add(c);
     }
@@ -63,7 +63,7 @@ public abstract class Component : ICloneable, IComponent
     {
         if (!IsComposite()) return false;
         
-        foreach (IComponent component in Components)
+        foreach (Abstraction.IComponent component in Components)
         {
             if (component is not Cell c) continue;
 
@@ -117,9 +117,9 @@ public abstract class Component : ICloneable, IComponent
         return false;
     }
 
-    public virtual List<IComponent> FindOldCursors()
+    public virtual List<Abstraction.IComponent> FindOldCursors()
     {
-        var oldCursors = new List<IComponent>();
+        var oldCursors = new List<Abstraction.IComponent>();
 
         foreach (var component in Components)
         {

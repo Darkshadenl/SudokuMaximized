@@ -17,7 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BoardConstruction\BoardConstruction.csproj" />
-      <ProjectReference Include="..\Factories\Factories.csproj" />
+      <ProjectReference Include="..\ObjectCreation\ObjectCreation.csproj" />
       <ProjectReference Include="..\Helpers\Helpers.csproj" />
       <ProjectReference Include="..\Import\Import.csproj" />
     </ItemGroup>
@@ -59,6 +59,10 @@
       <None Update="Resources\Config\GameKeyConfig.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Solvers" />
     </ItemGroup>
 
 </Project>

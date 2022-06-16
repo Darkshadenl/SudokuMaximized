@@ -1,6 +1,6 @@
 ﻿using Helpers.Helpers;
 using Helpers.Viewable;
-using Helpers.Visitors;
+using ObjectCreation.Visitors;
 using Sudoku.Controller;
 
 namespace Sudoku.View.Game;

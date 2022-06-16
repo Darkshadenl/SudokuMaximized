@@ -1,8 +1,8 @@
 ﻿using Abstraction;
 
-namespace BoardConstruction.Components;
+namespace ObjectCreation.Components;
 
-public class Square : Component
+public class Square : IComponent
 {
     public int Id { get; }
     public Square(int id)
@@ -10,7 +10,7 @@ public class Square : Component
         Id = id;
     }
 
-    public override IComponent FindCellViaCoordinates(int x, int y)
+    public override Abstraction.IComponent FindCellViaCoordinates(int x, int y)
     {
         return Components.FirstOrDefault(c => c is Cell && c.X == x && c.Y == y);
     }
@@ -20,9 +20,9 @@ public class Square : Component
         return Components.FirstOrDefault(c => c is Cell && c.HasEmptyCell()) as Cell;
     }
 
-    public override List<IComponent> FindOldCursors()
+    public override List<Abstraction.IComponent> FindOldCursors()
     {
-        var cursors = new List<IComponent>();
+        var cursors = new List<Abstraction.IComponent>();
         foreach (var component in Components)
         {
             if (component.IsCursor)

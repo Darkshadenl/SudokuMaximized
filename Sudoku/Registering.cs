@@ -2,9 +2,9 @@
 using BoardConstruction.Builder;
 using Factories.Factory;
 using Helpers.Helpers;
-using Helpers.Visitors;
 using Import.Import;
 using Microsoft.Extensions.DependencyInjection;
+using ObjectCreation.Visitors;
 using Scrutor;
 using Solvers;
 
@@ -64,7 +64,7 @@ public class Registering
     {
         Services.Scan(scan => scan
             .FromAssemblyOf<IComponentFactory>()
-            .AddClasses(c => c.NotInNamespaces("Factories.Config"))
+            .AddClasses(c => c.NotInNamespaces("ObjectCreation.Config"))
             .AsImplementedInterfaces()
         );
         return this;

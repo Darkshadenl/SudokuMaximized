@@ -1,6 +1,6 @@
-using BoardConstruction.Components;
 using Helpers.Helpers;
 using Import.Import;
+using ObjectCreation.Components;
 
 namespace BoardConstruction.Boards;
 
@@ -8,7 +8,7 @@ public class Board : AbstractBoard
 {
     public Board()
     {
-        SudokuBoards = new List<Component>();
+        SudokuBoards = new List<IComponent>();
     }
 
     public override AbstractBoard CreateBoardBuild(BoardFile boardFile)

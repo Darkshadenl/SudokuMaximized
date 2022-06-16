@@ -1,29 +1,29 @@
 ﻿using Abstraction;
 using Helpers.Viewable;
 
-namespace BoardConstruction.Components;
+namespace ObjectCreation.Components;
 
-public class Cell : Component, IViewable, ICell
+public class Cell : IComponent, IViewable, ICell
 {
     // HardNumber = had a value above 0 from the start. Unchangeable. 
     public bool HardNumber { get; }
-    public List<IComponent> Rows { get; }
-    public List<IComponent> Squares { get; }
-    public List<IComponent> Columns { get; }
+    public List<Abstraction.IComponent> Rows { get; }
+    public List<Abstraction.IComponent> Squares { get; }
+    public List<Abstraction.IComponent> Columns { get; }
     public bool IsClone { get; set; }
 
     public Cell(int value, int x, int y, bool hardNumber)
     {
-        Rows = new List<IComponent>();
-        Squares = new List<IComponent>();
-        Columns = new List<IComponent>();
+        Rows = new List<Abstraction.IComponent>();
+        Squares = new List<Abstraction.IComponent>();
+        Columns = new List<Abstraction.IComponent>();
         HardNumber = hardNumber;
         Value = value;
         X = x;
         Y = y;
     }
 
-    public override void Add(Component c)
+    public override void Add(IComponent c)
     {
         throw new NotImplementedException();
     }

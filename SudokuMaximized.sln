@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardConstruction", "BoardConstruction\BoardConstruction.csproj", "{3002B1DC-4BF1-40D4-94B0-800DDEF68915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factories", "Factories\Factories.csproj", "{B034CA4A-855C-43FC-9936-9598C90F1F9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectCreation", "ObjectCreation\ObjectCreation.csproj", "{B034CA4A-855C-43FC-9936-9598C90F1F9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Import", "Import\Import.csproj", "{BF85673A-F3DC-4A67-88A9-0B032F81A376}"
 EndProject

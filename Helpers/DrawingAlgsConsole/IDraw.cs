@@ -1,6 +1,6 @@
 ﻿using Helpers.Viewable;
 
-namespace Helpers.Visitors.DrawingAlgsConsole;
+namespace Helpers.DrawingAlgsConsole;
 
 public interface IDraw
 {

@@ -1,15 +1,15 @@
 ﻿using Abstraction;
-using BoardConstruction.Components;
 using Helpers.Helpers;
 using Helpers.Viewable;
 using Import.Import;
-using Solvers;
+using ObjectCreation.Components;
+using IComponent = ObjectCreation.Components.IComponent;
 
 namespace BoardConstruction.Boards;
 
 public abstract class AbstractBoard
 {
-    public List<Component> SudokuBoards { get; set; }
+    public List<IComponent> SudokuBoards { get; set; }
 
     private int _oldBoardIndex;
     private int _currentBoardIndex;
@@ -26,7 +26,7 @@ public abstract class AbstractBoard
     }
 
     public BoardTypes Type { get; set; }
-    public AbstractSolver Solver { get; set; }
+    public ISolver Solver { get; set; }
     public int Columns { get; set; }
     public int Rows { get; set; }
     public int Squares { get; set; }
