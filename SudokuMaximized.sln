@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuTesting", "SudokuTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{09917E82-069F-47C3-8D62-00F9004D2B77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardConstruction", "BoardConstruction\BoardConstruction.csproj", "{3002B1DC-4BF1-40D4-94B0-800DDEF68915}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construction", "Construction\Construction.csproj", "{3002B1DC-4BF1-40D4-94B0-800DDEF68915}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Import", "Import\Import.csproj", "{BF85673A-F3DC-4A67-88A9-0B032F81A376}"
 EndProject

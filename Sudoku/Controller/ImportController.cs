@@ -30,17 +30,17 @@ public class ImportController
 
     public MainController Controller { get; set; }
 
-    public AbstractBoard RunImport()
+    public BoardFile RunImport()
     {
         BoardFile import = StartImport();
 
         while (import == null)
             import = StartImport();
 
-        return Interpret(import);
+        return import;
     }
 
-    private AbstractBoard Interpret(BoardFile boardFile)
+    public AbstractBoard Interpret(BoardFile boardFile)
     {
         return _interpreter.Interpret(boardFile);
     }
@@ -50,7 +50,8 @@ public class ImportController
         _view.ShowWelcome();
 
         // import file from user input
-        var fileInfo = _view.HandleImportUserInput(_importHandler.AvailableImportableFiles, _importHandler.ValidExtensions);
+        var fileInfo = _view.HandleImportUserInput(_importHandler.AvailableImportableFiles,
+            _importHandler.ValidExtensions);
 
         BoardFile boardFile;
         try

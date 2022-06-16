@@ -3,7 +3,7 @@ using Helpers.Viewable;
 
 namespace BoardConstruction.Components;
 
-public abstract class IComponent : ICloneable, Abstraction.IComponent
+public abstract class Component : ICloneable, IComponent
 {
     private CellValueRecord _valueRecord = new();
 
@@ -21,19 +21,19 @@ public abstract class IComponent : ICloneable, Abstraction.IComponent
     public List<int> PossibleValues { get; set; } = new();
     public bool IsCursor { get; set; }
 
-    public List<Abstraction.IComponent> Components { get; set; } = new();
+    public List<IComponent> Components { get; set; } = new();
     
     public int X { get; set; }
     public int Y { get; set; }
 
-    public Abstraction.IComponent Cursor { get; set; }
+    public IComponent Cursor { get; set; }
 
     public virtual object Clone()
     {
         return MemberwiseClone();
     }
 
-    public virtual Abstraction.IComponent FindCellViaCoordinates(int x, int y)
+    public virtual IComponent FindCellViaCoordinates(int x, int y)
     {
         foreach (var component in Components)
         {
@@ -49,7 +49,7 @@ public abstract class IComponent : ICloneable, Abstraction.IComponent
         return Cursor;
     }
 
-    public virtual void Add(IComponent c)
+    public virtual void Add(Component c)
     {
         Components.Add(c);
     }
@@ -63,7 +63,7 @@ public abstract class IComponent : ICloneable, Abstraction.IComponent
     {
         if (!IsComposite()) return false;
         
-        foreach (Abstraction.IComponent component in Components)
+        foreach (var component in Components)
         {
             if (component is not Cell c) continue;
 
@@ -105,7 +105,7 @@ public abstract class IComponent : ICloneable, Abstraction.IComponent
 
     public bool ReplaceCell(ICell oldCell, ICell newCell)
     {
-        if (this is not Row && this is not Column) return false;
+        if (this is not Row && this is not Column && this is not Square) return false;
 
         if (Components.Contains(oldCell))
         {
@@ -117,9 +117,9 @@ public abstract class IComponent : ICloneable, Abstraction.IComponent
         return false;
     }
 
-    public virtual List<Abstraction.IComponent> FindOldCursors()
+    public virtual List<IComponent> FindOldCursors()
     {
-        var oldCursors = new List<Abstraction.IComponent>();
+        var oldCursors = new List<IComponent>();
 
         foreach (var component in Components)
         {
@@ -134,11 +134,39 @@ public abstract class IComponent : ICloneable, Abstraction.IComponent
 
     public virtual List<IViewable> GetAllViewables()
     {
-        throw new NotImplementedException();
+        List<IViewable> viewables = new();
+        foreach (var component in Components)
+        {
+            if (component.IsComposite())
+            {
+                viewables.AddRange(component.GetAllViewables());
+            }
+            else
+            {
+                if (component is Cell c)
+                    viewables.Add(c);
+            }
+        }
+
+        return viewables;
     }
 
     public virtual List<ICell> GetAllCells()
     {
-        throw new NotImplementedException();
+        List<ICell> cells = new();
+        foreach (var component in Components)
+        {
+            if (component.IsComposite())
+            {
+                cells.AddRange(component.GetAllCells());
+            }
+            else
+            {
+                if (component is Cell c)
+                    cells.Add(c);
+            }
+        }
+
+        return cells;
     }
 }

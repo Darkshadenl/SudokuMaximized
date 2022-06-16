@@ -21,7 +21,7 @@ public class VisitorFactory : IVisitorFactory
             
             _visitors!.Add(visitor.match, () =>
             {
-                return Activator.CreateInstance(type) as IPrintBoardVisitor;
+                return Activator.CreateInstance(type) as IPrintBoardVisitor; // TODO FIX THIS
             });
         }
     }

@@ -3,13 +3,12 @@ using BoardConstruction.Components;
 using Helpers.Helpers;
 using Helpers.Viewable;
 using Import.Import;
-using IComponent = BoardConstruction.Components.IComponent;
 
 namespace BoardConstruction.Boards;
 
 public abstract class AbstractBoard
 {
-    public List<IComponent> SudokuBoards { get; set; }
+    public List<Component> SudokuBoards { get; set; }
 
     private int _oldBoardIndex;
     private int _currentBoardIndex;
@@ -77,9 +76,9 @@ public abstract class AbstractBoard
             c.IsCursor = false;
     }
 
-    private SudokuBoard getBoard()
+    private Component getBoard()
     {
-        return (SudokuBoards[CurrentBoardIndex] as SudokuBoard)!;
+        return SudokuBoards[CurrentBoardIndex];
     }
 
     public virtual AbstractBoard CreateBoardBuild(BoardFile boardFile)

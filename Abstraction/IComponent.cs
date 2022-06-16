@@ -11,10 +11,12 @@ public interface IComponent
     public List<int> PossibleValues { get; set; }
     public bool IsCursor { get; set; }
     public List<IComponent> Components { get; set; }
-    public virtual bool HasEmptyCell()
-    {
-        throw new NotImplementedException();
-    }
+    public bool HasEmptyCell();
+
+    public bool IsComposite();
+
+    public List<IViewable> GetAllViewables();
+    public List<ICell> GetAllCells();
 
     public bool HasDuplicateCellValue(ICell cell, int number);
 

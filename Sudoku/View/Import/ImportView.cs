@@ -30,8 +30,8 @@ public class ImportView : IImportView
             PrintAllowedExtensions(extensions);
 
             var filePath = @"" + Console.ReadLine();
-            filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle2.samurai";
-            // filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.9x9";
+            // filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle2.samurai";
+            filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle.9x9";
             
 
             filePath.Trim();

@@ -1,6 +1,6 @@
 ﻿namespace BoardConstruction.Components;
 
-public class Column : IComponent
+public class Column : Component
 {
     
 }

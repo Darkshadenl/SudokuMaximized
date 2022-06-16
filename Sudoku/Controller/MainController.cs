@@ -19,12 +19,14 @@ public class MainController
 
     public void Run()
     {
-        var board = _importController.RunImport();
+        var boardFile = _importController.RunImport();
+        var board = _importController.Interpret(boardFile);
         var startNewGame = _gameController.RunGame(board);
 
         while (startNewGame)
         {
-            board = _importController.RunImport();
+            boardFile = _importController.RunImport();
+            board = _importController.Interpret(boardFile);
             startNewGame = _gameController.RunGame(board);
         }
 

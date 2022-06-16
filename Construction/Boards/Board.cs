@@ -8,13 +8,13 @@ public class Board : AbstractBoard
 {
     public Board()
     {
-        SudokuBoards = new List<IComponent>();
+        SudokuBoards = new List<Component>();
     }
 
     public override AbstractBoard CreateBoardBuild(BoardFile boardFile)
     {
-        if (Columns == null || Rows == null || SquareLength == null ||
-            StartCursorX == null || StartCursorY == null)
+        if (Columns == 0 || Rows == 0 || SquareLength == 0 ||
+            StartCursorX < 0 || StartCursorY < 0)
             throw new Exception("Board not correctly configured.");
 
         bool isSamurai = boardFile.Extension == "." + BoardTypes.samurai;
@@ -84,7 +84,7 @@ public class Board : AbstractBoard
                 var middleSquareCell = middleSquareCells[j];
                 var otherSquareCell = otherSquareCells[j];
 
-                // add cols, rows of middleSquareComponents to otherSquareComponents
+                // add cols, rows of middleSquareCell to otherSquareCell
                 otherSquareCell.Columns.Add(middleSquareCell.Columns[0]);
                 otherSquareCell.Rows.Add(middleSquareCell.Rows[0]);
 

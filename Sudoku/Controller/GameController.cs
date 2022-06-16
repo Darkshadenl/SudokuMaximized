@@ -5,6 +5,7 @@ using Helpers.Helpers;
 using Helpers.Viewable;
 using Newtonsoft.Json;
 using Solvers;
+using Sudoku.Extension;
 using Sudoku.Model.Game;
 using Sudoku.View.Game;
 using Sudoku.Resources.Config;
@@ -80,6 +81,10 @@ public class GameController : IGameController
                         break;
                     case ConsoleKey.Spacebar:
                         _game.Solver.SolveBoards(_game.Board.SudokuBoards.Cast<IComponent>().ToList());
+                        break;
+                    case ConsoleKey.H:
+                        var copy = _game.Board.SudokuBoards.Cast<IComponent>().ToList().Copy();
+                        _game.Solver.SolveBoards(copy);
                         break;
                     case ConsoleKey.E:
                         if (_game.BoardType == BoardTypes.samurai)

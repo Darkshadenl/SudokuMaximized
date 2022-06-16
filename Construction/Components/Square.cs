@@ -1,6 +1,6 @@
 ﻿namespace BoardConstruction.Components;
 
-public class Square : IComponent
+public class Square : Component
 {
     public int Id { get; }
     public Square(int id)

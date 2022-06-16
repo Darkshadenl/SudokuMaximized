@@ -4,7 +4,7 @@ using Helpers.Viewable;
 
 namespace BoardConstruction.Components;
 
-public class SudokuBoard : IComponent
+public class SudokuBoard : Component
 {
     
     private List<ICell> _cells;
