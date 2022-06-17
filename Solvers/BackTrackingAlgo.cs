@@ -5,23 +5,29 @@ namespace Solvers;
 
 public class BackTrackingAlgo : AbstractSolver
 {
-    public List<IComponent> SudokuBoards { get; set; }
+    private List<IComponent> SudokuBoards { get; set; }
     private List<IComponent> _squares { get; set; } = new();
+    private List<List<String>> _errorList = new();
 
     private List<int> _orderOfSolving = new() { 0, 1, 3, 4, 2};
     
     public override List<IComponent> SolveBoards(List<IComponent> boards)
     {
+        var count = 0;
         SudokuBoards = boards;  // sudokuboards
-        
-        var solved = Solve(Controller.CurrentBoardIndex);
+        var solved = Solve(Controller.CurrentBoardIndex, 0);
         
         return boards;
     }
 
-    private bool Solve(int i)
+    private bool Solve(int i, int count)
     {
         var cellNoNumber = FindEmpty(i);
+
+        if (count == 5)
+        {
+            Console.WriteLine();
+        }
 
         if (cellNoNumber == null) 
             return true;        // solved
@@ -32,12 +38,12 @@ public class BackTrackingAlgo : AbstractSolver
             if (Valid(cellNoNumber, targetNumber))
             {
                 cellNoNumber.Value = targetNumber;
-                Controller.ReDraw();
-                Thread.Sleep(20);
+                // Controller.ReDraw();
+                // Thread.Sleep(20);
 
-                if (Solve(i))
+                if (Solve(i, count + 1))
                 {
-                    Controller.ReDraw();
+                    // Controller.ReDraw();
                     return true;
                 }
 
@@ -66,6 +72,5 @@ public class BackTrackingAlgo : AbstractSolver
     {
         return SudokuBoards[i].FindEmptyCell();
     }
-
     
 }

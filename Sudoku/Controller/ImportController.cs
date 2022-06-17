@@ -3,8 +3,8 @@ using Sudoku.Model.Import;
 using Sudoku.View.Import;
 using System.Diagnostics;
 using System.Text;
-using BoardConstruction.Boards;
-using BoardConstruction.Interpreters;
+using Construction.Boards;
+using Construction.Interpreters;
 using Import.Config.JSONModel;
 using Import.Import;
 

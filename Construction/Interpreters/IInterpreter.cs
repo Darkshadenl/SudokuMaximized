@@ -1,7 +1,7 @@
-﻿using BoardConstruction.Boards;
+﻿using Construction.Boards;
 using Import.Import;
 
-namespace BoardConstruction.Interpreters;
+namespace Construction.Interpreters;
 
 public interface IInterpreter
 {

@@ -1,7 +1,7 @@
-﻿using BoardConstruction.Boards;
-using BoardConstruction.Builder;
-using BoardConstruction.Factory;
-using BoardConstruction.Visitors;
+﻿using Construction.Boards;
+using Construction.Builder;
+using Construction.Factory;
+using Construction.Visitors;
 using Helpers.Helpers;
 using Import.Import;
 using Microsoft.Extensions.DependencyInjection;

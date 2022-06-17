@@ -1,8 +1,8 @@
-﻿using BoardConstruction.Boards;
+﻿using Construction.Boards;
 using Helpers.Helpers;
 using Import.Import;
 
-namespace BoardConstruction.Builder;
+namespace Construction.Builder;
 
 public class BoardConfig : IBoardConfig
 {

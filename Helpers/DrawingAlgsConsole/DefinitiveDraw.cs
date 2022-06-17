@@ -5,31 +5,51 @@ namespace Helpers.DrawingAlgsConsole;
 public class DefinitiveDraw : IDraw
 {
 
-    private Dictionary<int, string> lines = new()
+    private Dictionary<int, string> _lines = new()
     {
         {6, "----------------------"},
         {9, "-------------------------------"},
         {4, "---------------"},
     };
+    
+    private Dictionary<int, string> _helpLines = new()
+    {
+        {6, "----0--1---2--3---4--5--"},
+        {9, "----0--1--2---3--4--5---6--7--8--"},
+        {4, "----0--1---2--3--"},
+    };
 
     public void DrawRegularBoard(int size, List<IViewable> board)
     {
         var verC = 0;
+        var line = -1;
         var squareSize = (int) Math.Sqrt(size);
 
-        var horizontalLine = lines.First(e => e.Key == size).Value;
+        var horizontalLine = _lines.First(e => e.Key == size).Value;
+        var ns = _helpLines.First(e => e.Key == size).Value;
 
-        Console.WriteLine(horizontalLine);
+        Console.WriteLine(ns);
+        Console.WriteLine($"{horizontalLine}--");
 
         for (var index = 0; index < board.Count; index++)
         {
+            if (index == 0)
+            {
+                Console.Write($"{++line} ");
+            }
+            
             if (index != 0 && index % size == 0)
             {
                 Console.Write("|");
                 Console.WriteLine();
+                
+                if (verC != squareSize - 1)
+                    Console.Write($"{++line} ");
+                
                 if (verC == squareSize - 1)
                 {
-                    Console.WriteLine(horizontalLine);
+                    Console.WriteLine($"--{horizontalLine}");
+                    Console.Write($"{++line} ");
                     verC = 0;
                 }
                 else
@@ -59,7 +79,7 @@ public class DefinitiveDraw : IDraw
 
         Console.Write("|");
         Console.WriteLine();
-        Console.WriteLine(horizontalLine);
+        Console.WriteLine($"{horizontalLine}--");
     }
     
     public void DrawJigSawBoard(int size, List<IViewable> board)

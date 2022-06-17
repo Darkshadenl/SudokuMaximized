@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Abstraction;
-using BoardConstruction.Boards;
-using BoardConstruction.Builder;
-using BoardConstruction.Components;
+using Construction.Boards;
+using Construction.Builder;
+using Construction.Components;
 using Import.Import;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

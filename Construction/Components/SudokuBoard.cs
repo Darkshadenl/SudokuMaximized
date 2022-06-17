@@ -2,7 +2,7 @@
 using Helpers.Helpers;
 using Helpers.Viewable;
 
-namespace BoardConstruction.Components;
+namespace Construction.Components;
 
 public class SudokuBoard : Component
 {

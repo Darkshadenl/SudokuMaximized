@@ -1,7 +1,7 @@
-﻿using BoardConstruction.Boards;
+﻿using Construction.Boards;
 using Helpers.Helpers;
 
-namespace BoardConstruction.Builder;
+namespace Construction.Builder;
 
 public interface IBoardConfig
 {

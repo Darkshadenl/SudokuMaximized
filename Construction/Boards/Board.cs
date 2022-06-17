@@ -1,8 +1,8 @@
-using BoardConstruction.Components;
+using Construction.Components;
 using Helpers.Helpers;
 using Import.Import;
 
-namespace BoardConstruction.Boards;
+namespace Construction.Boards;
 
 public class Board : AbstractBoard
 {

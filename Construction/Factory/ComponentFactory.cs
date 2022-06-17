@@ -1,7 +1,7 @@
-﻿using BoardConstruction.Config.JSONModel;
+﻿using Construction.Config.JSONModel;
 using Newtonsoft.Json;
 
-namespace BoardConstruction.Factory;
+namespace Construction.Factory;
 
 public class ComponentFactory : IComponentFactory
 {

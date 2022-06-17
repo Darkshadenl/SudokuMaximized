@@ -1,8 +1,8 @@
-﻿using BoardConstruction.Config.JSONModel;
-using BoardConstruction.Visitors;
+﻿using Construction.Config.JSONModel;
+using Construction.Visitors;
 using Newtonsoft.Json;
 
-namespace BoardConstruction.Factory;
+namespace Construction.Factory;
 
 public class VisitorFactory : IVisitorFactory
 {
@@ -14,7 +14,7 @@ public class VisitorFactory : IVisitorFactory
                                     "./Config/VisitorFactoryConfiguration.json");
         
         var deserializeObject = JsonConvert.DeserializeObject<VisitorJSONModel>(json);
-        
+
         foreach (var visitor in deserializeObject.visitor)
         {
             var type = Type.GetType($"{visitor._namespace}, {visitor.library}");

@@ -1,7 +1,7 @@
 ﻿using Helpers.Helpers;
 using Import.Import;
 
-namespace BoardConstruction.Builder;
+namespace Construction.Builder;
 
 public class BoardBuildDirector
 {

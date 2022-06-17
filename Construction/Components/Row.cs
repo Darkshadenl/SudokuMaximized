@@ -1,7 +1,7 @@
 ﻿using Abstraction;
 using Helpers.Viewable;
 
-namespace BoardConstruction.Components;
+namespace Construction.Components;
 
 public class Row : Component, IRow
 {

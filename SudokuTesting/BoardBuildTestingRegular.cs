@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BoardConstruction.Boards;
-using BoardConstruction.Builder;
-using BoardConstruction.Components;
+using Abstraction;
+using Construction.Boards;
+using Construction.Builder;
+using Construction.Components;
 using Import.Import;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Solvers;
 
 namespace SudokuTesting;
 
@@ -13,9 +16,13 @@ namespace SudokuTesting;
 public class BoardBuildTestingRegular
 {
     private static Helpers _helper;
-    private static AbstractBoard abstractNine;
-    private static AbstractBoard abstractSix;
-    private static AbstractBoard abstractFour;
+
+    private static AbstractBoard _abstractNine;
+
+    private static AbstractBoard _abstractSix;
+
+    private static AbstractBoard _abstractFour;
+
     
     [ClassInitialize]
     public static void TestFixtureSetup(TestContext context)
@@ -41,11 +48,11 @@ public class BoardBuildTestingRegular
         director.BoardBuilder = builder;
         
         director.ConstructRegularBoard(bNine);
-        abstractNine = builder.Build();
+        _abstractNine = builder.Build();
         director.Construct6X6Board(bSix);
-        abstractSix = builder.Build();
+        _abstractSix = builder.Build();
         director.Construct4X4Board(bFour);
-        abstractFour = builder.Build();
+        _abstractFour = builder.Build();
         
     }
     
@@ -53,9 +60,9 @@ public class BoardBuildTestingRegular
     public void TestCreateCorrectAmountSudokuboardsRegular()
     {
         // Assert
-        Assert.AreEqual(1, abstractNine.SudokuBoards.Count);
-        Assert.AreEqual(1, abstractSix.SudokuBoards.Count);
-        Assert.AreEqual(1, abstractFour.SudokuBoards.Count);
+        Assert.AreEqual(1, _abstractNine.SudokuBoards.Count);
+        Assert.AreEqual(1, _abstractSix.SudokuBoards.Count);
+        Assert.AreEqual(1, _abstractFour.SudokuBoards.Count);
     }
 
     [TestMethod]
@@ -65,7 +72,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 4;
 
         // Act
-        var data = abstractFour.SudokuBoards.FirstOrDefault()!
+        var data = _abstractFour.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Column).ToList()
             .Count;
@@ -81,7 +88,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 4;
 
         // Act
-        var data = abstractFour.SudokuBoards.FirstOrDefault()!
+        var data = _abstractFour.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Row).ToList()
             .Count;
@@ -97,7 +104,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 4;
 
         // Act
-        var data = abstractFour.SudokuBoards.FirstOrDefault()!
+        var data = _abstractFour.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Square).ToList()
             .Count;
@@ -115,7 +122,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerCol = new List<int>();
         
-        abstractFour.SudokuBoards.FirstOrDefault()!
+        _abstractFour.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Column).ToList()
             .ForEach(c => cellCountPerCol.Add(c.Components.Count));
@@ -136,7 +143,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerRow = new List<int>();
         
-        abstractFour.SudokuBoards.FirstOrDefault()!
+        _abstractFour.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Row).ToList()
             .ForEach(c => cellCountPerRow.Add(c.Components.Count));
@@ -157,7 +164,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerSquare = new List<int>();
         
-        abstractFour.SudokuBoards.FirstOrDefault()!
+        _abstractFour.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Square).ToList()
             .ForEach(c => cellCountPerSquare.Add(c.Components.Count));
@@ -176,7 +183,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 6;
 
         // Act
-        var data = abstractSix.SudokuBoards.FirstOrDefault()!
+        var data = _abstractSix.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Column).ToList()
             .Count;
@@ -192,7 +199,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 6;
 
         // Act
-        var data = abstractSix.SudokuBoards.FirstOrDefault()!
+        var data = _abstractSix.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Row).ToList()
             .Count;
@@ -208,7 +215,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 6;
 
         // Act
-        var data = abstractSix.SudokuBoards.FirstOrDefault()!
+        var data = _abstractSix.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Square).ToList()
             .Count;
@@ -226,7 +233,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerCol = new List<int>();
         
-        abstractSix.SudokuBoards.FirstOrDefault()!
+        _abstractSix.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Column).ToList()
             .ForEach(c => cellCountPerCol.Add(c.Components.Count));
@@ -247,7 +254,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerRow = new List<int>();
         
-        abstractSix.SudokuBoards.FirstOrDefault()!
+        _abstractSix.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Row).ToList()
             .ForEach(c => cellCountPerRow.Add(c.Components.Count));
@@ -268,7 +275,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerSquare = new List<int>();
         
-        abstractSix.SudokuBoards.FirstOrDefault()!
+        _abstractSix.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Square).ToList()
             .ForEach(c => cellCountPerSquare.Add(c.Components.Count));
@@ -287,7 +294,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 9;
 
         // Act
-        var data = abstractNine.SudokuBoards.FirstOrDefault()!
+        var data = _abstractNine.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Column).ToList()
             .Count;
@@ -303,7 +310,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 9;
 
         // Act
-        var data = abstractNine.SudokuBoards.FirstOrDefault()!
+        var data = _abstractNine.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Row).ToList()
             .Count;
@@ -319,7 +326,7 @@ public class BoardBuildTestingRegular
         var rightAmount = 9;
 
         // Act
-        var data = abstractNine.SudokuBoards.FirstOrDefault()!
+        var data = _abstractNine.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Square).ToList()
             .Count;
@@ -337,7 +344,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerCol = new List<int>();
         
-        abstractNine.SudokuBoards.FirstOrDefault()!
+        _abstractNine.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Column).ToList()
             .ForEach(c => cellCountPerCol.Add(c.Components.Count));
@@ -358,7 +365,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerRow = new List<int>();
         
-        abstractNine.SudokuBoards.FirstOrDefault()!
+        _abstractNine.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Row).ToList()
             .ForEach(c => cellCountPerRow.Add(c.Components.Count));
@@ -379,7 +386,7 @@ public class BoardBuildTestingRegular
         // Act
         var cellCountPerSquare = new List<int>();
         
-        abstractNine.SudokuBoards.FirstOrDefault()!
+        _abstractNine.SudokuBoards.FirstOrDefault()!
             .Components
             .Where(c => c is Square).ToList()
             .ForEach(c => cellCountPerSquare.Add(c.Components.Count));
@@ -390,5 +397,73 @@ public class BoardBuildTestingRegular
             Assert.AreEqual(rightAmount, i);
         }
     }
+    
+    [TestMethod]
+    [Timeout(10000)]
+    public void TestSolverNine()
+    {
+        // Arrange
+        var mock = new Mock<IGameController>();
+        var solver = new BackTrackingAlgo();
+        solver.Controller = mock.Object;
+        var board = _abstractNine.SudokuBoards.ToList();
+        var boardSolved = board[0];
+
+        // Act
+        solver.SolveBoards(board.Cast<IComponent>().ToList());
+
+        // Assert
+        var viewables = boardSolved.GetAllViewables();
+        foreach (var viewable in viewables)
+        {
+            Assert.AreNotEqual(0, viewable.Value);
+        }
+    }
+    
+    [TestMethod]
+    [Timeout(10000)]
+    public void TestSolverSix()
+    {
+        // Arrange
+        var mock = new Mock<IGameController>();
+        var solver = new BackTrackingAlgo();
+        solver.Controller = mock.Object;
+        var board = _abstractSix.SudokuBoards.ToList();
+        var boardSolved = board[0];
+
+        // Act
+        solver.SolveBoards(board.Cast<IComponent>().ToList());
+
+        // Assert
+        var viewables = boardSolved.GetAllViewables();
+        foreach (var viewable in viewables)
+        {
+            Assert.AreNotEqual(0, viewable.Value);
+        }
+    }
+    
+    [TestMethod]
+    [Timeout(10000)]
+    public void TestSolverFour()
+    {
+        // Arrange
+        var mock = new Mock<IGameController>();
+        var solver = new BackTrackingAlgo();
+        solver.Controller = mock.Object;
+        var board = _abstractFour.SudokuBoards.ToList();
+        var boardSolved = board[0];
+
+        // Act
+        solver.SolveBoards(board.Cast<IComponent>().ToList());
+
+        // Assert
+        var viewables = boardSolved.GetAllViewables();
+        foreach (var viewable in viewables)
+        {
+            Assert.AreNotEqual(0, viewable.Value);
+        }
+    }
+    
+   
 
 }

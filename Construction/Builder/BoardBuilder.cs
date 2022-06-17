@@ -1,7 +1,7 @@
-﻿using BoardConstruction.Boards;
+﻿using Construction.Boards;
 using Import.Import;
 
-namespace BoardConstruction.Builder;
+namespace Construction.Builder;
 
 public class BoardBuilder : IBoardBuilder
 {

@@ -1,6 +1,6 @@
 ﻿using Abstraction;
-using BoardConstruction.Boards;
-using BoardConstruction.Factory;
+using Construction.Boards;
+using Construction.Factory;
 using Helpers.Helpers;
 using Helpers.Viewable;
 using Newtonsoft.Json;
@@ -104,7 +104,7 @@ public class GameController : IGameController
                             }
                         }
                         break;
-                    case ConsoleKey.End:
+                    case ConsoleKey.F:
                         gameOver = true;
                         break;
                 }

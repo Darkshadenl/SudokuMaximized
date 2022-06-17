@@ -1,7 +1,7 @@
 ﻿using Abstraction;
 using Helpers.Viewable;
 
-namespace BoardConstruction.Components;
+namespace Construction.Components;
 
 public abstract class Component : ICloneable, IComponent
 {
@@ -62,16 +62,9 @@ public abstract class Component : ICloneable, IComponent
     public bool HasDuplicateCellValue(ICell cell, int number)
     {
         if (!IsComposite()) return false;
-        
-        foreach (var component in Components)
-        {
-            if (component is not Cell c) continue;
 
-            if (c.Value == number)
-                return true;
-        }
-
-        return false;
+        return Components.Where(c => c is Cell)
+            .Any(c => c.Value == number);
     }
 
     public virtual bool HasEmptyCell()

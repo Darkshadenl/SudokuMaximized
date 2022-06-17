@@ -1,6 +1,4 @@
-﻿using BoardConstruction.Boards;
-using BoardConstruction.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 using Sudoku.Controller;
 

@@ -1,4 +1,4 @@
-﻿namespace BoardConstruction.Components;
+﻿namespace Construction.Components;
 
 public class Column : Component
 {

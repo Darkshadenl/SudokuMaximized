@@ -1,10 +1,10 @@
 ﻿using Abstraction;
-using BoardConstruction.Components;
+using Construction.Components;
 using Helpers.Helpers;
 using Helpers.Viewable;
 using Import.Import;
 
-namespace BoardConstruction.Boards;
+namespace Construction.Boards;
 
 public abstract class AbstractBoard
 {
