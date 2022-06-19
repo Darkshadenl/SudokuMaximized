@@ -49,7 +49,7 @@ public abstract class Component : ICloneable, IComponent
         return Cursor;
     }
 
-    public virtual void Add(Component c)
+    public virtual void Add(IComponent c)
     {
         Components.Add(c);
     }
@@ -59,7 +59,7 @@ public abstract class Component : ICloneable, IComponent
         return true;
     }
 
-    public bool HasDuplicateCellValue(ICell cell, int number)
+    public bool HasDuplicateCellValue(int number)
     {
         if (!IsComposite()) return false;
 
@@ -109,6 +109,7 @@ public abstract class Component : ICloneable, IComponent
 
         return false;
     }
+
 
     public virtual List<IComponent> FindOldCursors()
     {

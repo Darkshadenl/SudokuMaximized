@@ -44,7 +44,7 @@ public class GameController : IGameController
     {
         InitializingGameData(abstractBoard);
 
-        ReDraw();
+        DrawUI();
 
         var gameOver = false;
         CurrentBoardIndex = _game.Board.CurrentBoardIndex;
@@ -80,13 +80,12 @@ public class GameController : IGameController
                         _game.Select.Execute();
                         break;
                     case ConsoleKey.Spacebar:
-                        // _game.Solver.SolveBoards(_game.Board.SudokuBoards.Cast<IComponent>().ToList());
                         _game.Solve.Execute();
                         break;
                     // case ConsoleKey.H:
                     //     var copy = _game.Board.SudokuBoards.Cast<IComponent>().ToList().Copy();
                     //     _game.Solver.SolveBoards(copy);
-                        break;
+                        // break;
                     case ConsoleKey.E:
                         if (_game.BoardType == BoardTypes.samurai)
                         {
@@ -110,7 +109,7 @@ public class GameController : IGameController
                         break;
                 }
 
-                ReDraw();
+                DrawUI();
 
                 if (gameOver) break;
             }
@@ -153,7 +152,7 @@ public class GameController : IGameController
         } while (true);
     }
 
-    public void ReDraw(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
+    public void DrawUI(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
     {
         var viewData = new ViewData(_game.GetViewableData(), _game.GameMode.State,
             pre, post);

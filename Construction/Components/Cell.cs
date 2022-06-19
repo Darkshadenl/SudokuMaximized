@@ -23,7 +23,7 @@ public class Cell : Component, IViewable, ICell
         Y = y;
     }
 
-    public override void Add(Component c)
+    public override void Add(IComponent c)
     {
         throw new NotImplementedException();
     }
@@ -45,16 +45,16 @@ public class Cell : Component, IViewable, ICell
 
     public bool IsValueDuplicateInRows(int number)
     {
-        return Rows.Any(row => row.HasDuplicateCellValue(this, number));
+        return Rows.Any(row => row.HasDuplicateCellValue( number));
     }
 
     public bool IsValueDuplicateInColumns(int number)
     {
-        return Columns.Any(col => col.HasDuplicateCellValue(this, number));
+        return Columns.Any(col => col.HasDuplicateCellValue( number));
     }
 
     public bool IsValueDuplicateInSquares(int number)
     {
-        return Squares.Any(square => square.HasDuplicateCellValue(this, number));
+        return Squares.Any(square => square.HasDuplicateCellValue( number));
     }
 }

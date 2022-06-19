@@ -59,7 +59,7 @@ public class Game
 
     public void ForceRedraw()
     {
-        Controller.ReDraw(_preBoardMessages, _postBoardMessages);
+        Controller.DrawUI(_preBoardMessages, _postBoardMessages);
         _preBoardMessages.Clear();
         _postBoardMessages.Clear();
     }

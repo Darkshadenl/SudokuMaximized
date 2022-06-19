@@ -5,6 +5,7 @@ using Abstraction;
 using Construction.Boards;
 using Construction.Builder;
 using Construction.Components;
+using Construction.Factory;
 using Helpers.Helpers;
 using Import.Import;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,6 +13,8 @@ using Moq;
 using Solvers;
 using Sudoku.Command;
 using Sudoku.Controller;
+using Sudoku.Model.Game;
+using Sudoku.View.Game;
 
 namespace SudokuTesting;
 
@@ -406,8 +409,9 @@ public class BoardBuildTestingRegular
     public void TestSolverNine()
     {
         // Arrange
-        var mock = new Mock<GameController>();
-        var components = _abstractNine.SudokuBoards.Cast<IComponent>().ToList();
+        var mock = new Mock<GameController>(new Mock<Game>().Object, 
+            new Mock<IBoardView>().Object, 
+            new Mock<IVisitorFactory>().Object);        var components = _abstractNine.SudokuBoards.Cast<IComponent>().ToList();
         var boardSolved = components[0];
         BoardTypes boardType = BoardTypes.nine;
         var solveCommand = new SolveCommand(boardType, components, mock.Object);
@@ -428,8 +432,9 @@ public class BoardBuildTestingRegular
     public void TestSolverSix()
     {
         // Arrange
-        var mock = new Mock<GameController>();
-        var components = _abstractSix.SudokuBoards.Cast<IComponent>().ToList();
+        var mock = new Mock<GameController>(new Mock<Game>().Object, 
+            new Mock<IBoardView>().Object, 
+            new Mock<IVisitorFactory>().Object);        var components = _abstractSix.SudokuBoards.Cast<IComponent>().ToList();
         var boardSolved = components[0];
         BoardTypes boardType = BoardTypes.six;
         var solveCommand = new SolveCommand(boardType, components, mock.Object);
@@ -449,8 +454,11 @@ public class BoardBuildTestingRegular
     [Timeout(10000)]
     public void TestSolverFour()
     {
+        // Game game, IBoardView view, IVisitorFactory visitorFactory
         // Arrange
-        var mock = new Mock<GameController>();
+        var mock = new Mock<GameController>(new Mock<Game>().Object, 
+            new Mock<IBoardView>().Object, 
+            new Mock<IVisitorFactory>().Object);
         var components = _abstractFour.SudokuBoards.Cast<IComponent>().ToList();
         var boardSolved = components[0];
         BoardTypes boardType = BoardTypes.four;
