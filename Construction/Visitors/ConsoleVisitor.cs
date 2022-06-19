@@ -12,7 +12,7 @@ public class ConsoleVisitor : IPrintBoardVisitor
 
     public void Draw(IViewData viewData, BoardTypes type)
     {
-        DrawStatic(viewData.State); 
+        DrawStatic(viewData.State, type); 
         PreBoardDraw(viewData.PreBoardMessages);
 
         switch (viewData.State)
@@ -83,8 +83,9 @@ public class ConsoleVisitor : IPrintBoardVisitor
         }
     }
     
-    public void DrawStatic(States state)
+    public void DrawStatic(States state, BoardTypes boardType)
     {
+        DrawHelpInfo(boardType);
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine(state switch
         {
@@ -94,6 +95,15 @@ public class ConsoleVisitor : IPrintBoardVisitor
         });
         Console.ResetColor();
     }
+
+    private void DrawHelpInfo(BoardTypes boardType)
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("Press F to quit game or request a new game");
+        if (boardType == BoardTypes.samurai)
+            Console.WriteLine("Use Q and E to switch between boards");
+    }
+    
     public void PreBoardDraw(List<ISimpleViewMessage>? messages)
     {
         DrawMessages(messages);
