@@ -1,4 +1,5 @@
-﻿using Helpers.Viewable;
+﻿using System.ComponentModel;
+using Helpers.Viewable;
 
 namespace Abstraction;
 
@@ -18,7 +19,10 @@ public interface IComponent
     public List<IViewable> GetAllViewables();
     public List<ICell> GetAllCells();
 
-    public bool HasDuplicateCellValue(ICell cell, int number);
+    public bool HasDuplicateCellValue(int number);
 
     public bool ReplaceCell(ICell oldCell, ICell newCell);
+
+    public void Add(IComponent c);
+
 }
