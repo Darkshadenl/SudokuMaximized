@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Construction\Construction.csproj" />
+      <ProjectReference Include="..\Sudoku\Sudoku.csproj" />
     </ItemGroup>
 
     <ItemGroup>

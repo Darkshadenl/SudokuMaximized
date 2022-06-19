@@ -80,11 +80,12 @@ public class GameController : IGameController
                         _game.Select.Execute();
                         break;
                     case ConsoleKey.Spacebar:
-                        _game.Solver.SolveBoards(_game.Board.SudokuBoards.Cast<IComponent>().ToList());
+                        // _game.Solver.SolveBoards(_game.Board.SudokuBoards.Cast<IComponent>().ToList());
+                        _game.Solve.Execute();
                         break;
-                    case ConsoleKey.H:
-                        var copy = _game.Board.SudokuBoards.Cast<IComponent>().ToList().Copy();
-                        _game.Solver.SolveBoards(copy);
+                    // case ConsoleKey.H:
+                    //     var copy = _game.Board.SudokuBoards.Cast<IComponent>().ToList().Copy();
+                    //     _game.Solver.SolveBoards(copy);
                         break;
                     case ConsoleKey.E:
                         if (_game.BoardType == BoardTypes.samurai)
@@ -123,13 +124,10 @@ public class GameController : IGameController
     {
         // set game data
         _game.Board = abstractBoard;
-        _game.Solver = new BackTrackingAlgo();
         if (_game.BoardType == BoardTypes.samurai)
         {
             _game.Board.CurrentBoardIndex = 2;
-            _game.Solver = new SamuraiSolver();
         }
-        _game.Solver.Controller = this;
 
         _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
         _boardView.WelcomeMessage();
@@ -157,7 +155,7 @@ public class GameController : IGameController
 
     public void ReDraw(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
     {
-        var viewData = new ViewData(_game.GetViewableData(), _game.State.State,
+        var viewData = new ViewData(_game.GetViewableData(), _game.GameMode.State,
             pre, post);
 
         _boardView.DrawBoard(viewData);

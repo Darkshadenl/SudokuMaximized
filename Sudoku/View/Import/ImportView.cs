@@ -32,8 +32,8 @@ public class ImportView : IImportView
             var filePath = @"" + Console.ReadLine();
             if (filePath.Length == 0)
             {
-                filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle2.9x9";
-                // filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle2.samurai";
+                // filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle2.9x9";
+                filePath = "C:\\Users\\qmb\\Documents\\Repos\\SudokuMaximized\\Sudoku\\Resources\\Sudoku-files\\puzzle2.samurai";
             }
             
 

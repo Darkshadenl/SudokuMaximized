@@ -5,10 +5,13 @@ using Abstraction;
 using Construction.Boards;
 using Construction.Builder;
 using Construction.Components;
+using Helpers.Helpers;
 using Import.Import;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Solvers;
+using Sudoku.Command;
+using Sudoku.Controller;
 
 namespace SudokuTesting;
 
@@ -403,14 +406,14 @@ public class BoardBuildTestingRegular
     public void TestSolverNine()
     {
         // Arrange
-        var mock = new Mock<IGameController>();
-        var solver = new BackTrackingAlgo();
-        solver.Controller = mock.Object;
-        var board = _abstractNine.SudokuBoards.ToList();
-        var boardSolved = board[0];
+        var mock = new Mock<GameController>();
+        var components = _abstractNine.SudokuBoards.Cast<IComponent>().ToList();
+        var boardSolved = components[0];
+        BoardTypes boardType = BoardTypes.nine;
+        var solveCommand = new SolveCommand(boardType, components, mock.Object);
 
         // Act
-        solver.SolveBoards(board.Cast<IComponent>().ToList());
+        solveCommand.Execute();
 
         // Assert
         var viewables = boardSolved.GetAllViewables();
@@ -425,14 +428,14 @@ public class BoardBuildTestingRegular
     public void TestSolverSix()
     {
         // Arrange
-        var mock = new Mock<IGameController>();
-        var solver = new BackTrackingAlgo();
-        solver.Controller = mock.Object;
-        var board = _abstractSix.SudokuBoards.ToList();
-        var boardSolved = board[0];
+        var mock = new Mock<GameController>();
+        var components = _abstractSix.SudokuBoards.Cast<IComponent>().ToList();
+        var boardSolved = components[0];
+        BoardTypes boardType = BoardTypes.six;
+        var solveCommand = new SolveCommand(boardType, components, mock.Object);
 
         // Act
-        solver.SolveBoards(board.Cast<IComponent>().ToList());
+        solveCommand.Execute();
 
         // Assert
         var viewables = boardSolved.GetAllViewables();
@@ -447,14 +450,14 @@ public class BoardBuildTestingRegular
     public void TestSolverFour()
     {
         // Arrange
-        var mock = new Mock<IGameController>();
-        var solver = new BackTrackingAlgo();
-        solver.Controller = mock.Object;
-        var board = _abstractFour.SudokuBoards.ToList();
-        var boardSolved = board[0];
+        var mock = new Mock<GameController>();
+        var components = _abstractFour.SudokuBoards.Cast<IComponent>().ToList();
+        var boardSolved = components[0];
+        BoardTypes boardType = BoardTypes.four;
+        var solveCommand = new SolveCommand(boardType, components, mock.Object);
 
         // Act
-        solver.SolveBoards(board.Cast<IComponent>().ToList());
+        solveCommand.Execute();
 
         // Assert
         var viewables = boardSolved.GetAllViewables();
