@@ -1,0 +1,9 @@
+﻿{
+  "visitor": [
+    {
+      "match": "console",
+      "library": "Construction",
+      "_namespace": "Construction.Visitors.ConsoleVisitor"
+    }
+  ]
+}

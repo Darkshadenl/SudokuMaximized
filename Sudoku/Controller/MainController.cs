@@ -5,30 +5,31 @@ namespace Sudoku.Controller;
 public class MainController
 {
     private readonly GameController _gameController;
-    private readonly MenuController _menuController;
     private readonly ImportController _importController;
+
     public MainController(GameController gameController,
-        MenuController menuController, ImportController importController)
+        ImportController importController)
     {
-        (_gameController, _menuController, _importController) =
-            (gameController, menuController, importController);
-        
+        (_gameController, _importController) =
+            (gameController, importController);
+
         _gameController.Controller = this;
-        _menuController.Controller = this;
         _importController.Controller = this;
-    } 
-    
+    }
+
     public void Run()
     {
-        var board = _importController.RunImport();
+        var boardFile = _importController.RunImport();
+        var board = _importController.Interpret(boardFile);
         var startNewGame = _gameController.RunGame(board);
 
         while (startNewGame)
         {
-            board = _importController.RunImport();
+            boardFile = _importController.RunImport();
+            board = _importController.Interpret(boardFile);
             startNewGame = _gameController.RunGame(board);
         }
-        
+
         Environment.Exit(0);
     }
 }

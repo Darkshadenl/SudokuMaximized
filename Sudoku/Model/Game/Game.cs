@@ -1,7 +1,9 @@
-﻿using GenerateLib.Boards;
-using GenerateLib.Helpers;
-using GenerateLib.SolveAlgo;
-using GenerateLib.Viewable;
+﻿using Abstraction;
+using Construction.Boards;
+using Helpers.Helpers;
+using Helpers.Viewable;
+using Solvers;
+using Sudoku.Command;
 using Sudoku.Command.States;
 using Sudoku.Controller;
 using ICommand = Sudoku.Command.ICommand;
@@ -10,45 +12,36 @@ namespace Sudoku.Model.Game;
 
 public class Game
 {
-    public ISolver Solver { get; }
     public BoardTypes BoardType => Board.Type;
+    public int CurrentBoardIndex { get; }
 
-    private AbstractBoard? _board; 
+    private AbstractBoard _board; 
     public AbstractBoard Board
     {
         get => _board!;
         set
         {
             _board = value;
-            _board.Solver = Solver;
+            Solve = new SolveCommand(_board.Type, 
+                _board.SudokuBoards.Cast<IComponent>().ToList(), Controller);
+            _board.CurrentBoardIndex = CurrentBoardIndex;
         }
     }
 
-    public IState State { get; set; }
+    public IState GameMode { get; set; }
     public GameController Controller { get; set; }
 
     public ICommand Select { get; set; }
     public ICommand ShiftState { get; set; }
+    public ICommand Solve { get; set; }
 
     private readonly List<ISimpleViewMessage> _preBoardMessages = new();
     private readonly List<ISimpleViewMessage> _postBoardMessages = new();
 
-    private readonly Dictionary<ConsoleKey, int> _availableKeys = new()
+    public Dictionary<ConsoleKey, int> AvailableKeys { get; } = new();
+    public Game()
     {
-        {ConsoleKey.D1, 1},
-        {ConsoleKey.D2, 2},
-        {ConsoleKey.D3, 3},
-        {ConsoleKey.D4, 4},
-        {ConsoleKey.D5, 5},
-        {ConsoleKey.D6, 6},
-        {ConsoleKey.D7, 7},
-        {ConsoleKey.D8, 8},
-        {ConsoleKey.D9, 9}
-    };
-    public Game(ISolver solver)
-    {
-        Solver = solver;
-        State = new DefinitiveState(this, _availableKeys);
+        GameMode = new DefinitiveState(this, AvailableKeys);
     }
 
     public void AddMessages(ISimpleViewMessage message)

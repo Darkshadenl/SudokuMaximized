@@ -3,6 +3,6 @@
 public interface IImportView
 {
     public void ShowWelcome();
-    public FileInfo HandleImportUserInput(string[] availableFiles);
+    public FileInfo HandleImportUserInput(List<string> availableFiles, List<string> extensions);
 
 }

@@ -1,7 +1,4 @@
-﻿using GenerateLib.Boards;
-using GenerateLib.Builder;
-using GenerateLib.Interpreters;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 using Sudoku.Controller;
 
@@ -12,56 +9,33 @@ public static class DependencyInjectionContainer
 
     public static IServiceCollection ConfigureSingleton(this IServiceCollection services)
     {
-        // services.Scan(scan => scan
-        //     .FromCallingAssembly()
-        //     
-        //     .AddClasses(c =>  c.InNamespaceOf<MainController>())
-        //     .AsSelf()
-        //     .WithSingletonLifetime()
-        // );
-        return services;
-    }
-
-    public static IServiceCollection ConfigureTransient(this IServiceCollection services)
-    {
         services.Scan(scan => scan
-            .FromAssemblyOf<AbstractBoard>()
-
-                .AddClasses(c =>
-                {
-                    c.NotInNamespaces(new[]
-                    {
-                        "GenerateLib.Components",
-                        "GenerateLib.Factory.Config",
-                        "GenerateLib.Boards",
-                        "GenerateLib.Visitors"
-                    });
-                })
+                .FromCallingAssembly()
+                
+                .AddClasses(c => c.InNamespaceOf<MainController>())
                 .AsImplementedInterfaces()
+                .WithSingletonLifetime()
                 
-                .AddClasses(c => c.InNamespaceOf<BoardBuildDirector>())
-                .AsSelf()
-        );
-        
-        services.Scan(scan => scan
-            .FromCallingAssembly()
-
-            .AddClasses()
-                    .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-                    .AsImplementedInterfaces()
-                
-            .AddClasses(c =>
-                {
-                    c.NotInNamespaces("Sudoku.Controller", "Sudoku.Resources",
-                        "Sudoku.View.Game", "Sudoku.Visitor");
-                })
+                .AddClasses(c => c.InNamespaceOf<MainController>())
                 .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                 .AsSelf()
-        
-            .AddClasses(c =>  c.InNamespaceOf<MainController>())
-                .AsSelf()
-        
+                .WithSingletonLifetime()
         );
+        return services;
+    }
+    
+    public static IServiceCollection ConfigureTransient(this IServiceCollection services)
+    {
+        var EasyRegister = new Registering(services);
+        
+        services = EasyRegister
+            .RegisterBoardConstructionAssesmbly()
+            .RegisterSudokuAssembly()
+            .RegisterFactories()
+            .RegisterHelpers()
+            .RegisterImport()
+            // .RegisterSolvers()
+            .Build();
         
         return services;
     }
@@ -71,3 +45,5 @@ public static class DependencyInjectionContainer
         return services;
     }
 }
+
+    

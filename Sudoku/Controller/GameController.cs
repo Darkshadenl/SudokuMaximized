@@ -1,18 +1,34 @@
-﻿using GenerateLib.Boards;
-using GenerateLib.Components;
-using GenerateLib.Factory;
-using GenerateLib.Helpers;
-using GenerateLib.Viewable;
+﻿using Abstraction;
+using Construction.Boards;
+using Construction.Factory;
+using Helpers.Helpers;
+using Helpers.Viewable;
+using Newtonsoft.Json;
+using Solvers;
+using Sudoku.Extension;
 using Sudoku.Model.Game;
 using Sudoku.View.Game;
+using Sudoku.Resources.Config;
 
 namespace Sudoku.Controller;
 
-public class GameController
+public class GameController : IGameController
 {
     private readonly Game _game;
     private readonly IBoardView _boardView;
     private readonly IVisitorFactory _visitorFactory;
+
+    private int _currentBoardIndex;
+    public int CurrentBoardIndex
+    {
+        get => _currentBoardIndex;
+        set
+        {
+            _currentBoardIndex = value;
+            _game.Board.CurrentBoardIndex = _currentBoardIndex;
+        }
+    }
+
     public MainController Controller { get; set; }
 
     public GameController(Game game, IBoardView view, IVisitorFactory visitorFactory)
@@ -21,19 +37,18 @@ public class GameController
         _game.Controller = this;
         _boardView = view;
         _visitorFactory = visitorFactory;
+        FillKeyList();
     }
-
-
-    public bool RunGame(AbstractBoard board)
+    
+    public bool RunGame(AbstractBoard abstractBoard)
     {
-        var gameOver = false;
-        _game.Board = board;
-
-        _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
-        _boardView.WelcomeMessage();
-        _boardView.BoardType = _game.BoardType;
+        InitializingGameData(abstractBoard);
 
         ReDraw();
+
+        var gameOver = false;
+        CurrentBoardIndex = _game.Board.CurrentBoardIndex;
+        var boardCount = _game.Board.SudokuBoards.Count;
 
         do
         {
@@ -41,9 +56,12 @@ public class GameController
             {
                 var cki = Console.ReadKey(true);
 
+                // switches states with shift + s
                 if ((cki.Modifiers & ConsoleModifiers.Shift) != 0 && cki.Key == ConsoleKey.S)
                     _game.ShiftState.Execute();
 
+                // moves within sudoku with arrow keys
+                // or enter sudoku number with "enter" key
                 switch (cki.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -62,19 +80,58 @@ public class GameController
                         _game.Select.Execute();
                         break;
                     case ConsoleKey.Spacebar:
-                        _game.Solver.SolveBoard((_game.Board.SudokuBoard as SudokuBoard)!);
+                        // _game.Solver.SolveBoards(_game.Board.SudokuBoards.Cast<IComponent>().ToList());
+                        _game.Solve.Execute();
+                        break;
+                    // case ConsoleKey.H:
+                    //     var copy = _game.Board.SudokuBoards.Cast<IComponent>().ToList().Copy();
+                    //     _game.Solver.SolveBoards(copy);
+                        break;
+                    case ConsoleKey.E:
+                        if (_game.BoardType == BoardTypes.samurai)
+                        {
+                            if (CurrentBoardIndex + 1 < boardCount)
+                            {
+                                CurrentBoardIndex++;
+                            }
+                        }
+                        break;
+                    case ConsoleKey.Q:
+                        if (_game.BoardType == BoardTypes.samurai)
+                        {
+                            if (CurrentBoardIndex - 1 != (-1))
+                            {
+                                CurrentBoardIndex--;
+                            }
+                        }
+                        break;
+                    case ConsoleKey.F:
                         gameOver = true;
                         break;
                 }
-                
+
                 ReDraw();
-                
+
                 if (gameOver) break;
             }
             if (gameOver) break;
         } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
-        
+
         return RequestNewGame();
+    }
+    
+    private void InitializingGameData(AbstractBoard abstractBoard)
+    {
+        // set game data
+        _game.Board = abstractBoard;
+        if (_game.BoardType == BoardTypes.samurai)
+        {
+            _game.Board.CurrentBoardIndex = 2;
+        }
+
+        _boardView.Accept(_visitorFactory.Create(DotNetEnv.Env.GetString("UI")));
+        _boardView.WelcomeMessage();
+        _boardView.BoardType = _game.BoardType;
     }
 
     private bool RequestNewGame()
@@ -98,9 +155,30 @@ public class GameController
 
     public void ReDraw(List<ISimpleViewMessage>? pre = null, List<ISimpleViewMessage>? post = null)
     {
-        var viewData = new ViewData(_game.GetViewableData(), _game.State.State,
+        var viewData = new ViewData(_game.GetViewableData(), _game.GameMode.State,
             pre, post);
-        
+
         _boardView.DrawBoard(viewData);
+    }
+    
+    private void FillKeyList()
+    {
+        try
+        {
+            var json = File.ReadAllText(Environment.GetEnvironmentVariable("GAMEKEYCONFIG") ??
+                                        "../Resources/Config/GameKeyConfig.json");
+
+            var res = JsonConvert.DeserializeObject<GameKeyJSONModel>(json);
+            
+            _game.AvailableKeys.Clear();
+
+            for (int i = 0; i < res.keys.Length; i++)
+                _game.AvailableKeys.Add(res.keys[i].key, Int32.Parse(res.keys[0].value));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Valid file extension list could not be loaded");
+            Console.WriteLine(e);
+        }
     }
 }

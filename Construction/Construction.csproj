@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Abstraction\Abstraction.csproj" />
+      <ProjectReference Include="..\Helpers\Helpers.csproj" />
+      <ProjectReference Include="..\Import\Import.csproj" />
+      <ProjectReference Include="..\Solvers\Solvers.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Config\ComponentFactoryConfiguration.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Config\VisitorFactoryConfiguration.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

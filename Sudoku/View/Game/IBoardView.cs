@@ -1,6 +1,6 @@
-﻿using GenerateLib.Helpers;
-using GenerateLib.Viewable;
-using GenerateLib.Visitors;
+﻿using Construction.Visitors;
+using Helpers.Helpers;
+using Helpers.Viewable;
 using Sudoku.Controller;
 
 namespace Sudoku.View.Game;

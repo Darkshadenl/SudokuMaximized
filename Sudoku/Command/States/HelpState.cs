@@ -6,7 +6,7 @@ public class HelpState : IState
 {
     private readonly Game _game;
     private readonly Dictionary<ConsoleKey, int> _availableKeys;
-    public GenerateLib.Helpers.States State { get; set; } = GenerateLib.Helpers.States.Help;
+    public Helpers.Helpers.States State { get; set; } = Helpers.Helpers.States.Help;
 
     public HelpState(Game game, Dictionary<ConsoleKey, int> availableKeys)
     {
