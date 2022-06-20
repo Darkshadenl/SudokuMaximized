@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Construction.Boards.AbstractBoard">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAEAAyIAAGAAAACQAACIAQAAAEAABYAAAAgAAAA=</HashCode>
+      <FileName>Boards\AbstractBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Construction.Boards.Board">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAACAAAAAAAAAAAAAAAAAEAAAABAQEAAQ=</HashCode>
+      <FileName>Boards\Board.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Construction.Builder.BoardBuildDirector">
+    <Position X="3.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAEAAAQACAAAAAAAAAAAAAAEABAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\BoardBuildDirector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Construction.Builder.BoardBuilder" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAEAAAAAAAAAAAgAAgAAAAAABAAAA=</HashCode>
+      <FileName>Builder\BoardBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Construction.Builder.BoardConfig" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAEAAAAAAAAAQAggAQIAAAAAAAAhA=</HashCode>
+      <FileName>Builder\BoardConfig.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Construction.Components.Cell">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAQAEBAAAAAAAAACACkAQAABAAAAAgAAQA=</HashCode>
+      <FileName>Components\Cell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Construction.Components.Column">
+    <Position X="14.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Column.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Construction.Components.Component">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAIAQAAAIAAAAAAAAEIACCgAAAAACAkAAAAYRE=</HashCode>
+      <FileName>Components\Component.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Construction.Components.Row">
+    <Position X="12" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAEAAAAAQA=</HashCode>
+      <FileName>Components\Row.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Construction.Components.Square">
+    <Position X="16.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAIACAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Components\Square.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Construction.Components.SudokuBoard">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAAAAAAEAAAABAACgAAAgQAAAAAAAACAEAAAAQQA=</HashCode>
+      <FileName>Components\SudokuBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Construction.Factory.ComponentFactory" BaseTypeListCollapsed="true">
+    <Position X="1" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ComponentFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Construction.Factory.VisitorFactory" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\VisitorFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Construction.Interpreters.Interpreter">
+    <Position X="5.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Interpreters\Interpreter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Construction.Visitors.ConsoleVisitor">
+    <Position X="7.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQAAgAAAAAAAAgAQAACAAAAAAAhAAAAAhAEAAAAAAEA=</HashCode>
+      <FileName>Visitors\ConsoleVisitor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Construction.Builder.IBoardBuilder">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAAABAAAA=</HashCode>
+      <FileName>Builder\IBoardBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Construction.Builder.IBoardConfig">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAQAggAQIAAAAAAAAgA=</HashCode>
+      <FileName>Builder\IBoardConfig.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Construction.Factory.IComponentFactory">
+    <Position X="1" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\IComponentFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Construction.Factory.IVisitorFactory">
+    <Position X="3.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\IVisitorFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Construction.Interpreters.IInterpreter">
+    <Position X="5.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interpreters\IInterpreter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Construction.Visitors.IPrintBoardVisitor">
+    <Position X="7.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Visitors\IPrintBoardVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

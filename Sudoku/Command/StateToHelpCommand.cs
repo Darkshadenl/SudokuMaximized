@@ -17,7 +17,7 @@ public class StateToHelpCommand : ICommand
 
     public void Execute()
     {
-        _game.GameMode = new HelpState(_game, _availableKeys);
+        _game.GameMode = new HelpGameState(_game, _availableKeys);
         _game.ForceRedraw();
     }
 }

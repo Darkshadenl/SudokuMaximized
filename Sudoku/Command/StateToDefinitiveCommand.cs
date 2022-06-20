@@ -16,7 +16,7 @@ public class StateToDefinitiveCommand : ICommand
 
     public void Execute()
     {
-        _game.GameMode = new DefinitiveState(_game, _availableKeys);
+        _game.GameMode = new DefinitiveGameState(_game, _availableKeys);
         _game.ForceRedraw();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Sudoku.Command.States;
 
-public interface IState
+public interface IGameState
 {
     public Helpers.Helpers.States State { get; set; }
     

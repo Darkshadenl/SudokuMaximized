@@ -28,7 +28,7 @@ public class Game
         }
     }
 
-    public IState GameMode { get; set; }
+    public IGameState GameMode { get; set; }
     public GameController Controller { get; set; }
 
     public ICommand Select { get; set; }
@@ -41,7 +41,7 @@ public class Game
     public Dictionary<ConsoleKey, int> AvailableKeys { get; } = new();
     public Game()
     {
-        GameMode = new DefinitiveState(this, AvailableKeys);
+        GameMode = new DefinitiveGameState(this, AvailableKeys);
     }
 
     public void AddMessages(ISimpleViewMessage message)

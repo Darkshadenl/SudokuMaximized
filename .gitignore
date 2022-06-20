@@ -5,6 +5,7 @@
 
 # User-specific files
 *.rsuser
+Quinten_Meijboom_2148565_Design_Patterns_1.zip
 *.suo
 *.user
 *.userosscache
@@ -15,7 +16,7 @@
 
 # Mono auto generated files
 mono_crash.*
-
+/DP1
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

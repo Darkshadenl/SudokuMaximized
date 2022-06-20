@@ -2,13 +2,13 @@
 
 namespace Sudoku.Command.States;
 
-public class DefinitiveState : IState
+public class DefinitiveGameState : IGameState
 {
     private readonly Game _game;
     private readonly Dictionary<ConsoleKey, int> _availableKeys;
     public Helpers.Helpers.States State { get; set; } = Helpers.Helpers.States.Definitive;
 
-    public DefinitiveState(Game game, Dictionary<ConsoleKey, int> availableKeys)
+    public DefinitiveGameState(Game game, Dictionary<ConsoleKey, int> availableKeys)
     {
         _game = game;
         _availableKeys = availableKeys;
