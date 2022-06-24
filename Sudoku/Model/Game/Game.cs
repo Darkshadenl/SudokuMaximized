@@ -1,6 +1,6 @@
 ﻿using Abstraction;
 using Construction.Boards;
-using Helpers.Helpers;
+using Helpers.Enums;
 using Helpers.Viewable;
 using Solvers;
 using Sudoku.Command;

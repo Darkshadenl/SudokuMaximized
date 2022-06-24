@@ -1,4 +1,4 @@
-﻿namespace Helpers.Helpers;
+﻿namespace Helpers.Enums;
 
 public enum Directions
 {

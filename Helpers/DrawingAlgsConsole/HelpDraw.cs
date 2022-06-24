@@ -34,7 +34,7 @@ public class HelpDraw : IDraw
         int squareHorizontalOffset = 6;
 
         int baseCol = 0;
-        int baseRow = 2;
+        int baseRow = 3;
         int col = baseCol;
         int row = baseRow;
 
@@ -43,7 +43,7 @@ public class HelpDraw : IDraw
 
         var line = lines.First(e => e.Key == size).Value;;
 
-        Console.Write(line);
+        // Console.Write(line);
         
         for (int j = 0; j < boardCellAmount; j++)
         {

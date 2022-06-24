@@ -6,7 +6,7 @@ public class HelpGameState : IGameState
 {
     private readonly Game _game;
     private readonly Dictionary<ConsoleKey, int> _availableKeys;
-    public Helpers.Helpers.States State { get; set; } = Helpers.Helpers.States.Help;
+    public Helpers.Enums.States State { get; set; } = Helpers.Enums.States.Help;
 
     public HelpGameState(Game game, Dictionary<ConsoleKey, int> availableKeys)
     {

@@ -1,5 +1,5 @@
 ﻿using Abstraction;
-using Helpers.Helpers;
+using Helpers.Enums;
 using Solvers;
 using Sudoku.Controller;
 

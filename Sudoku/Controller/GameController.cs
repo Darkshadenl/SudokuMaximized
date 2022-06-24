@@ -1,11 +1,9 @@
 ﻿using Abstraction;
 using Construction.Boards;
 using Construction.Factory;
-using Helpers.Helpers;
+using Helpers.Enums;
 using Helpers.Viewable;
 using Newtonsoft.Json;
-using Solvers;
-using Sudoku.Extension;
 using Sudoku.Model.Game;
 using Sudoku.View.Game;
 using Sudoku.Resources.Config;
@@ -59,9 +57,7 @@ public class GameController : IGameController
                 // switches states with shift + s
                 if ((cki.Modifiers & ConsoleModifiers.Shift) != 0 && cki.Key == ConsoleKey.S)
                     _game.ShiftState.Execute();
-
-                // moves within sudoku with arrow keys
-                // or enter sudoku number with "enter" key
+                
                 switch (cki.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -80,29 +76,20 @@ public class GameController : IGameController
                         _game.Select.Execute();
                         break;
                     case ConsoleKey.Spacebar:
-                        _game.Solve.Execute();
+                        if (_game.GameMode.State == States.Definitive)
+                            _game.Solve.Execute();
                         break;
                     // case ConsoleKey.H:
                     //     var copy = _game.Board.SudokuBoards.Cast<IComponent>().ToList().Copy();
                     //     _game.Solver.SolveBoards(copy);
                         // break;
                     case ConsoleKey.E:
-                        if (_game.BoardType == BoardTypes.samurai)
-                        {
-                            if (CurrentBoardIndex + 1 < boardCount)
-                            {
+                        if (_game.BoardType == BoardTypes.samurai && CurrentBoardIndex + 1 < boardCount)
                                 CurrentBoardIndex++;
-                            }
-                        }
                         break;
                     case ConsoleKey.Q:
-                        if (_game.BoardType == BoardTypes.samurai)
-                        {
-                            if (CurrentBoardIndex - 1 != (-1))
-                            {
+                        if (_game.BoardType == BoardTypes.samurai && CurrentBoardIndex - 1 != (-1))
                                 CurrentBoardIndex--;
-                            }
-                        }
                         break;
                     case ConsoleKey.F:
                         gameOver = true;
@@ -172,7 +159,11 @@ public class GameController : IGameController
             _game.AvailableKeys.Clear();
 
             for (int i = 0; i < res.keys.Length; i++)
-                _game.AvailableKeys.Add(res.keys[i].key, Int32.Parse(res.keys[0].value));
+            {
+                var key = res.keys[i].key;
+                var value = res.keys[i].value;
+                _game.AvailableKeys.Add(res.keys[i].key, int.Parse(value));
+            }
         }
         catch (Exception e)
         {

@@ -6,7 +6,7 @@ using Construction.Boards;
 using Construction.Builder;
 using Construction.Components;
 using Construction.Factory;
-using Helpers.Helpers;
+using Helpers.Enums;
 using Import.Import;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

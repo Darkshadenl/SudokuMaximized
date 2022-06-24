@@ -2,6 +2,6 @@
 
 public interface IGameState
 {
-    public Helpers.Helpers.States State { get; set; }
+    public Helpers.Enums.States State { get; set; }
     
 }
